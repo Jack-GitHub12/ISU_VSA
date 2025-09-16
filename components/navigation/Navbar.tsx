@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -63,8 +64,14 @@ export default function Navbar() {
         <div className="flex justify-between h-20">
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-gradient-cardinal-gold rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-xl">VSA</span>
+              <div className="relative w-14 h-14">
+                <Image
+                  src="/images/logo.png"
+                  alt="ISU VSA Logo"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
               <div>
                 <h1 className="text-xl font-bold text-cardinal">ISU VSA</h1>
