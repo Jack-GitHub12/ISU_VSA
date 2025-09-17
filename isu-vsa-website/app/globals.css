@@ -1,0 +1,894 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&family=Kalam:wght@400;700&family=Patrick+Hand&family=Pangolin&family=Gaegu:wght@400;700&family=Hi+Melody&family=Gamja+Flower&family=Single+Day&family=Jua&family=Nanum+Pen+Script&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --cardinal: 255, 99, 143;
+    --gold: 255, 220, 93;
+    --charcoal: 75, 63, 114;
+    --cream: 255, 250, 240;
+    --coral: 255, 154, 141;
+    --mint: 162, 255, 202;
+    --sky: 173, 216, 255;
+    --lavender: 232, 204, 255;
+    --peach: 255, 218, 214;
+    --bubblegum: 255, 183, 213;
+    --lilac: 200, 162, 255;
+    --pastel-yellow: 255, 253, 200;
+    --pastel-blue: 189, 224, 254;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-cream via-white to-gold/10 text-charcoal min-h-screen;
+    font-family: 'Gaegu', 'Pangolin', 'Patrick Hand', cursive;
+    background-attachment: fixed;
+    position: relative;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(206, 17, 38, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(241, 190, 72, 0.08) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(155, 28, 49, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 25% 75%, rgba(244, 202, 102, 0.06) 0%, transparent 45%);
+    pointer-events: none;
+    z-index: -1;
+    animation: gradientShift 30s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Concert One', 'Jua', 'Hi Melody', cursive;
+    @apply font-bold;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Optimized decorative elements */
+  h1::before, h2::before {
+    content: '✨';
+    position: absolute;
+    left: -1.5em;
+    animation: sparkle 2s ease-in-out infinite;
+    animation-delay: 0.5s;
+    opacity: 0.8;
+    transform: translateZ(0);
+  }
+
+  h1::after, h2::after {
+    content: '✨';
+    position: absolute;
+    right: -1.5em;
+    animation: sparkle 2s ease-in-out infinite;
+    opacity: 0.8;
+    transform: translateZ(0);
+  }
+
+  /* K-pop style gradient text with ISU colors */
+  .fun-text {
+    background: linear-gradient(90deg, #CE1126, #F1BE48, #CE1126, #9B1C31, #F1BE48, #CE1126, #F4CA66, #CE1126);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: kpopGradient 4s ease infinite;
+    font-weight: 900;
+    text-shadow: 2px 2px 20px rgba(206, 17, 38, 0.3);
+    letter-spacing: 0.08em;
+  }
+
+  /* Bouncy hover effect */
+  .bounce-hover {
+    @apply transition-all duration-300;
+  }
+
+  .bounce-hover:hover {
+    animation: bounce 0.5s ease-in-out;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply text-white px-8 py-4 rounded-3xl font-bold;
+    background: linear-gradient(135deg, #CE1126 0%, #9B1C31 50%, #F1BE48 100%);
+    font-family: 'Jua', 'Concert One', cursive;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background-size: 200% 200%;
+    animation: gradientShift 8s ease-in-out infinite;
+    box-shadow: 0 4px 12px rgba(206, 17, 38, 0.3);
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: translateZ(0);
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-primary::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #CE1126, #F1BE48, #CE1126, #F4CA66);
+    border-radius: 3xl;
+    z-index: -1;
+    animation: rotateGradient 3s linear infinite;
+  }
+
+  .btn-secondary {
+    @apply text-charcoal px-8 py-4 rounded-3xl font-bold hover:scale-105;
+    background: linear-gradient(135deg, #F1BE48 0%, #F4CA66 50%, #FFD700 100%);
+    font-family: 'Gaegu', 'Pangolin', cursive;
+    letter-spacing: 0.08em;
+    text-transform: lowercase;
+    /* Removed infinite animation */
+    box-shadow: 0 4px 12px rgba(241, 190, 72, 0.3);
+    border: 2px dashed rgba(206, 17, 38, 0.5);
+    position: relative;
+    transform: translateZ(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .btn-secondary::after {
+    content: '💖';
+    position: absolute;
+    right: 20px;
+    animation: heartBeat 1s ease-in-out infinite;
+  }
+
+  .btn-outline {
+    @apply border-2 border-cardinal text-cardinal px-6 py-3 rounded-lg font-semibold transition-all duration-300 hover:bg-cardinal hover:text-white;
+  }
+
+  .card {
+    @apply rounded-2xl shadow-md p-8 hover:shadow-lg hover:scale-[1.02];
+    background: white;
+    border: 2px solid rgba(206, 17, 38, 0.1);
+    /* Removed complex gradients and animation */
+    position: relative;
+    overflow: hidden;
+    transform: translateZ(0);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #CE1126, #F1BE48);
+    border-radius: 50%;
+    animation: bubbleFloat 4s ease-in-out infinite;
+    box-shadow: 0 5px 15px rgba(206, 17, 38, 0.3);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(241, 190, 72, 0.1), transparent);
+    transform: rotate(45deg);
+    transition: all 0.5s;
+    opacity: 0;
+  }
+
+  .card:hover::before {
+    animation: shine 0.5s ease-in-out;
+  }
+
+  .section-title {
+    @apply text-5xl md:text-7xl font-bold mb-6;
+    font-family: 'Concert One', 'Jua', cursive;
+    background: linear-gradient(135deg, #CE1126, #9B1C31, #F1BE48);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 3px 3px 0px rgba(206, 17, 38, 0.2);
+    animation: titleWave 2s ease-in-out infinite;
+    display: inline-block;
+    transform: rotate(-2deg);
+    position: relative;
+  }
+
+  .section-title::after {
+    content: '🌟';
+    position: absolute;
+    top: -20px;
+    right: -40px;
+    font-size: 2rem;
+    animation: starSpin 3s linear infinite;
+  }
+
+  .section-subtitle {
+    @apply text-xl text-gray-600 mb-8;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-cardinal-gold bg-clip-text text-transparent;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Animation classes */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+
+  .animate-slide-down {
+    animation: slideDown 0.6s ease-out forwards;
+  }
+
+  .animate-scale {
+    animation: scale 0.5s ease-out forwards;
+  }
+
+  .animate-bounce-subtle {
+    animation: bounceSubtle 2s infinite;
+  }
+
+  .animate-pulse-slow {
+    animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .animate-gradient {
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+  }
+
+  /* Hover animations */
+  .hover-lift {
+    @apply hover:-translate-y-1;
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-glow {
+    @apply hover:shadow-[0_0_20px_rgba(241,190,72,0.5)];
+    will-change: box-shadow;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-rotate {
+    @apply hover:rotate-3;
+    will-change: transform;
+    transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Smooth scrolling */
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+
+  /* Loading shimmer effect */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+  }
+
+  /* Parallax effect */
+  .parallax {
+    transform-style: preserve-3d;
+    perspective: 1000px;
+  }
+
+  .parallax-layer {
+    transform: translateZ(-1px) scale(2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes bounceSubtle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(0, -20px, 0);
+  }
+}
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+    transform: translateZ(0) scale(1);
+  }
+  50% {
+    background-position: 100% 50%;
+    transform: translateZ(0) scale(1.01);
+  }
+  100% {
+    background-position: 0% 50%;
+    transform: translateZ(0) scale(1);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: -200% 0;
+  }
+  to {
+    background-position: 200% 0;
+  }
+}
+
+/* Enhanced card hover effect */
+.card-hover-3d {
+  transform-style: preserve-3d;
+  will-change: transform;
+  transform: translateZ(0);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-hover-3d:hover {
+  transform: perspective(1000px) rotateY(5deg) rotateX(-5deg) scale(1.05) translateZ(0);
+}
+
+/* Smooth page transitions */
+.page-transition {
+  @apply transition-all duration-500 ease-in-out;
+}
+
+/* Glowing text effect */
+.text-glow {
+  text-shadow: 0 0 10px rgba(241, 190, 72, 0.5);
+}
+
+/* Image optimization */
+img {
+  @apply object-cover;
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* K-pop style animations */
+@keyframes kpopGradient {
+  0% { background-position: 0% 50%; }
+  25% { background-position: 50% 100%; }
+  50% { background-position: 100% 50%; }
+  75% { background-position: 50% 0%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.8;
+    transform: translateZ(0) scale(1) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+    transform: translateZ(0) scale(1.2) rotate(180deg);
+  }
+}
+
+@keyframes titleWave {
+  0%, 100% { transform: rotate(-2deg) translateZ(0); }
+  50% { transform: rotate(2deg) translateZ(0); }
+}
+
+@keyframes starSpin {
+  from { transform: rotate(0deg) translateZ(0); }
+  to { transform: rotate(360deg) translateZ(0); }
+}
+
+@keyframes shine {
+  from { left: -100%; }
+  to { left: 100%; }
+}
+
+@keyframes floatBg {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg); }
+  33% { transform: translate3d(-20px, -20px, 0) rotate(1deg); }
+  66% { transform: translate3d(20px, -10px, 0) rotate(-1deg); }
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.3; transform: scale(0.8); }
+}
+
+@keyframes wiggleButton {
+  0%, 100% { transform: rotate(-3deg) translateZ(0); }
+  50% { transform: rotate(3deg) translateZ(0); }
+}
+
+@keyframes bounceButton {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -5px, 0); }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+@keyframes rotateGradient {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes cardFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+  50% { transform: translate3d(0, -10px, 0) rotate(1deg); }
+}
+
+@keyframes bubbleFloat {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33% { transform: translate3d(-10px, -10px, 0) scale(1.1); }
+  66% { transform: translate3d(10px, -5px, 0) scale(0.9); }
+}
+
+@keyframes titleWave {
+  0%, 100% { transform: rotate(-2deg) translateY(0); }
+  50% { transform: rotate(2deg) translateY(-5px); }
+}
+
+@keyframes starSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+
+@keyframes title-bounce {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) rotate(-2deg);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotate(0);
+  }
+}
+
+@keyframes shine {
+  0% { opacity: 0; transform: translateX(-100%) rotate(45deg); }
+  50% { opacity: 1; }
+  100% { opacity: 0; transform: translateX(100%) rotate(45deg); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  25% { transform: translateY(-10px); }
+  75% { transform: translateY(5px); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-3deg); }
+  75% { transform: rotate(3deg); }
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Cute bubble effect */
+.bubble-effect {
+  position: relative;
+  overflow: visible;
+}
+
+.bubble-effect::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  width: 30px;
+  height: 30px;
+  background: linear-gradient(135deg, #ff6b6b, #feca57);
+  border-radius: 50%;
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Fun button animations */
+button {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+button:active::after {
+  width: 300px;
+  height: 300px;
+}
+
+/* K-pop confetti sparkles */
+.confetti-bg {
+  position: relative;
+}
+
+.confetti-bg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(circle at 15% 30%, rgba(206, 17, 38, 0.4) 0%, transparent 30%),
+    radial-gradient(circle at 85% 70%, rgba(241, 190, 72, 0.4) 0%, transparent 30%),
+    radial-gradient(circle at 50% 50%, rgba(206, 17, 38, 0.3) 0%, transparent 40%),
+    radial-gradient(circle at 20% 80%, rgba(241, 190, 72, 0.4) 0%, transparent 30%),
+    radial-gradient(circle at 70% 20%, rgba(155, 28, 49, 0.4) 0%, transparent 30%);
+  animation: sparkleMove 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes sparkleMove {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.8;
+  }
+  25% {
+    transform: translate(-20px, 10px) scale(1.1);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(20px, -20px) scale(0.9);
+    opacity: 0.6;
+  }
+  75% {
+    transform: translate(-10px, -10px) scale(1.05);
+    opacity: 0.9;
+  }
+}
+
+/* Playful ISU VSA border */
+.rainbow-border {
+  background: linear-gradient(
+    45deg,
+    #CE1126,
+    #F1BE48,
+    #9B1C31,
+    #F4CA66,
+    #CE1126,
+    #F1BE48
+  );
+  background-size: 200% 200%;
+  animation: rainbowMove 3s ease infinite;
+  padding: 3px;
+  border-radius: 1rem;
+}
+
+@keyframes rainbowMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* K-pop emoji sparkle animations */
+.emoji-bounce {
+  display: inline-block;
+  animation: emojiKpop 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(206, 17, 38, 0.5));
+}
+
+@keyframes emojiKpop {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-10deg) scale(1.1);
+  }
+  50% {
+    transform: translateY(-4px) rotate(10deg) scale(1.2);
+  }
+  75% {
+    transform: translateY(-8px) rotate(-10deg) scale(1.1);
+  }
+}
+
+/* Add cute decorative elements */
+.cute-deco {
+  position: relative;
+}
+
+.cute-deco::before,
+.cute-deco::after {
+  position: absolute;
+  font-size: 1.5rem;
+  animation: floatDeco 3s ease-in-out infinite;
+}
+
+.cute-deco::before {
+  content: '✨';
+  left: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.cute-deco::after {
+  content: '💖';
+  right: -2rem;
+  top: 50%;
+  transform: translateY(-50%);
+  animation-delay: 1.5s;
+}
+
+@keyframes floatDeco {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-70%) scale(1.2); }
+}
+
+/* K-pop style playful card effects */
+.fun-card {
+  @apply card;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  position: relative;
+}
+
+.fun-card::after {
+  content: '🎆';
+  position: absolute;
+  top: -20px;
+  left: -20px;
+  font-size: 2rem;
+  animation: sparkleRotate 3s linear infinite;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.fun-card:hover::after {
+  opacity: 1;
+}
+
+.fun-card:hover {
+  transform: translateY(-15px) rotate(3deg) scale(1.05);
+  box-shadow:
+    0 25px 50px rgba(206, 17, 38, 0.3),
+    0 20px 40px rgba(241, 190, 72, 0.2),
+    inset 0 0 30px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes sparkleRotate {
+  0% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(180deg) scale(1.2); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* K-pop sticker elements */
+.sticker {
+  @apply inline-block px-6 py-3 rounded-full font-bold text-lg;
+  background: linear-gradient(135deg, #CE1126 0%, #F1BE48 50%, #9B1C31 100%);
+  color: white;
+  transform: rotate(-8deg);
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.2), inset 0 2px 4px rgba(255, 255, 255, 0.5);
+  animation: stickerDance 2s ease-in-out infinite;
+  border: 3px solid white;
+  position: relative;
+  font-family: 'Jua', cursive;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.sticker::before {
+  content: '❤️';
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  font-size: 1.2rem;
+  animation: heartPulse 1s ease-in-out infinite;
+}
+
+@keyframes stickerDance {
+  0%, 100% { transform: rotate(-8deg) scale(1); }
+  25% { transform: rotate(8deg) scale(1.05); }
+  50% { transform: rotate(-8deg) scale(1.1); }
+  75% { transform: rotate(8deg) scale(1.05); }
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.3) rotate(10deg); }
+}
+
+/* Removed universal border-radius to improve performance */
+
+input, textarea, select {
+  border-radius: 2rem;
+  border: 2px solid rgba(241, 190, 72, 0.5);
+  padding: 0.75rem 1.5rem;
+  font-family: 'Kalam', 'Patrick Hand', cursive;
+  background: rgba(255, 255, 255, 0.8);
+  transition: all 0.3s;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: rgba(206, 17, 38, 0.8);
+  box-shadow: 0 0 20px rgba(206, 17, 38, 0.3);
+  transform: scale(1.02);
+}
+
+img, video {
+  border-radius: 2rem;
+  border: 4px solid white;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: rotate(-1deg);
+  transition: all 0.3s;
+}
+
+img:hover, video:hover {
+  transform: rotate(1deg) scale(1.05);
+  box-shadow: 0 12px 30px rgba(206, 17, 38, 0.3);
+}
+
+/* Fun loading spinner */
+.fun-spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid rgba(241, 190, 72, 0.3);
+  border-top: 5px solid #CE1126;
+  border-radius: 50%;
+  animation: funSpin 1s cubic-bezier(0.68, -0.55, 0.265, 1.55) infinite;
+}
+
+@keyframes funSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* K-pop style text selection */
+::selection {
+  background: linear-gradient(90deg, rgba(206, 17, 38, 0.4), rgba(241, 190, 72, 0.4));
+  color: #2C2A29;
+  text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+}
+
+/* K-pop style cute scrollbar */
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+::-webkit-scrollbar-track {
+  background: linear-gradient(90deg, #FFF8E7, #F4CA66, #FFF8E7);
+  border-radius: 20px;
+  border: 2px solid white;
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #CE1126, #F1BE48, #9B1C31);
+  border-radius: 20px;
+  border: 3px solid white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #F1BE48, #CE1126, #9B1C31);
+  transform: scale(1.1);
+}
