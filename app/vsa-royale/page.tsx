@@ -1,10 +1,17 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { 
-  Trophy, Users, Swords, Target, Play, 
-  BookOpen, Gamepad2, 
-  Shield, Zap, Star
+import {
+  Trophy,
+  Users,
+  Swords,
+  Target,
+  Play,
+  BookOpen,
+  Gamepad2,
+  Shield,
+  Zap,
+  Star,
 } from 'lucide-react'
 import Link from 'next/link'
 
@@ -18,7 +25,7 @@ export default function VSARoyalePage() {
       description: 'Battle against AI opponents',
       icon: Swords,
       color: 'bg-cardinal',
-      features: ['5 difficulty levels', 'Eggroll rewards', 'Practice strategies']
+      features: ['5 difficulty levels', 'Eggroll rewards', 'Practice strategies'],
     },
     {
       id: 'campaign',
@@ -26,7 +33,7 @@ export default function VSARoyalePage() {
       description: 'Story-driven progression',
       icon: BookOpen,
       color: 'bg-gold',
-      features: ['50 levels', 'Unlock new cards', 'Boss battles']
+      features: ['50 levels', 'Unlock new cards', 'Boss battles'],
     },
     {
       id: 'puzzle',
@@ -34,31 +41,31 @@ export default function VSARoyalePage() {
       description: 'Solve strategic challenges',
       icon: Target,
       color: 'bg-deepRed',
-      features: ['100+ puzzles', 'Learn strategies', 'Daily challenges']
-    }
+      features: ['100+ puzzles', 'Learn strategies', 'Daily challenges'],
+    },
   ]
 
   const features = [
     {
       icon: Users,
       title: 'VSA Members as Heroes',
-      description: 'Play as executive board members and committee chairs with unique abilities'
+      description: 'Play as executive board members and committee chairs with unique abilities',
     },
     {
       icon: Trophy,
       title: 'Competitive Gameplay',
-      description: 'Climb the leaderboards and compete in weekly tournaments'
+      description: 'Climb the leaderboards and compete in weekly tournaments',
     },
     {
       icon: Zap,
       title: 'Fast-Paced Battles',
-      description: '3-minute matches with sudden death overtime'
+      description: '3-minute matches with sudden death overtime',
     },
     {
       icon: Shield,
       title: 'Strategic Depth',
-      description: 'Build decks, manage resources, and outsmart opponents'
-    }
+      description: 'Build decks, manage resources, and outsmart opponents',
+    },
   ]
 
   return (
@@ -117,9 +124,11 @@ export default function VSARoyalePage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="bg-gray-900/80 rounded-xl p-6 border border-gray-800 hover:border-gold transition-all cursor-pointer transform hover:scale-105"
-                onClick={() => console.log('Selected mode:', mode.id)}
+                // onClick={() => console.log('Selected mode:', mode.id)}
               >
-                <div className={`w-16 h-16 ${mode.color} rounded-full flex items-center justify-center mb-4`}>
+                <div
+                  className={`w-16 h-16 ${mode.color} rounded-full flex items-center justify-center mb-4`}
+                >
                   <mode.icon className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="text-2xl font-bold mb-2">{mode.name}</h3>
@@ -205,12 +214,17 @@ export default function VSARoyalePage() {
                   className="flex items-center justify-between p-4 bg-gray-800/50 rounded-lg"
                 >
                   <div className="flex items-center space-x-4">
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
-                      player.rank === 1 ? 'bg-gold text-charcoal' :
-                      player.rank === 2 ? 'bg-gray-300 text-charcoal' :
-                      player.rank === 3 ? 'bg-amber-600 text-white' :
-                      'bg-gray-700 text-white'
-                    }`}>
+                    <div
+                      className={`w-10 h-10 rounded-full flex items-center justify-center font-bold ${
+                        player.rank === 1
+                          ? 'bg-gold text-charcoal'
+                          : player.rank === 2
+                            ? 'bg-gray-300 text-charcoal'
+                            : player.rank === 3
+                              ? 'bg-amber-600 text-white'
+                              : 'bg-gray-700 text-white'
+                      }`}
+                    >
                       {player.rank}
                     </div>
                     <div>
@@ -226,7 +240,10 @@ export default function VSARoyalePage() {
               ))}
             </div>
             <div className="mt-6 text-center">
-              <Link href="/vsa-royale/leaderboard" className="text-gold hover:text-gold-light transition-colors">
+              <Link
+                href="/vsa-royale/leaderboard"
+                className="text-gold hover:text-gold-light transition-colors"
+              >
                 View Full Leaderboard →
               </Link>
             </div>
@@ -242,9 +259,7 @@ export default function VSARoyalePage() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Ready for Battle?
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready for Battle?</h2>
             <p className="text-xl text-gray-300 mb-8">
               Join the VSA Royale arena and prove your strategic skills
             </p>
@@ -252,7 +267,10 @@ export default function VSARoyalePage() {
               <Link href="/vsa-royale/play" className="btn-primary">
                 Start Playing
               </Link>
-              <Link href="/vsa-royale/deck-builder" className="btn-outline border-gold text-gold hover:bg-gold hover:text-charcoal">
+              <Link
+                href="/vsa-royale/deck-builder"
+                className="btn-outline border-gold text-gold hover:bg-gold hover:text-charcoal"
+              >
                 Build Your Deck
               </Link>
             </div>

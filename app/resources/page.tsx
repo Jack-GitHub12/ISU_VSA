@@ -2,9 +2,15 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { 
-  BookOpen, Utensils, Languages, GraduationCap,
-  FileText, Video, Music, Map
+import {
+  BookOpen,
+  Utensils,
+  Languages,
+  GraduationCap,
+  FileText,
+  Video,
+  Music,
+  Map,
 } from 'lucide-react'
 
 const resourceCategories = [
@@ -19,8 +25,8 @@ const resourceCategories = [
       'Vietnamese History',
       'Traditional Holidays',
       'Cultural Etiquette',
-      'Folk Stories & Legends'
-    ]
+      'Folk Stories & Legends',
+    ],
   },
   {
     id: 'language',
@@ -29,12 +35,7 @@ const resourceCategories = [
     icon: Languages,
     color: 'bg-blue-600',
     link: '/resources/language',
-    items: [
-      'Basic Phrases',
-      'Pronunciation Guide',
-      'Writing System',
-      'Practice Materials'
-    ]
+    items: ['Basic Phrases', 'Pronunciation Guide', 'Writing System', 'Practice Materials'],
   },
   {
     id: 'recipes',
@@ -43,12 +44,7 @@ const resourceCategories = [
     icon: Utensils,
     color: 'bg-green-600',
     link: '/resources/recipes',
-    items: [
-      'Phở & Soups',
-      'Rice & Noodle Dishes',
-      'Appetizers & Snacks',
-      'Desserts & Drinks'
-    ]
+    items: ['Phở & Soups', 'Rice & Noodle Dishes', 'Appetizers & Snacks', 'Desserts & Drinks'],
   },
   {
     id: 'study',
@@ -57,13 +53,8 @@ const resourceCategories = [
     icon: GraduationCap,
     color: 'bg-cardinal',
     link: '/resources/study',
-    items: [
-      'Study Groups',
-      'Tutoring Resources',
-      'Course Reviews',
-      'Academic Tips'
-    ]
-  }
+    items: ['Study Groups', 'Tutoring Resources', 'Course Reviews', 'Academic Tips'],
+  },
 ]
 
 const featuredResources = [
@@ -72,29 +63,29 @@ const featuredResources = [
     type: 'Article',
     icon: FileText,
     description: 'Everything you need to know about Vietnamese New Year',
-    link: '#'
+    link: '#',
   },
   {
     title: 'Vietnamese 101 Video Series',
     type: 'Video',
     icon: Video,
     description: 'Learn basic Vietnamese with our video tutorials',
-    link: '#'
+    link: '#',
   },
   {
     title: 'Traditional Music Playlist',
     type: 'Audio',
     icon: Music,
     description: 'Curated playlist of Vietnamese traditional and modern music',
-    link: '#'
+    link: '#',
   },
   {
     title: 'Vietnam Travel Guide',
     type: 'Guide',
     icon: Map,
     description: 'Planning a trip to Vietnam? Start here!',
-    link: '#'
-  }
+    link: '#',
+  },
 ]
 
 export default function ResourcesPage() {
@@ -141,7 +132,9 @@ export default function ResourcesPage() {
                 <Link href={category.link}>
                   <div className="card hover:shadow-2xl transition-all group cursor-pointer">
                     <div className="flex items-start space-x-4">
-                      <div className={`w-16 h-16 ${category.color} rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}>
+                      <div
+                        className={`w-16 h-16 ${category.color} rounded-lg flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform`}
+                      >
                         <category.icon className="w-8 h-8 text-white" />
                       </div>
                       <div className="flex-1">
@@ -196,12 +189,8 @@ export default function ResourcesPage() {
                         {resource.type}
                       </span>
                     </div>
-                    <h3 className="font-bold text-lg mb-2 text-charcoal">
-                      {resource.title}
-                    </h3>
-                    <p className="text-sm text-gray-600">
-                      {resource.description}
-                    </p>
+                    <h3 className="font-bold text-lg mb-2 text-charcoal">{resource.title}</h3>
+                    <p className="text-sm text-gray-600">{resource.description}</p>
                   </div>
                 </Link>
               </motion.div>
@@ -233,8 +222,12 @@ export default function ResourcesPage() {
               <h3 className="text-xl font-bold mb-4">ISU Resources</h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="https://www.iastate.edu" target="_blank" rel="noopener noreferrer" 
-                     className="text-cardinal hover:text-cardinal-dark transition-colors">
+                  <a
+                    href="https://www.iastate.edu"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-cardinal hover:text-cardinal-dark transition-colors"
+                  >
                     Iowa State University →
                   </a>
                 </li>
@@ -340,7 +333,10 @@ export default function ResourcesPage() {
                 className="px-6 py-3 rounded-lg text-charcoal flex-1"
                 required
               />
-              <button type="submit" className="bg-white text-cardinal px-8 py-3 rounded-lg font-semibold hover:bg-cream transition-colors">
+              <button
+                type="submit"
+                className="bg-white text-cardinal px-8 py-3 rounded-lg font-semibold hover:bg-cream transition-colors"
+              >
                 Subscribe
               </button>
             </form>

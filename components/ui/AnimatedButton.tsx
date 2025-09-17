@@ -1,7 +1,8 @@
 'use client'
 
+import React from 'react'
 import { motion } from 'framer-motion'
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { cn } from '@/lib/utils'
 
 interface AnimatedButtonProps {
@@ -14,26 +15,32 @@ interface AnimatedButtonProps {
   type?: 'button' | 'submit' | 'reset'
 }
 
-export default function AnimatedButton({
+const AnimatedButton = React.memo<AnimatedButtonProps>(function AnimatedButton({
   children,
   onClick,
   variant = 'primary',
   size = 'md',
   className = '',
   disabled = false,
-  type = 'button'
-}: AnimatedButtonProps) {
-  const variants = {
-    primary: 'bg-cardinal text-white hover:bg-cardinal-dark',
-    secondary: 'bg-gold text-charcoal hover:bg-gold-dark',
-    outline: 'border-2 border-cardinal text-cardinal hover:bg-cardinal hover:text-white'
-  }
+  type = 'button',
+}) {
+  const variants = useMemo(
+    () => ({
+      primary: 'bg-cardinal text-white hover:bg-cardinal-dark',
+      secondary: 'bg-gold text-charcoal hover:bg-gold-dark',
+      outline: 'border-2 border-cardinal text-cardinal hover:bg-cardinal hover:text-white',
+    }),
+    []
+  )
 
-  const sizes = {
-    sm: 'px-4 py-2 text-sm',
-    md: 'px-6 py-3',
-    lg: 'px-8 py-4 text-lg'
-  }
+  const sizes = useMemo(
+    () => ({
+      sm: 'px-4 py-2 text-sm',
+      md: 'px-6 py-3',
+      lg: 'px-8 py-4 text-lg',
+    }),
+    []
+  )
 
   return (
     <motion.button
@@ -52,9 +59,9 @@ export default function AnimatedButton({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        type: "spring",
+        type: 'spring',
         stiffness: 300,
-        damping: 20
+        damping: 20,
       }}
     >
       <motion.span
@@ -66,4 +73,6 @@ export default function AnimatedButton({
       </motion.span>
     </motion.button>
   )
-}
+})
+
+export default AnimatedButton

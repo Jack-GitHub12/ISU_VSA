@@ -7,14 +7,11 @@ interface LoadingSpinnerProps {
   color?: string
 }
 
-export default function LoadingSpinner({ 
-  size = 'md', 
-  color = 'cardinal' 
-}: LoadingSpinnerProps) {
+export default function LoadingSpinner({ size = 'md', color = 'cardinal' }: LoadingSpinnerProps) {
   const sizes = {
     sm: 'w-8 h-8',
     md: 'w-12 h-12',
-    lg: 'w-16 h-16'
+    lg: 'w-16 h-16',
   }
 
   return (
@@ -25,7 +22,7 @@ export default function LoadingSpinner({
         transition={{
           duration: 1,
           repeat: Infinity,
-          ease: "linear"
+          ease: 'linear',
         }}
       >
         <div className={`absolute inset-0 border-4 border-${color}/20 rounded-full`} />
@@ -35,7 +32,7 @@ export default function LoadingSpinner({
           transition={{
             duration: 0.75,
             repeat: Infinity,
-            ease: "linear"
+            ease: 'linear',
           }}
         />
       </motion.div>

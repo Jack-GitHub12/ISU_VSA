@@ -1,142 +1,145 @@
 'use client'
 
-import { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { NAVIGATION, SITE_CONFIG, IMAGES, UNIVERSITY } from '@/lib/constants'
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  {
-    name: 'About',
-    href: '/about',
-    subItems: [
-      { name: 'Our Mission', href: '/about/mission' },
-      { name: 'Executive Board', href: '/about/board' },
-      { name: 'History', href: '/about/history' },
-      { name: 'Constitution', href: '/about/constitution' },
-    ],
-  },
-  {
-    name: 'Events',
-    href: '/events',
-    subItems: [
-      { name: 'Upcoming Events', href: '/events/upcoming' },
-      { name: 'Past Events', href: '/events/past' },
-      { name: 'Tết Celebration', href: '/events/tet' },
-      { name: 'Cultural Shows', href: '/events/cultural-shows' },
-    ],
-  },
-  {
-    name: 'Get Involved',
-    href: '/get-involved',
-    subItems: [
-      { name: 'Membership', href: '/get-involved/membership' },
-      { name: 'Committees', href: '/get-involved/committees' },
-      { name: 'Volunteer', href: '/get-involved/volunteer' },
-      { name: 'Newsletter', href: '/get-involved/newsletter' },
-    ],
-  },
-  {
-    name: 'Resources',
-    href: '/resources',
-    subItems: [
-      { name: 'Cultural Library', href: '/resources/cultural-library' },
-      { name: 'Language Learning', href: '/resources/language' },
-      { name: 'Recipes', href: '/resources/recipes' },
-      { name: 'Study Resources', href: '/resources/study' },
-    ],
-  },
-  { name: 'Gallery', href: '/gallery' },
-  { name: 'VSA Royale', href: '/vsa-royale', special: true },
-  { name: 'Contact', href: '/contact' },
-]
+type NavItemType = (typeof NAVIGATION)[number]
 
-export default function Navbar() {
+// Memoized navigation item component
+const NavigationItem = React.memo<{
+  item: NavItemType
+  openDropdown: string | null
+  setOpenDropdown: (name: string | null) => void
+}>(function NavigationItem({ item, openDropdown, setOpenDropdown }) {
+  const handleMouseEnter = useCallback(() => {
+    if ('subItems' in item && item.subItems) {
+      setOpenDropdown(item.name)
+    }
+  }, [item, setOpenDropdown])
+
+  const handleMouseLeave = useCallback(() => {
+    setOpenDropdown(null)
+  }, [setOpenDropdown])
+
+  return (
+    <div className="relative" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      <Link
+        href={item.href}
+        className={cn(
+          'flex items-center space-x-1 px-4 py-2 text-sm font-semibold rounded-lg transition-all duration-200',
+          'special' in item && item.special
+            ? 'text-white bg-gradient-to-r from-cardinal to-gold hover:shadow-md'
+            : 'text-charcoal hover:text-cardinal hover:bg-gold/10'
+        )}
+        aria-expanded={'subItems' in item && item.subItems ? openDropdown === item.name : undefined}
+        aria-haspopup={'subItems' in item && item.subItems ? 'menu' : undefined}
+      >
+        <span>{item.name}</span>
+        {'subItems' in item && item.subItems && (
+          <ChevronDown className="w-4 h-4" aria-hidden="true" />
+        )}
+      </Link>
+
+      {/* Dropdown Menu */}
+      <AnimatePresence>
+        {'subItems' in item && item.subItems && openDropdown === item.name && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.15 }}
+            className="absolute left-0 mt-2 w-56 rounded-lg shadow-lg bg-white border border-gray-100 overflow-hidden z-50"
+            role="menu"
+            aria-labelledby={`menu-${item.name}`}
+          >
+            <div className="py-1">
+              {item.subItems.map((subItem: { name: string; href: string }) => (
+                <Link
+                  key={subItem.name}
+                  href={subItem.href}
+                  className="block px-4 py-2 text-sm text-charcoal hover:bg-gold/10 hover:text-cardinal transition-colors duration-150"
+                  role="menuitem"
+                >
+                  {subItem.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+})
+
+const Navbar = React.memo(function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [openDropdown, setOpenDropdown] = useState<string | null>(null)
 
+  const toggleMobileMenu = useCallback(() => {
+    setIsOpen((prev) => !prev)
+  }, [])
+
+  const closeMobileMenu = useCallback(() => {
+    setIsOpen(false)
+  }, [])
+
   return (
-    <nav className="bg-white shadow-lg sticky top-0 z-50">
+    <nav className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm border-b-2 border-cardinal/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-20">
+        <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center space-x-3">
-              <div className="relative w-14 h-14">
+            <Link href="/" className="flex items-center space-x-3 group">
+              <div className="relative w-12 h-12">
                 <Image
-                  src="/images/logo.png"
-                  alt="ISU VSA Logo"
+                  src={IMAGES.logo}
+                  alt={`${SITE_CONFIG.name} Logo`}
                   fill
                   className="object-contain"
                   priority
                 />
               </div>
               <div>
-                <h1 className="text-xl font-bold text-cardinal">ISU VSA</h1>
-                <p className="text-xs text-gray-600">Iowa State University</p>
+                <h1 className="text-lg font-bold text-cardinal">{SITE_CONFIG.name}</h1>
+                <p className="text-xs text-gray-600">{UNIVERSITY.name}</p>
               </div>
             </Link>
           </div>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            {navigation.map((item) => (
-              <div
+          <nav
+            className="hidden lg:flex items-center space-x-4"
+            role="navigation"
+            aria-label="Main navigation"
+          >
+            {NAVIGATION.map((item) => (
+              <NavigationItem
                 key={item.name}
-                className="relative"
-                onMouseEnter={() => item.subItems && setOpenDropdown(item.name)}
-                onMouseLeave={() => setOpenDropdown(null)}
-              >
-                <Link
-                  href={item.href}
-                  className={cn(
-                    'flex items-center space-x-1 px-3 py-2 text-sm font-medium transition-colors',
-                    item.special
-                      ? 'text-white bg-gradient-cardinal-gold rounded-lg hover:scale-105 transform transition-transform'
-                      : 'text-charcoal hover:text-cardinal'
-                  )}
-                >
-                  <span>{item.name}</span>
-                  {item.subItems && <ChevronDown className="w-4 h-4" />}
-                </Link>
-
-                {/* Dropdown Menu */}
-                <AnimatePresence>
-                  {item.subItems && openDropdown === item.name && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -10 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: -10 }}
-                      transition={{ duration: 0.2 }}
-                      className="absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5"
-                    >
-                      <div className="py-1">
-                        {item.subItems.map((subItem) => (
-                          <Link
-                            key={subItem.name}
-                            href={subItem.href}
-                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gold/20 hover:text-cardinal transition-colors"
-                          >
-                            {subItem.name}
-                          </Link>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
+                item={item}
+                openDropdown={openDropdown}
+                setOpenDropdown={setOpenDropdown}
+              />
             ))}
-          </div>
+          </nav>
 
           {/* Mobile menu button */}
           <div className="flex items-center lg:hidden">
             <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md text-charcoal hover:text-cardinal hover:bg-gold/20 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-cardinal"
+              onClick={toggleMobileMenu}
+              className="p-2 rounded-lg text-charcoal hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-cardinal"
+              aria-expanded={isOpen}
+              aria-controls="mobile-menu"
+              aria-label="Toggle mobile menu"
             >
-              {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isOpen ? (
+                <X className="h-6 w-6" aria-hidden="true" />
+              ) : (
+                <Menu className="h-6 w-6" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
@@ -146,35 +149,38 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id="mobile-menu"
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3 }}
-            className="lg:hidden bg-white border-t border-gray-200"
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-white border-t border-gray-100"
+            role="navigation"
+            aria-label="Mobile navigation"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
+              {NAVIGATION.map((item) => (
                 <div key={item.name}>
                   <Link
                     href={item.href}
                     className={cn(
-                      'block px-3 py-2 rounded-md text-base font-medium',
-                      item.special
-                        ? 'text-white bg-gradient-cardinal-gold'
-                        : 'text-charcoal hover:text-cardinal hover:bg-gold/20'
+                      'block px-3 py-2 rounded-lg text-base font-medium transition-colors',
+                      'special' in item && item.special
+                        ? 'text-white bg-gradient-to-r from-cardinal to-gold'
+                        : 'text-charcoal hover:text-cardinal hover:bg-gold/10'
                     )}
-                    onClick={() => setIsOpen(false)}
+                    onClick={closeMobileMenu}
                   >
                     {item.name}
                   </Link>
-                  {item.subItems && (
-                    <div className="pl-4">
-                      {item.subItems.map((subItem) => (
+                  {'subItems' in item && item.subItems && (
+                    <div className="pl-4 mt-1" role="group" aria-labelledby={`mobile-${item.name}`}>
+                      {item.subItems.map((subItem: { name: string; href: string }) => (
                         <Link
                           key={subItem.name}
                           href={subItem.href}
-                          className="block px-3 py-2 text-sm text-gray-600 hover:text-cardinal hover:bg-gold/10 rounded-md"
-                          onClick={() => setIsOpen(false)}
+                          className="block px-3 py-2 text-sm text-gray-600 hover:text-cardinal hover:bg-gold/10 rounded-lg transition-colors"
+                          onClick={closeMobileMenu}
                         >
                           {subItem.name}
                         </Link>
@@ -189,4 +195,6 @@ export default function Navbar() {
       </AnimatePresence>
     </nav>
   )
-}
+})
+
+export default Navbar

@@ -14,10 +14,11 @@ const events = [
     location: 'Memorial Union Great Hall',
     category: 'cultural',
     featured: true,
-    description: 'Celebrate Vietnamese New Year with traditional performances, authentic food, and cultural activities.',
+    description:
+      'Celebrate Vietnamese New Year with traditional performances, authentic food, and cultural activities.',
     attendees: 350,
-    image: '/placeholder.svg',
-    price: '$10 Students, $15 General'
+    image: '/images/eboard/eboardGroup.JPG',
+    price: '$10 Students, $15 General',
   },
   {
     id: 2,
@@ -27,10 +28,11 @@ const events = [
     location: 'Student Innovation Center Kitchen',
     category: 'social',
     featured: false,
-    description: 'Learn to make authentic Vietnamese phở from scratch with our experienced members.',
+    description:
+      'Learn to make authentic Vietnamese phở from scratch with our experienced members.',
     attendees: 30,
-    image: '/placeholder.svg',
-    price: 'Free for members'
+    image: '/images/eboard/eboardGroup.JPG',
+    price: 'Free for members',
   },
   {
     id: 3,
@@ -42,8 +44,8 @@ const events = [
     featured: false,
     description: 'Compete in our exclusive tower defense game tournament with prizes!',
     attendees: 50,
-    image: '/placeholder.svg',
-    price: 'Free'
+    image: '/images/eboard/eboardGroup.JPG',
+    price: 'Free',
   },
   {
     id: 4,
@@ -55,8 +57,8 @@ const events = [
     featured: false,
     description: 'Give back to the community by volunteering at the local food bank.',
     attendees: 25,
-    image: '/placeholder.svg',
-    price: 'Free'
+    image: '/images/eboard/eboardGroup.JPG',
+    price: 'Free',
   },
   {
     id: 5,
@@ -68,8 +70,8 @@ const events = [
     featured: false,
     description: 'Join us for a productive study session with snacks and good company.',
     attendees: 40,
-    image: '/placeholder.svg',
-    price: 'Free'
+    image: '/images/eboard/eboardGroup.JPG',
+    price: 'Free',
   },
   {
     id: 6,
@@ -81,9 +83,9 @@ const events = [
     featured: false,
     description: 'Learn to make traditional Vietnamese spring rolls (gỏi cuốn).',
     attendees: 20,
-    image: '/placeholder.svg',
-    price: '$5 for ingredients'
-  }
+    image: '/images/eboard/eboardGroup.JPG',
+    price: '$5 for ingredients',
+  },
 ]
 
 const categories = [
@@ -98,9 +100,10 @@ export default function EventsPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
 
-  const filteredEvents = selectedCategory === 'all' 
-    ? events 
-    : events.filter(event => event.category === selectedCategory)
+  const filteredEvents =
+    selectedCategory === 'all'
+      ? events
+      : events.filter((event) => event.category === selectedCategory)
 
   return (
     <div className="min-h-screen">
@@ -122,73 +125,74 @@ export default function EventsPage() {
       </section>
 
       {/* Featured Event */}
-      {events.find(e => e.featured) && (
-        <section className="py-12 px-4 bg-gradient-to-b from-gold/10 to-transparent">
-          <div className="max-w-7xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-              className="bg-white rounded-2xl shadow-xl overflow-hidden"
-            >
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="relative h-64 lg:h-full">
-                  <Image
-                    src={events.find(e => e.featured)!.image}
-                    alt={events.find(e => e.featured)!.title}
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-gold text-charcoal px-4 py-2 rounded-full font-bold text-sm">
-                      FEATURED EVENT
-                    </span>
+      {(() => {
+        const featuredEvent = events.find((e) => e.featured)
+        if (!featuredEvent) return null
+
+        return (
+          <section className="py-12 px-4 bg-gradient-to-b from-gold/10 to-transparent">
+            <div className="max-w-7xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.95 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white rounded-2xl shadow-xl overflow-hidden"
+              >
+                <div className="grid grid-cols-1 lg:grid-cols-2">
+                  <div className="relative h-64 lg:h-full">
+                    <Image
+                      src={featuredEvent.image}
+                      alt={featuredEvent.title}
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute top-4 left-4">
+                      <span className="bg-gold text-charcoal px-4 py-2 rounded-full font-bold text-sm">
+                        FEATURED EVENT
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-8 lg:p-12">
+                    <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-cardinal">
+                      {featuredEvent.title}
+                    </h2>
+                    <p className="text-gray-700 mb-6 text-lg">{featuredEvent.description}</p>
+                    <div className="space-y-3 mb-6">
+                      <div className="flex items-center text-gray-600">
+                        <Calendar className="w-5 h-5 mr-3 text-cardinal" />
+                        <span>
+                          {new Date(featuredEvent.date).toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
+                          })}
+                        </span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <Clock className="w-5 h-5 mr-3 text-cardinal" />
+                        <span>{featuredEvent.time}</span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <MapPin className="w-5 h-5 mr-3 text-cardinal" />
+                        <span>{featuredEvent.location}</span>
+                      </div>
+                      <div className="flex items-center text-gray-600">
+                        <Users className="w-5 h-5 mr-3 text-cardinal" />
+                        <span>{featuredEvent.attendees} expected attendees</span>
+                      </div>
+                    </div>
+                    <div className="flex flex-col sm:flex-row gap-4">
+                      <button className="btn-primary">RSVP Now</button>
+                      <button className="btn-outline">Learn More</button>
+                    </div>
                   </div>
                 </div>
-                <div className="p-8 lg:p-12">
-                  <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-cardinal">
-                    {events.find(e => e.featured)!.title}
-                  </h2>
-                  <p className="text-gray-700 mb-6 text-lg">
-                    {events.find(e => e.featured)!.description}
-                  </p>
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center text-gray-600">
-                      <Calendar className="w-5 h-5 mr-3 text-cardinal" />
-                      <span>{new Date(events.find(e => e.featured)!.date).toLocaleDateString('en-US', { 
-                        weekday: 'long', 
-                        year: 'numeric', 
-                        month: 'long', 
-                        day: 'numeric' 
-                      })}</span>
-                    </div>
-                    <div className="flex items-center text-gray-600">
-                      <Clock className="w-5 h-5 mr-3 text-cardinal" />
-                      <span>{events.find(e => e.featured)!.time}</span>
-                    </div>
-                    <div className="flex items-center text-gray-600">
-                      <MapPin className="w-5 h-5 mr-3 text-cardinal" />
-                      <span>{events.find(e => e.featured)!.location}</span>
-                    </div>
-                    <div className="flex items-center text-gray-600">
-                      <Users className="w-5 h-5 mr-3 text-cardinal" />
-                      <span>{events.find(e => e.featured)!.attendees} expected attendees</span>
-                    </div>
-                  </div>
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <button className="btn-primary">
-                      RSVP Now
-                    </button>
-                    <button className="btn-outline">
-                      Learn More
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </section>
-      )}
+              </motion.div>
+            </div>
+          </section>
+        )
+      })()}
 
       {/* Filter Bar */}
       <section className="py-8 px-4 sticky top-20 bg-white z-30 shadow-md">
@@ -236,10 +240,13 @@ export default function EventsPage() {
       {/* Events Grid/List */}
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
-          <div className={viewMode === 'grid' 
-            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' 
-            : 'space-y-6'
-          }>
+          <div
+            className={
+              viewMode === 'grid'
+                ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'
+                : 'space-y-6'
+            }
+          >
             {filteredEvents.map((event, index) => (
               <motion.div
                 key={event.id}
@@ -258,12 +265,17 @@ export default function EventsPage() {
                         className="object-cover hover:scale-110 transition-transform duration-300"
                       />
                       <div className="absolute top-2 right-2">
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${
-                          event.category === 'cultural' ? 'bg-purple-600' :
-                          event.category === 'social' ? 'bg-blue-600' :
-                          event.category === 'service' ? 'bg-green-600' :
-                          'bg-gray-600'
-                        }`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${
+                            event.category === 'cultural'
+                              ? 'bg-purple-600'
+                              : event.category === 'social'
+                                ? 'bg-blue-600'
+                                : event.category === 'service'
+                                  ? 'bg-green-600'
+                                  : 'bg-gray-600'
+                          }`}
+                        >
                           {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
                         </span>
                       </div>
@@ -294,22 +306,22 @@ export default function EventsPage() {
                 ) : (
                   <div className="card flex flex-col md:flex-row gap-6">
                     <div className="relative w-full md:w-48 h-48 rounded-lg overflow-hidden flex-shrink-0">
-                      <Image
-                        src={event.image}
-                        alt={event.title}
-                        fill
-                        className="object-cover"
-                      />
+                      <Image src={event.image} alt={event.title} fill className="object-cover" />
                     </div>
                     <div className="flex-1">
                       <div className="flex items-start justify-between mb-2">
                         <h3 className="text-2xl font-bold">{event.title}</h3>
-                        <span className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${
-                          event.category === 'cultural' ? 'bg-purple-600' :
-                          event.category === 'social' ? 'bg-blue-600' :
-                          event.category === 'service' ? 'bg-green-600' :
-                          'bg-gray-600'
-                        }`}>
+                        <span
+                          className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${
+                            event.category === 'cultural'
+                              ? 'bg-purple-600'
+                              : event.category === 'social'
+                                ? 'bg-blue-600'
+                                : event.category === 'service'
+                                  ? 'bg-green-600'
+                                  : 'bg-gray-600'
+                          }`}
+                        >
                           {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
                         </span>
                       </div>
@@ -334,9 +346,7 @@ export default function EventsPage() {
                       </div>
                       <div className="flex justify-between items-center">
                         <span className="text-gold font-semibold text-lg">{event.price}</span>
-                        <button className="btn-primary">
-                          RSVP Now
-                        </button>
+                        <button className="btn-primary">RSVP Now</button>
                       </div>
                     </div>
                   </div>

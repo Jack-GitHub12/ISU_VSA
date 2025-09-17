@@ -12,7 +12,7 @@ export default function CulturalLibraryPage() {
       icon: BookOpen,
       items: 45,
       color: 'from-blue-500 to-blue-700',
-      featured: ['The Tale of Kiều', 'The Sorrow of War', 'Paradise of the Blind']
+      featured: ['The Tale of Kiều', 'The Sorrow of War', 'Paradise of the Blind'],
     },
     {
       title: 'Traditional Music',
@@ -20,7 +20,7 @@ export default function CulturalLibraryPage() {
       icon: Music,
       items: 32,
       color: 'from-green-500 to-green-700',
-      featured: ['Ca Trù performances', 'Đàn bầu music', 'Folk songs from regions']
+      featured: ['Ca Trù performances', 'Đàn bầu music', 'Folk songs from regions'],
     },
     {
       title: 'Documentary Films',
@@ -28,7 +28,7 @@ export default function CulturalLibraryPage() {
       icon: Film,
       items: 28,
       color: 'from-purple-500 to-purple-700',
-      featured: ['Vietnam War documentaries', 'Cultural traditions', 'Modern Vietnam']
+      featured: ['Vietnam War documentaries', 'Cultural traditions', 'Modern Vietnam'],
     },
     {
       title: 'Photo Archives',
@@ -36,8 +36,8 @@ export default function CulturalLibraryPage() {
       icon: Camera,
       items: 150,
       color: 'from-orange-500 to-orange-700',
-      featured: ['Historical photos', 'Cultural festivals', 'Traditional crafts']
-    }
+      featured: ['Historical photos', 'Cultural festivals', 'Traditional crafts'],
+    },
   ]
 
   return (
@@ -48,7 +48,8 @@ export default function CulturalLibraryPage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Cultural Library</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto">
-              Explore our curated collection of Vietnamese cultural resources, literature, and multimedia content
+              Explore our curated collection of Vietnamese cultural resources, literature, and
+              multimedia content
             </p>
           </AnimatedSection>
         </div>
@@ -68,9 +69,7 @@ export default function CulturalLibraryPage() {
                     className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-transparent"
                   />
                 </div>
-                <button className="btn-primary px-6">
-                  Search
-                </button>
+                <button className="btn-primary px-6">Search</button>
               </div>
             </div>
           </AnimatedSection>
@@ -82,7 +81,9 @@ export default function CulturalLibraryPage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Our Collections</h2>
-            <p className="section-subtitle">Discover Vietnamese culture through diverse media and resources</p>
+            <p className="section-subtitle">
+              Discover Vietnamese culture through diverse media and resources
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -94,7 +95,9 @@ export default function CulturalLibraryPage() {
               >
                 <div className="card h-full">
                   <div className="flex items-center mb-4">
-                    <div className={`w-16 h-16 bg-gradient-to-br ${collection.color} rounded-full flex items-center justify-center mr-4`}>
+                    <div
+                      className={`w-16 h-16 bg-gradient-to-br ${collection.color} rounded-full flex items-center justify-center mr-4`}
+                    >
                       <collection.icon className="w-8 h-8 text-white" />
                     </div>
                     <div>
@@ -117,9 +120,7 @@ export default function CulturalLibraryPage() {
                     </ul>
                   </div>
 
-                  <button className="btn-primary w-full">
-                    Explore Collection
-                  </button>
+                  <button className="btn-primary w-full">Explore Collection</button>
                 </div>
               </AnimatedSection>
             ))}
@@ -143,11 +144,10 @@ export default function CulturalLibraryPage() {
                   <h3 className="font-bold">The Tale of Kiều</h3>
                 </div>
                 <p className="text-gray-600 mb-4">
-                  Vietnam&apos;s national epic poem by Nguyễn Du, exploring themes of love, sacrifice, and virtue.
+                  Vietnam&apos;s national epic poem by Nguyễn Du, exploring themes of love,
+                  sacrifice, and virtue.
                 </p>
-                <button className="btn-outline w-full">
-                  Read Online
-                </button>
+                <button className="btn-outline w-full">Read Online</button>
               </div>
             </AnimatedSection>
 
@@ -160,9 +160,7 @@ export default function CulturalLibraryPage() {
                 <p className="text-gray-600 mb-4">
                   UNESCO-recognized traditional Vietnamese music featuring our archived recordings.
                 </p>
-                <button className="btn-outline w-full">
-                  Listen Now
-                </button>
+                <button className="btn-outline w-full">Listen Now</button>
               </div>
             </AnimatedSection>
 
@@ -175,9 +173,7 @@ export default function CulturalLibraryPage() {
                 <p className="text-gray-600 mb-4">
                   Documentary series exploring modern Vietnam&apos;s culture, economy, and society.
                 </p>
-                <button className="btn-outline w-full">
-                  Watch Video
-                </button>
+                <button className="btn-outline w-full">Watch Video</button>
               </div>
             </AnimatedSection>
           </div>
@@ -191,10 +187,10 @@ export default function CulturalLibraryPage() {
             <AnimatedSection direction="left">
               <h2 className="section-title">Digital Archive Project</h2>
               <p className="text-lg text-gray-700 mb-6">
-                We&apos;re digitizing and preserving Vietnamese cultural artifacts, documents, and media 
-                to ensure future generations can access and learn from our rich heritage.
+                We&apos;re digitizing and preserving Vietnamese cultural artifacts, documents, and
+                media to ensure future generations can access and learn from our rich heritage.
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 <div className="flex items-center">
                   <Archive className="w-6 h-6 text-cardinal mr-3" />
@@ -210,15 +206,13 @@ export default function CulturalLibraryPage() {
                 </div>
               </div>
 
-              <button className="btn-primary">
-                Contribute to Archive
-              </button>
+              <button className="btn-primary">Contribute to Archive</button>
             </AnimatedSection>
 
             <AnimatedSection direction="right">
               <div className="bg-gradient-to-r from-cardinal/10 to-gold/10 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold mb-6 text-center">Archive Statistics</h3>
-                
+
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-cardinal">500+</div>
@@ -249,7 +243,8 @@ export default function CulturalLibraryPage() {
           <AnimatedSection direction="up" className="text-center">
             <h2 className="section-title">Contribute to Our Library</h2>
             <p className="section-subtitle mb-8">
-              Help us preserve Vietnamese culture by sharing your family&apos;s stories, photos, or cultural artifacts
+              Help us preserve Vietnamese culture by sharing your family&apos;s stories, photos, or
+              cultural artifacts
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <motion.button

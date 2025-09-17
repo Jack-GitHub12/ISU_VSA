@@ -1,7 +1,7 @@
 export const navigationItems = [
-  { 
-    name: 'Home', 
-    href: '/' 
+  {
+    name: 'Home',
+    href: '/',
   },
   {
     name: 'About',
@@ -43,17 +43,17 @@ export const navigationItems = [
       { name: 'Study Resources', href: '/resources/study' },
     ],
   },
-  { 
-    name: 'Gallery', 
-    href: '/gallery' 
+  {
+    name: 'Gallery',
+    href: '/gallery',
   },
-  { 
-    name: 'VSA Royale', 
-    href: '/vsa-royale', 
-    special: true 
+  {
+    name: 'VSA Royale',
+    href: '/vsa-royale',
+    special: true,
   },
-  { 
-    name: 'Contact', 
-    href: '/contact' 
+  {
+    name: 'Contact',
+    href: '/contact',
   },
 ]

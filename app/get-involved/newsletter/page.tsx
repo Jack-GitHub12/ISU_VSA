@@ -13,23 +13,23 @@ export default function NewsletterPage() {
     {
       icon: Calendar,
       title: 'Event Updates',
-      description: 'Get early access to event announcements and RSVP links'
+      description: 'Get early access to event announcements and RSVP links',
     },
     {
       icon: Users,
       title: 'Member Highlights',
-      description: 'Read about member achievements and success stories'
+      description: 'Read about member achievements and success stories',
     },
     {
       icon: Star,
       title: 'Cultural Content',
-      description: 'Learn about Vietnamese traditions, recipes, and history'
+      description: 'Learn about Vietnamese traditions, recipes, and history',
     },
     {
       icon: Bell,
       title: 'Opportunities',
-      description: 'Be first to know about scholarships, jobs, and volunteer opportunities'
-    }
+      description: 'Be first to know about scholarships, jobs, and volunteer opportunities',
+    },
   ]
 
   const handleSubscribe = (e: React.FormEvent) => {
@@ -57,7 +57,9 @@ export default function NewsletterPage() {
         <div className="max-w-4xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Subscribe to VSA Updates</h2>
-            <p className="section-subtitle">Join 500+ members staying informed about VSA activities</p>
+            <p className="section-subtitle">
+              Join 500+ members staying informed about VSA activities
+            </p>
           </AnimatedSection>
 
           <AnimatedSection direction="up">
@@ -80,14 +82,10 @@ export default function NewsletterPage() {
                   </div>
 
                   <div className="flex items-start">
-                    <input
-                      type="checkbox"
-                      id="terms"
-                      className="mt-1 mr-3"
-                      required
-                    />
+                    <input type="checkbox" id="terms" className="mt-1 mr-3" required />
                     <label htmlFor="terms" className="text-sm text-gray-600">
-                      I agree to receive newsletters and updates from ISU VSA. You can unsubscribe at any time.
+                      I agree to receive newsletters and updates from ISU VSA. You can unsubscribe
+                      at any time.
                     </label>
                   </div>
 
@@ -106,7 +104,8 @@ export default function NewsletterPage() {
                   <CheckCircle className="w-16 h-16 text-green-600 mx-auto mb-4" />
                   <h3 className="text-2xl font-bold mb-2">Welcome to the VSA Family!</h3>
                   <p className="text-gray-600 mb-6">
-                    You&apos;ve successfully subscribed to our newsletter. Check your email for a confirmation message.
+                    You&apos;ve successfully subscribed to our newsletter. Check your email for a
+                    confirmation message.
                   </p>
                   <button
                     onClick={() => setIsSubscribed(false)}
@@ -131,11 +130,7 @@ export default function NewsletterPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {features.map((feature, index) => (
-              <AnimatedSection
-                key={feature.title}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={feature.title} direction="up" delay={index * 0.1}>
                 <div className="text-center">
                   <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
                     <feature.icon className="w-8 h-8 text-white" />
@@ -163,7 +158,7 @@ export default function NewsletterPage() {
                 <h3 className="text-2xl font-bold">VSA Monthly - January 2025</h3>
                 <p className="text-gold-light">Celebrating Tết and New Beginnings</p>
               </div>
-              
+
               <div className="p-6 space-y-6">
                 <div>
                   <h4 className="text-lg font-bold text-cardinal mb-2">🎉 Upcoming Events</h4>
@@ -177,8 +172,8 @@ export default function NewsletterPage() {
                 <div>
                   <h4 className="text-lg font-bold text-cardinal mb-2">⭐ Member Spotlight</h4>
                   <p className="text-gray-700">
-                    Congratulations to Sarah Nguyen for landing her internship at Google! 
-                    Read about her journey and tips for fellow students.
+                    Congratulations to Sarah Nguyen for landing her internship at Google! Read about
+                    her journey and tips for fellow students.
                   </p>
                 </div>
 

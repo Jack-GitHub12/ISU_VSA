@@ -3,7 +3,17 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import { Calendar, MapPin, Users, Star, Filter, Heart, Image as ImageIcon, Video, Download } from 'lucide-react'
+import {
+  Calendar,
+  MapPin,
+  Users,
+  Star,
+  Filter,
+  Heart,
+  Image as ImageIcon,
+  Video,
+  Download,
+} from 'lucide-react'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 
 export default function PastEventsPage() {
@@ -19,16 +29,25 @@ export default function PastEventsPage() {
       location: 'Memorial Union Great Hall',
       category: 'cultural',
       year: '2024',
-      description: 'Our biggest celebration of the year with over 400 attendees, featuring traditional lion dances, authentic Vietnamese cuisine, and cultural performances.',
+      description:
+        'Our biggest celebration of the year with over 400 attendees, featuring traditional lion dances, authentic Vietnamese cuisine, and cultural performances.',
       attendees: 420,
-      image: '/placeholder.svg',
-      highlights: ['Lion Dance Performance', 'Traditional Music', 'Vietnamese Cuisine', 'Cultural Exhibits'],
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: [
+        'Lion Dance Performance',
+        'Traditional Music',
+        'Vietnamese Cuisine',
+        'Cultural Exhibits',
+      ],
       photos: 45,
       videos: 3,
       testimonials: [
         { name: 'Sarah Chen', text: 'Amazing celebration! Felt like home.' },
-        { name: 'Michael Nguyen', text: 'The food was incredible and the performances were beautiful.' }
-      ]
+        {
+          name: 'Michael Nguyen',
+          text: 'The food was incredible and the performances were beautiful.',
+        },
+      ],
     },
     {
       id: 2,
@@ -38,16 +57,22 @@ export default function PastEventsPage() {
       location: 'Stephens Auditorium',
       category: 'cultural',
       year: '2024',
-      description: 'A spectacular showcase of Vietnamese and Asian culture with dance performances, musical acts, and traditional fashion show.',
+      description:
+        'A spectacular showcase of Vietnamese and Asian culture with dance performances, musical acts, and traditional fashion show.',
       attendees: 280,
-      image: '/placeholder.svg',
-      highlights: ['Traditional Dances', 'Fashion Show', 'Musical Performances', 'Cultural Stories'],
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: [
+        'Traditional Dances',
+        'Fashion Show',
+        'Musical Performances',
+        'Cultural Stories',
+      ],
       photos: 62,
       videos: 5,
       testimonials: [
         { name: 'Emma Liu', text: 'The traditional dances were breathtaking!' },
-        { name: 'David Tran', text: 'Proud to see our culture represented so beautifully.' }
-      ]
+        { name: 'David Tran', text: 'Proud to see our culture represented so beautifully.' },
+      ],
     },
     {
       id: 3,
@@ -57,16 +82,22 @@ export default function PastEventsPage() {
       location: 'Memorial Union Oak Room',
       category: 'cultural',
       year: '2024',
-      description: 'Celebrated the harvest moon with mooncake making, lantern crafting, and storytelling for families and students.',
+      description:
+        'Celebrated the harvest moon with mooncake making, lantern crafting, and storytelling for families and students.',
       attendees: 95,
-      image: '/placeholder.svg',
-      highlights: ['Mooncake Making', 'Lantern Crafting', 'Traditional Stories', 'Family Activities'],
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: [
+        'Mooncake Making',
+        'Lantern Crafting',
+        'Traditional Stories',
+        'Family Activities',
+      ],
       photos: 28,
       videos: 2,
       testimonials: [
         { name: 'Jennifer Park', text: 'Making mooncakes was so much fun!' },
-        { name: 'Kevin Do', text: 'Great way to learn about traditions.' }
-      ]
+        { name: 'Kevin Do', text: 'Great way to learn about traditions.' },
+      ],
     },
     {
       id: 4,
@@ -76,16 +107,17 @@ export default function PastEventsPage() {
       location: 'Student Innovation Center',
       category: 'culinary',
       year: '2024',
-      description: 'Teams competed to create the best phở while sharing cooking techniques and family recipes.',
+      description:
+        'Teams competed to create the best phở while sharing cooking techniques and family recipes.',
       attendees: 60,
-      image: '/placeholder.svg',
+      image: '/images/eboard/eboardGroup.JPG',
       highlights: ['Cooking Competition', 'Recipe Sharing', 'Taste Testing', 'Prizes'],
       photos: 35,
       videos: 4,
       testimonials: [
         { name: 'Lisa Vo', text: 'Learned so many new cooking techniques!' },
-        { name: 'James Kim', text: 'The competition was intense but fun!' }
-      ]
+        { name: 'James Kim', text: 'The competition was intense but fun!' },
+      ],
     },
     {
       id: 5,
@@ -95,16 +127,17 @@ export default function PastEventsPage() {
       location: 'Parks Library',
       category: 'gaming',
       year: '2024',
-      description: 'Our inaugural tournament for VSA Royale attracted gamers from across the Midwest with $500 in prizes.',
+      description:
+        'Our inaugural tournament for VSA Royale attracted gamers from across the Midwest with $500 in prizes.',
       attendees: 75,
-      image: '/placeholder.svg',
+      image: '/images/eboard/eboardGroup.JPG',
       highlights: ['Tournament Brackets', '$500 Prize Pool', 'Live Streaming', 'Gaming Community'],
       photos: 22,
       videos: 6,
       testimonials: [
         { name: 'Alex Chen', text: 'The gaming setup was professional quality!' },
-        { name: 'Maria Santos', text: 'Great atmosphere, even for non-gamers.' }
-      ]
+        { name: 'Maria Santos', text: 'Great atmosphere, even for non-gamers.' },
+      ],
     },
     {
       id: 6,
@@ -114,16 +147,17 @@ export default function PastEventsPage() {
       location: 'Food Bank of Iowa',
       category: 'service',
       year: '2024',
-      description: 'Members volunteered during spring break to help pack and distribute food to families in need.',
+      description:
+        'Members volunteered during spring break to help pack and distribute food to families in need.',
       attendees: 35,
-      image: '/placeholder.svg',
+      image: '/images/eboard/eboardGroup.JPG',
       highlights: ['Community Service', 'Food Distribution', 'Team Building', 'Social Impact'],
       photos: 18,
       videos: 1,
       testimonials: [
         { name: 'Rachel Nguyen', text: 'Meaningful way to spend spring break.' },
-        { name: 'Tommy Le', text: 'Felt good giving back to the community.' }
-      ]
+        { name: 'Tommy Le', text: 'Felt good giving back to the community.' },
+      ],
     },
     // 2023 Events
     {
@@ -134,16 +168,22 @@ export default function PastEventsPage() {
       location: 'Memorial Union Great Hall',
       category: 'cultural',
       year: '2023',
-      description: 'Welcomed the Year of the Rabbit with traditional celebrations and over 380 community members.',
+      description:
+        'Welcomed the Year of the Rabbit with traditional celebrations and over 380 community members.',
       attendees: 380,
-      image: '/placeholder.svg',
-      highlights: ['Dragon Dance', 'Traditional Games', 'Vietnamese Cuisine', 'Red Envelope Ceremony'],
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: [
+        'Dragon Dance',
+        'Traditional Games',
+        'Vietnamese Cuisine',
+        'Red Envelope Ceremony',
+      ],
       photos: 53,
       videos: 4,
       testimonials: [
         { name: 'Diana Wong', text: 'Felt the warmth of Vietnamese community.' },
-        { name: 'Steven Pham', text: 'The dragon dance was incredible!' }
-      ]
+        { name: 'Steven Pham', text: 'The dragon dance was incredible!' },
+      ],
     },
     {
       id: 8,
@@ -153,17 +193,23 @@ export default function PastEventsPage() {
       location: 'Memorial Union South Ballroom',
       category: 'educational',
       year: '2023',
-      description: 'Educational exhibits, guest speakers, and cultural workshops celebrating Vietnamese heritage and history.',
+      description:
+        'Educational exhibits, guest speakers, and cultural workshops celebrating Vietnamese heritage and history.',
       attendees: 150,
-      image: '/placeholder.svg',
-      highlights: ['Educational Exhibits', 'Guest Speakers', 'Cultural Workshops', 'Historical Displays'],
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: [
+        'Educational Exhibits',
+        'Guest Speakers',
+        'Cultural Workshops',
+        'Historical Displays',
+      ],
       photos: 31,
       videos: 3,
       testimonials: [
         { name: 'Grace Tran', text: 'Learned so much about our history.' },
-        { name: 'Ben Hoang', text: 'Important cultural education for everyone.' }
-      ]
-    }
+        { name: 'Ben Hoang', text: 'Important cultural education for everyone.' },
+      ],
+    },
   ]
 
   const years = ['2024', '2023', '2022', '2021']
@@ -176,7 +222,7 @@ export default function PastEventsPage() {
     { id: 'service', name: 'Service', icon: Heart },
   ]
 
-  const filteredEvents = pastEvents.filter(event => {
+  const filteredEvents = pastEvents.filter((event) => {
     const yearMatch = selectedYear === 'all' || event.year === selectedYear
     const categoryMatch = selectedCategory === 'all' || event.category === selectedCategory
     return yearMatch && categoryMatch
@@ -184,12 +230,18 @@ export default function PastEventsPage() {
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case 'cultural': return 'from-purple-500 to-purple-700'
-      case 'culinary': return 'from-orange-500 to-red-600'
-      case 'educational': return 'from-blue-500 to-blue-700'
-      case 'gaming': return 'from-green-500 to-green-700'
-      case 'service': return 'from-pink-500 to-pink-700'
-      default: return 'from-gray-500 to-gray-700'
+      case 'cultural':
+        return 'from-purple-500 to-purple-700'
+      case 'culinary':
+        return 'from-orange-500 to-red-600'
+      case 'educational':
+        return 'from-blue-500 to-blue-700'
+      case 'gaming':
+        return 'from-green-500 to-green-700'
+      case 'service':
+        return 'from-pink-500 to-pink-700'
+      default:
+        return 'from-gray-500 to-gray-700'
     }
   }
 
@@ -307,11 +359,7 @@ export default function PastEventsPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredEvents.map((event, index) => (
-              <AnimatedSection
-                key={event.id}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={event.id} direction="up" delay={index * 0.1}>
                 <div className="card h-full flex flex-col">
                   <div className="relative h-48 mb-4 rounded-lg overflow-hidden">
                     <Image
@@ -321,7 +369,9 @@ export default function PastEventsPage() {
                       className="object-cover hover:scale-110 transition-transform duration-300"
                     />
                     <div className="absolute top-2 left-2">
-                      <span className={`px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${getCategoryColor(event.category)}`}>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${getCategoryColor(event.category)}`}
+                      >
                         {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
                       </span>
                     </div>
@@ -349,11 +399,11 @@ export default function PastEventsPage() {
                   <div className="space-y-2 text-sm text-gray-600 mb-4">
                     <div className="flex items-center">
                       <Calendar className="w-4 h-4 mr-2 text-cardinal" />
-                      {new Date(event.date).toLocaleDateString('en-US', { 
-                        weekday: 'short', 
-                        month: 'short', 
+                      {new Date(event.date).toLocaleDateString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
                         day: 'numeric',
-                        year: 'numeric'
+                        year: 'numeric',
                       })}
                     </div>
                     <div className="flex items-center">
@@ -370,12 +420,17 @@ export default function PastEventsPage() {
                   <div className="mb-4">
                     <div className="flex flex-wrap gap-1">
                       {event.highlights.slice(0, 2).map((highlight) => (
-                        <span key={highlight} className="bg-gold/20 text-charcoal px-2 py-1 rounded text-xs">
+                        <span
+                          key={highlight}
+                          className="bg-gold/20 text-charcoal px-2 py-1 rounded text-xs"
+                        >
                           {highlight}
                         </span>
                       ))}
                       {event.highlights.length > 2 && (
-                        <span className="text-xs text-gray-500">+{event.highlights.length - 2} more</span>
+                        <span className="text-xs text-gray-500">
+                          +{event.highlights.length - 2} more
+                        </span>
                       )}
                     </div>
                   </div>
@@ -383,7 +438,9 @@ export default function PastEventsPage() {
                   {/* Testimonial */}
                   {event.testimonials.length > 0 && (
                     <div className="bg-gray-50 p-3 rounded-lg mb-4">
-                      <p className="text-sm italic text-gray-600">&quot;{event.testimonials[0].text}&quot;</p>
+                      <p className="text-sm italic text-gray-600">
+                        &quot;{event.testimonials[0].text}&quot;
+                      </p>
                       <p className="text-xs text-gray-500 mt-1">- {event.testimonials[0].name}</p>
                     </div>
                   )}

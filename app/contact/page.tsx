@@ -2,29 +2,71 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  Mail, Phone, MapPin, Clock, Send, 
-  Facebook, Instagram, Linkedin, MessageCircle 
-} from 'lucide-react'
+import { Mail, MapPin, Clock, Send, Instagram, MessageSquare } from 'lucide-react'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     subject: '',
-    message: ''
+    message: '',
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null
+    message: string
+  }>({ type: null, message: '' })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', formData)
-    // Handle form submission
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: data.message || 'Message sent successfully!',
+        })
+        // Reset form
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+        })
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Failed to send message. Please try again.',
+        })
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     })
   }
 
@@ -63,7 +105,10 @@ export default function ContactPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Your Name *
                       </label>
                       <input
@@ -78,7 +123,10 @@ export default function ContactPage() {
                       />
                     </div>
                     <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
                         Email Address *
                       </label>
                       <input
@@ -95,7 +143,10 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Subject *
                     </label>
                     <select
@@ -116,7 +167,10 @@ export default function ContactPage() {
                   </div>
 
                   <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
                       Message *
                     </label>
                     <textarea
@@ -131,12 +185,57 @@ export default function ContactPage() {
                     />
                   </div>
 
+                  {submitStatus.type && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-4 rounded-lg ${
+                        submitStatus.type === 'success'
+                          ? 'bg-green-50 text-green-800 border border-green-200'
+                          : 'bg-red-50 text-red-800 border border-red-200'
+                      }`}
+                    >
+                      {submitStatus.message}
+                    </motion.div>
+                  )}
+
                   <button
                     type="submit"
-                    className="btn-primary w-full flex items-center justify-center"
+                    disabled={isSubmitting}
+                    className={`btn-primary w-full flex items-center justify-center ${
+                      isSubmitting ? 'opacity-70 cursor-not-allowed' : ''
+                    }`}
                   >
-                    <Send className="w-5 h-5 mr-2" />
-                    Send Message
+                    {isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin h-5 w-5 mr-2"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
                   </button>
                 </form>
               </div>
@@ -154,37 +253,39 @@ export default function ContactPage() {
                 <h3 className="text-xl font-bold mb-4">Quick Contact</h3>
                 <div className="space-y-4">
                   <a
-                    href="mailto:isuvsa@iastate.edu"
+                    href="mailto:isuvsa@gmail.com"
                     className="flex items-start space-x-3 text-gray-600 hover:text-cardinal transition-colors"
                   >
                     <Mail className="w-5 h-5 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-medium">Email</p>
-                      <p className="text-sm">isuvsa@iastate.edu</p>
+                      <p className="text-sm">isuvsa@gmail.com</p>
                     </div>
                   </a>
-                  
-                  <div className="flex items-start space-x-3 text-gray-600">
-                    <Phone className="w-5 h-5 mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Phone</p>
-                      <p className="text-sm">(515) 555-0100</p>
-                    </div>
-                  </div>
 
                   <div className="flex items-start space-x-3 text-gray-600">
                     <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-medium">Location</p>
-                      <p className="text-sm">Memorial Union<br />2229 Lincoln Way<br />Ames, IA 50011</p>
+                      <p className="text-sm">
+                        Memorial Union
+                        <br />
+                        2229 Lincoln Way
+                        <br />
+                        Ames, IA 50011
+                      </p>
                     </div>
                   </div>
 
                   <div className="flex items-start space-x-3 text-gray-600">
                     <Clock className="w-5 h-5 mt-1 flex-shrink-0" />
                     <div>
-                      <p className="font-medium">Office Hours</p>
-                      <p className="text-sm">Mon-Fri: 10 AM - 4 PM<br />General meetings: Thursdays 7 PM</p>
+                      <p className="font-medium">Meetings</p>
+                      <p className="text-sm">
+                        Bi-weekly during fall and spring semesters
+                        <br />
+                        Check Instagram for latest updates
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -193,41 +294,23 @@ export default function ContactPage() {
               {/* Social Media */}
               <div className="card">
                 <h3 className="text-xl font-bold mb-4">Connect With Us</h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <a
-                    href="https://facebook.com/isuvsa"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors"
-                  >
-                    <Facebook className="w-5 h-5" />
-                    <span className="text-sm font-medium">Facebook</span>
-                  </a>
-                  
+                <div className="space-y-3">
                   <a
                     href="https://instagram.com/isuvsa"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 bg-gradient-to-br from-purple-600 to-pink-500 text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"
+                    className="flex items-center justify-center space-x-2 bg-gradient-to-br from-purple-600 to-pink-500 text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity w-full"
                   >
                     <Instagram className="w-5 h-5" />
-                    <span className="text-sm font-medium">Instagram</span>
+                    <span className="font-medium">Follow @isuvsa</span>
                   </a>
 
                   <a
                     href="#"
-                    className="flex items-center justify-center space-x-2 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition-colors"
+                    className="flex items-center justify-center space-x-2 bg-[#5865F2] text-white py-3 px-4 rounded-lg hover:bg-[#4752C4] transition-colors w-full"
                   >
-                    <Linkedin className="w-5 h-5" />
-                    <span className="text-sm font-medium">LinkedIn</span>
-                  </a>
-
-                  <a
-                    href="#"
-                    className="flex items-center justify-center space-x-2 bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors"
-                  >
-                    <MessageCircle className="w-5 h-5" />
-                    <span className="text-sm font-medium">GroupMe</span>
+                    <MessageSquare className="w-5 h-5" />
+                    <span className="font-medium">Join Discord</span>
                   </a>
                 </div>
               </div>
@@ -269,20 +352,24 @@ export default function ContactPage() {
             {[
               {
                 question: 'How do I become a member of ISU VSA?',
-                answer: 'Simply attend our general meetings or events! Official membership involves paying dues ($20/semester) which gives you voting rights and discounts on events.'
+                answer:
+                  'ISU VSA membership is open to all Iowa State students, faculty, alumni, and community members. Simply attend our meetings and events! To be a voting member, you must attend 51% of events/meetings.',
               },
               {
                 question: 'Do I need to be Vietnamese to join?',
-                answer: 'Not at all! ISU VSA welcomes students of all backgrounds who are interested in Vietnamese culture and community.'
+                answer:
+                  'Not at all! ISU VSA welcomes everyone interested in Vietnamese culture and community, regardless of background.',
               },
               {
                 question: 'When are general meetings held?',
-                answer: 'General meetings are held every Thursday at 7 PM in the Memorial Union. Check our events page for specific room locations.'
+                answer:
+                  'General meetings are held bi-weekly during fall and spring semesters. Check our Instagram @isuvsa for the latest meeting times and locations.',
               },
               {
                 question: 'How can I get involved in planning events?',
-                answer: 'Join one of our committees! We have cultural, social, PR, fundraising, and community service committees that are always looking for help.'
-              }
+                answer:
+                  'We have various committee positions including Event Managers, PR Chair, Education Chair, and Fundraising roles. Elections are held yearly at the end of spring semester.',
+              },
             ].map((faq, index) => (
               <motion.div
                 key={index}

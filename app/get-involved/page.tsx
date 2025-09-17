@@ -3,28 +3,45 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Users, Heart, Briefcase, Mail, ArrowRight, Star, Calendar, Award, BookOpen } from 'lucide-react'
+import {
+  Users,
+  Heart,
+  Briefcase,
+  Mail,
+  ArrowRight,
+  Star,
+  Calendar,
+  Award,
+  BookOpen,
+} from 'lucide-react'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 
 export default function GetInvolvedPage() {
   const involvementOptions = [
     {
       title: 'Membership',
-      description: 'Join our community of students passionate about Vietnamese culture and academic excellence',
+      description:
+        'Join our community of students passionate about Vietnamese culture and academic excellence',
       icon: Users,
       link: '/get-involved/membership',
-      benefits: ['Access to all events', 'Leadership opportunities', 'Networking', 'Cultural activities'],
+      benefits: [
+        'Access to all events',
+        'Leadership opportunities',
+        'Networking',
+        'Cultural activities',
+      ],
       color: 'from-cardinal to-red-700',
-      featured: true
+      featured: true,
     },
     {
       title: 'Committees',
-      description: 'Lead specific initiatives and help shape the future of VSA through committee work',
+      description:
+        'Lead specific initiatives and help shape the future of VSA through committee work',
       icon: Briefcase,
       link: '/get-involved/committees',
       benefits: ['Leadership roles', 'Event planning', 'Skill development', 'Resume building'],
       color: 'from-blue-500 to-blue-700',
-      featured: false
+      featured: false,
     },
     {
       title: 'Volunteer',
@@ -33,7 +50,7 @@ export default function GetInvolvedPage() {
       link: '/get-involved/volunteer',
       benefits: ['Community impact', 'Meet new people', 'Flexible commitment', 'Service hours'],
       color: 'from-green-500 to-green-700',
-      featured: false
+      featured: false,
     },
     {
       title: 'Newsletter',
@@ -42,63 +59,51 @@ export default function GetInvolvedPage() {
       link: '/get-involved/newsletter',
       benefits: ['Event updates', 'Opportunities', 'Member highlights', 'Cultural content'],
       color: 'from-purple-500 to-purple-700',
-      featured: false
-    }
+      featured: false,
+    },
   ]
 
   const whyJoin = [
     {
       icon: Star,
       title: 'Cultural Connection',
-      description: 'Connect with your Vietnamese heritage and share it with others'
+      description: 'Connect with your Vietnamese heritage and share it with others',
     },
     {
       icon: Users,
       title: 'Lifelong Friendships',
-      description: 'Build meaningful relationships that extend beyond college'
+      description: 'Build meaningful relationships that extend beyond college',
     },
     {
       icon: Calendar,
       title: 'Amazing Events',
-      description: 'Participate in cultural celebrations, social gatherings, and service projects'
+      description: 'Participate in cultural celebrations, social gatherings, and service projects',
     },
     {
       icon: Award,
       title: 'Leadership Development',
-      description: 'Develop leadership skills through hands-on experience'
+      description: 'Develop leadership skills through hands-on experience',
     },
     {
       icon: BookOpen,
       title: 'Academic Support',
-      description: 'Study groups, mentorship, and academic resources'
+      description: 'Study groups, mentorship, and academic resources',
     },
     {
       icon: Heart,
       title: 'Community Impact',
-      description: 'Make a difference in the Vietnamese and ISU communities'
-    }
+      description: 'Make a difference in the Vietnamese and ISU communities',
+    },
   ]
 
-  const testimonials = [
-    {
-      name: 'Sarah Nguyen',
-      role: 'Senior, Computer Science',
-      photo: '/placeholder.svg',
-      quote: 'VSA gave me a home away from home. I found my best friends here and developed leadership skills that helped me land my dream internship.'
-    },
-    {
-      name: 'Michael Tran',
-      role: 'Junior, Business',
-      photo: '/placeholder.svg',
-      quote: 'Being part of VSA helped me reconnect with my Vietnamese roots while building professional networks that will last a lifetime.'
-    },
-    {
-      name: 'Emily Le',
-      role: 'Sophomore, Engineering',
-      photo: '/placeholder.svg',
-      quote: 'The study groups and mentorship program helped me excel academically while staying connected to my culture.'
-    }
-  ]
+  // Real member testimonials will be added after collecting feedback from current members
+  // Contact isuvsa@gmail.com to submit your VSA experience
+  const testimonials: Array<{
+    name: string
+    role: string
+    photo: string
+    quote: string
+  }> = []
 
   return (
     <div className="min-h-screen">
@@ -108,7 +113,8 @@ export default function GetInvolvedPage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Get Involved</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto mb-8">
-              Join a vibrant community of students celebrating Vietnamese culture and achieving academic excellence
+              Join a vibrant community of students celebrating Vietnamese culture and achieving
+              academic excellence
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -138,18 +144,24 @@ export default function GetInvolvedPage() {
                 delay={index * 0.1}
               >
                 <Link href={option.link}>
-                  <div className={`card h-full group cursor-pointer ${option.featured ? 'ring-2 ring-cardinal' : ''}`}>
+                  <div
+                    className={`card h-full group cursor-pointer ${option.featured ? 'ring-2 ring-cardinal' : ''}`}
+                  >
                     {option.featured && (
                       <div className="bg-cardinal text-white px-3 py-1 rounded-full text-sm font-semibold mb-4 inline-block">
                         Most Popular
                       </div>
                     )}
-                    
+
                     <div className="flex items-center mb-4">
-                      <div className={`w-16 h-16 bg-gradient-to-br ${option.color} rounded-full flex items-center justify-center mr-4`}>
+                      <div
+                        className={`w-16 h-16 bg-gradient-to-br ${option.color} rounded-full flex items-center justify-center mr-4`}
+                      >
                         <option.icon className="w-8 h-8 text-white" />
                       </div>
-                      <h3 className="text-2xl font-bold group-hover:text-cardinal transition-colors">{option.title}</h3>
+                      <h3 className="text-2xl font-bold group-hover:text-cardinal transition-colors">
+                        {option.title}
+                      </h3>
                     </div>
 
                     <p className="text-gray-600 mb-6">{option.description}</p>
@@ -188,11 +200,7 @@ export default function GetInvolvedPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {whyJoin.map((reason, index) => (
-              <AnimatedSection
-                key={reason.title}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={reason.title} direction="up" delay={index * 0.1}>
                 <div className="text-center">
                   <div className="w-20 h-20 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                     <reason.icon className="w-10 h-10 text-white" />
@@ -215,31 +223,39 @@ export default function GetInvolvedPage() {
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <AnimatedSection
-                key={testimonial.name}
-                direction="up"
-                delay={index * 0.2}
-              >
-                <div className="card text-center h-full">
-                  <div className="relative w-20 h-20 mx-auto mb-4">
-                    <Image
-                      src={testimonial.photo}
-                      alt={testimonial.name}
-                      fill
-                      className="object-cover rounded-full"
-                    />
+            {testimonials.length > 0 ? (
+              testimonials.map((testimonial, index) => (
+                <AnimatedSection key={testimonial.name} direction="up" delay={index * 0.2}>
+                  <div className="card text-center h-full">
+                    <div className="relative w-20 h-20 mx-auto mb-4">
+                      <Image
+                        src={testimonial.photo}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover rounded-full"
+                      />
+                    </div>
+                    <blockquote className="text-gray-700 italic mb-4 flex-grow">
+                      &quot;{testimonial.quote}&quot;
+                    </blockquote>
+                    <div>
+                      <h4 className="font-bold text-charcoal">{testimonial.name}</h4>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
+                    </div>
                   </div>
-                  <blockquote className="text-gray-700 italic mb-4 flex-grow">
-                    &quot;{testimonial.quote}&quot;
-                  </blockquote>
-                  <div>
-                    <h4 className="font-bold text-charcoal">{testimonial.name}</h4>
-                    <p className="text-sm text-gray-600">{testimonial.role}</p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
+                </AnimatedSection>
+              ))
+            ) : (
+              <div className="col-span-3 text-center py-12">
+                <p className="text-lg text-gray-600">
+                  Member testimonials coming soon! Contact{' '}
+                  <a href="mailto:isuvsa@gmail.com" className="text-cardinal hover:underline">
+                    isuvsa@gmail.com
+                  </a>{' '}
+                  to share your VSA experience.
+                </p>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -294,7 +310,8 @@ export default function GetInvolvedPage() {
             <div className="bg-white rounded-lg p-8 shadow-lg">
               <h3 className="text-2xl font-bold mb-4">Ready to Join?</h3>
               <p className="text-gray-600 mb-6">
-                Start your journey with VSA today and become part of a community that will support you throughout your time at ISU and beyond.
+                Start your journey with VSA today and become part of a community that will support
+                you throughout your time at ISU and beyond.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <motion.button

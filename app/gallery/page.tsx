@@ -8,81 +8,107 @@ import { X, ChevronLeft, ChevronRight, Play, Grid, Film } from 'lucide-react'
 const albums = [
   {
     id: 1,
-    title: 'Tết Festival 2024',
-    date: '2024-02-10',
-    coverImage: '/placeholder.svg',
-    imageCount: 45,
-    images: Array(12).fill('/placeholder.svg')
+    title: 'Executive Board 2024',
+    date: '2024-09-01',
+    coverImage: '/images/eboard/eboardGroup.JPG',
+    imageCount: 5,
+    images: [
+      '/images/eboard/eboardGroup.JPG',
+      '/images/eboard/eboardGroup_Smile.JPG',
+      '/images/eboard/theBoys.JPG',
+      '/images/eboard/jen_sab.JPG',
+      '/images/eboard/threeStack.JPG',
+      '/images/dong/dongKawaii.JPG',
+      '/images/dong/dongKawaii_Closeup.JPG',
+      '/images/dong/dongScream.JPG',
+      '/images/eboard/eboardGroup.JPG',
+      '/images/eboard/eboardGroup_Smile.JPG',
+      '/images/eboard/theBoys.JPG',
+      '/images/eboard/jen_sab.JPG',
+    ],
   },
   {
     id: 2,
-    title: 'Welcome Week Fall 2024',
+    title: 'VSA Mascot - Dong',
     date: '2024-08-25',
-    coverImage: '/placeholder.svg',
-    imageCount: 32,
-    images: Array(12).fill('/placeholder.svg')
+    coverImage: '/images/dong/dongKawaii.JPG',
+    imageCount: 3,
+    images: [
+      '/images/dong/dongKawaii.JPG',
+      '/images/dong/dongKawaii_Closeup.JPG',
+      '/images/dong/dongScream.JPG',
+      '/images/dong/dongKawaii.JPG',
+      '/images/dong/dongKawaii_Closeup.JPG',
+      '/images/dong/dongScream.JPG',
+      '/images/dong/dongKawaii.JPG',
+      '/images/dong/dongKawaii_Closeup.JPG',
+      '/images/dong/dongScream.JPG',
+      '/images/dong/dongKawaii.JPG',
+      '/images/dong/dongKawaii_Closeup.JPG',
+      '/images/dong/dongScream.JPG',
+    ],
   },
   {
     id: 3,
-    title: 'Mid-Autumn Festival',
+    title: 'Team Photos',
     date: '2024-09-17',
-    coverImage: '/placeholder.svg',
+    coverImage: '/images/eboard/theBoys.JPG',
     imageCount: 28,
-    images: Array(12).fill('/placeholder.svg')
+    images: Array(12).fill('/images/eboard/theBoys.JPG'),
   },
   {
     id: 4,
-    title: 'VSA Formal 2024',
+    title: 'VSA Activities',
     date: '2024-04-20',
-    coverImage: '/placeholder.svg',
+    coverImage: '/images/eboard/jen_sab.JPG',
     imageCount: 56,
-    images: Array(12).fill('/placeholder.svg')
+    images: Array(12).fill('/images/eboard/jen_sab.JPG'),
   },
   {
     id: 5,
-    title: 'Community Service Day',
+    title: 'Community Events',
     date: '2024-03-15',
-    coverImage: '/placeholder.svg',
+    coverImage: '/images/eboard/threeStack.JPG',
     imageCount: 24,
-    images: Array(12).fill('/placeholder.svg')
+    images: Array(12).fill('/images/eboard/threeStack.JPG'),
   },
   {
     id: 6,
-    title: 'Cultural Night 2024',
+    title: 'Cultural Celebrations',
     date: '2024-11-08',
-    coverImage: '/placeholder.svg',
+    coverImage: '/images/dong/dongScream.JPG',
     imageCount: 67,
-    images: Array(12).fill('/placeholder.svg')
-  }
+    images: Array(12).fill('/images/dong/dongScream.JPG'),
+  },
 ]
 
 const videos = [
   {
     id: 1,
     title: 'Tết 2024 Highlights',
-    thumbnail: '/placeholder.svg',
+    thumbnail: '/images/eboard/eboardGroup_Smile.JPG',
     duration: '3:45',
-    views: 1234
+    views: 1234,
   },
   {
     id: 2,
     title: 'VSA Dance Performance',
-    thumbnail: '/placeholder.svg',
+    thumbnail: '/images/dong/dongKawaii.JPG',
     duration: '5:20',
-    views: 876
+    views: 876,
   },
   {
     id: 3,
     title: 'Welcome to ISU VSA',
-    thumbnail: '/placeholder.svg',
+    thumbnail: '/images/eboard/theBoys.JPG',
     duration: '2:15',
-    views: 2103
-  }
+    views: 2103,
+  },
 ]
 
 export default function GalleryPage() {
   const [viewMode, setViewMode] = useState<'photos' | 'videos'>('photos')
-  const [selectedAlbum, setSelectedAlbum] = useState<typeof albums[0] | null>(null)
+  const [selectedAlbum, setSelectedAlbum] = useState<(typeof albums)[0] | null>(null)
   const [lightboxImage, setLightboxImage] = useState<{ src: string; index: number } | null>(null)
 
   const openLightbox = (src: string, index: number) => {
@@ -95,7 +121,7 @@ export default function GalleryPage() {
 
   const navigateLightbox = (direction: 'prev' | 'next') => {
     if (!lightboxImage || !selectedAlbum) return
-    
+
     const currentIndex = lightboxImage.index
     const totalImages = selectedAlbum.images.length
     let newIndex = currentIndex
@@ -108,7 +134,7 @@ export default function GalleryPage() {
 
     setLightboxImage({
       src: selectedAlbum.images[newIndex],
-      index: newIndex
+      index: newIndex,
     })
   }
 
@@ -190,13 +216,12 @@ export default function GalleryPage() {
                           <div className="absolute bottom-4 left-6 right-6 text-white">
                             <h3 className="text-2xl font-bold mb-1">{album.title}</h3>
                             <p className="text-sm opacity-90">
-                              {new Date(album.date).toLocaleDateString()} • {album.imageCount} photos
+                              {new Date(album.date).toLocaleDateString()} • {album.imageCount}{' '}
+                              photos
                             </p>
                           </div>
                         </div>
-                        <p className="text-center text-cardinal font-semibold">
-                          View Album →
-                        </p>
+                        <p className="text-center text-cardinal font-semibold">View Album →</p>
                       </div>
                     </motion.div>
                   ))}
@@ -213,10 +238,11 @@ export default function GalleryPage() {
                   <ChevronLeft className="w-5 h-5 mr-2" />
                   Back to Albums
                 </button>
-                
+
                 <h2 className="text-3xl font-bold mb-2">{selectedAlbum.title}</h2>
                 <p className="text-gray-600 mb-8">
-                  {new Date(selectedAlbum.date).toLocaleDateString()} • {selectedAlbum.imageCount} photos
+                  {new Date(selectedAlbum.date).toLocaleDateString()} • {selectedAlbum.imageCount}{' '}
+                  photos
                 </p>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -275,9 +301,7 @@ export default function GalleryPage() {
                   <h3 className="font-semibold text-lg group-hover:text-cardinal transition-colors">
                     {video.title}
                   </h3>
-                  <p className="text-sm text-gray-600">
-                    {video.views.toLocaleString()} views
-                  </p>
+                  <p className="text-sm text-gray-600">{video.views.toLocaleString()} views</p>
                 </motion.div>
               ))}
             </div>
@@ -301,7 +325,7 @@ export default function GalleryPage() {
             >
               <X className="w-8 h-8" />
             </button>
-            
+
             <button
               onClick={(e) => {
                 e.stopPropagation()
@@ -312,10 +336,7 @@ export default function GalleryPage() {
               <ChevronLeft className="w-12 h-12" />
             </button>
 
-            <div 
-              className="relative max-w-6xl max-h-[90vh]"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <div className="relative max-w-6xl max-h-[90vh]" onClick={(e) => e.stopPropagation()}>
               <Image
                 src={lightboxImage.src}
                 alt="Lightbox image"

@@ -8,13 +8,14 @@ export default function LanguagePage() {
   const resources = [
     {
       title: 'Beginner Vietnamese Course',
-      description: 'Start your Vietnamese language journey with basic pronunciation and common phrases',
+      description:
+        'Start your Vietnamese language journey with basic pronunciation and common phrases',
       level: 'Beginner',
       duration: '8 weeks',
       format: 'In-person & Online',
       topics: ['Basic pronunciation', 'Greetings', 'Numbers', 'Family terms'],
       icon: BookOpen,
-      color: 'from-green-500 to-green-700'
+      color: 'from-green-500 to-green-700',
     },
     {
       title: 'Conversation Practice',
@@ -22,9 +23,14 @@ export default function LanguagePage() {
       level: 'All Levels',
       duration: 'Weekly',
       format: 'In-person',
-      topics: ['Daily conversations', 'Cultural discussions', 'Pronunciation practice', 'Q&A sessions'],
+      topics: [
+        'Daily conversations',
+        'Cultural discussions',
+        'Pronunciation practice',
+        'Q&A sessions',
+      ],
       icon: MessageCircle,
-      color: 'from-blue-500 to-blue-700'
+      color: 'from-blue-500 to-blue-700',
     },
     {
       title: 'Vietnamese Culture & Language',
@@ -34,7 +40,7 @@ export default function LanguagePage() {
       format: 'Hybrid',
       topics: ['Folk tales', 'Cultural customs', 'Historical contexts', 'Traditional songs'],
       icon: Globe,
-      color: 'from-purple-500 to-purple-700'
+      color: 'from-purple-500 to-purple-700',
     },
     {
       title: 'Language Exchange Program',
@@ -44,8 +50,8 @@ export default function LanguagePage() {
       format: 'Flexible',
       topics: ['Peer learning', 'Cultural exchange', 'Friendship building', 'Real-world practice'],
       icon: Users,
-      color: 'from-orange-500 to-orange-700'
-    }
+      color: 'from-orange-500 to-orange-700',
+    },
   ]
 
   const tools = [
@@ -53,26 +59,26 @@ export default function LanguagePage() {
       name: 'Pronunciation Guide',
       description: 'Audio examples of Vietnamese tones and pronunciation',
       type: 'Audio',
-      icon: Mic
+      icon: Mic,
     },
     {
       name: 'Video Lessons',
       description: 'Structured video lessons for self-paced learning',
       type: 'Video',
-      icon: Video
+      icon: Video,
     },
     {
       name: 'Vocabulary Lists',
       description: 'Downloadable PDFs with common words and phrases',
       type: 'PDF',
-      icon: Download
+      icon: Download,
     },
     {
       name: 'Practice Worksheets',
       description: 'Interactive exercises to test your knowledge',
       type: 'Interactive',
-      icon: BookOpen
-    }
+      icon: BookOpen,
+    },
   ]
 
   return (
@@ -83,7 +89,8 @@ export default function LanguagePage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Learn Vietnamese</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto">
-              Connect with your heritage and expand your horizons through Vietnamese language learning
+              Connect with your heritage and expand your horizons through Vietnamese language
+              learning
             </p>
           </AnimatedSection>
         </div>
@@ -94,7 +101,9 @@ export default function LanguagePage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Language Programs</h2>
-            <p className="section-subtitle">Choose the learning path that fits your goals and schedule</p>
+            <p className="section-subtitle">
+              Choose the learning path that fits your goals and schedule
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -106,7 +115,9 @@ export default function LanguagePage() {
               >
                 <div className="card h-full">
                   <div className="flex items-center mb-4">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${resource.color} rounded-full flex items-center justify-center mr-4`}>
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${resource.color} rounded-full flex items-center justify-center mr-4`}
+                    >
                       <resource.icon className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -140,9 +151,7 @@ export default function LanguagePage() {
                     </ul>
                   </div>
 
-                  <button className="btn-primary w-full">
-                    Enroll Now
-                  </button>
+                  <button className="btn-primary w-full">Enroll Now</button>
                 </div>
               </AnimatedSection>
             ))}
@@ -155,16 +164,14 @@ export default function LanguagePage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Learning Resources</h2>
-            <p className="section-subtitle">Free tools to support your Vietnamese learning journey</p>
+            <p className="section-subtitle">
+              Free tools to support your Vietnamese learning journey
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {tools.map((tool, index) => (
-              <AnimatedSection
-                key={tool.name}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={tool.name} direction="up" delay={index * 0.1}>
                 <div className="card text-center h-full">
                   <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
                     <tool.icon className="w-8 h-8 text-white" />
@@ -174,9 +181,7 @@ export default function LanguagePage() {
                   <span className="bg-gold/20 text-charcoal px-3 py-1 rounded-full text-sm">
                     {tool.type}
                   </span>
-                  <button className="btn-outline w-full mt-4">
-                    Access Resource
-                  </button>
+                  <button className="btn-outline w-full mt-4">Access Resource</button>
                 </div>
               </AnimatedSection>
             ))}
@@ -197,7 +202,9 @@ export default function LanguagePage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Cultural Connection</h3>
-                    <p className="text-gray-600">Deepen your understanding of Vietnamese culture and connect with your heritage</p>
+                    <p className="text-gray-600">
+                      Deepen your understanding of Vietnamese culture and connect with your heritage
+                    </p>
                   </div>
                 </div>
 
@@ -207,7 +214,10 @@ export default function LanguagePage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Global Opportunities</h3>
-                    <p className="text-gray-600">Open doors to career opportunities in Vietnam and with Vietnamese communities worldwide</p>
+                    <p className="text-gray-600">
+                      Open doors to career opportunities in Vietnam and with Vietnamese communities
+                      worldwide
+                    </p>
                   </div>
                 </div>
 
@@ -217,7 +227,9 @@ export default function LanguagePage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Community Building</h3>
-                    <p className="text-gray-600">Strengthen connections with family and the Vietnamese-American community</p>
+                    <p className="text-gray-600">
+                      Strengthen connections with family and the Vietnamese-American community
+                    </p>
                   </div>
                 </div>
 
@@ -227,7 +239,9 @@ export default function LanguagePage() {
                   </div>
                   <div>
                     <h3 className="font-bold mb-2">Cognitive Benefits</h3>
-                    <p className="text-gray-600">Improve memory, multitasking, and problem-solving skills through bilingualism</p>
+                    <p className="text-gray-600">
+                      Improve memory, multitasking, and problem-solving skills through bilingualism
+                    </p>
                   </div>
                 </div>
               </div>
@@ -236,7 +250,7 @@ export default function LanguagePage() {
             <AnimatedSection direction="right">
               <div className="bg-gradient-to-r from-cardinal/10 to-gold/10 rounded-2xl p-8">
                 <h3 className="text-2xl font-bold mb-6 text-center">Learning Statistics</h3>
-                
+
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-cardinal">95M+</div>
@@ -259,7 +273,8 @@ export default function LanguagePage() {
                 <div className="mt-8 text-center">
                   <h4 className="font-semibold mb-2">Did You Know?</h4>
                   <p className="text-sm text-gray-600">
-                    Vietnamese is the 6th most spoken language in the United States and is increasingly valuable in business and diplomacy.
+                    Vietnamese is the 6th most spoken language in the United States and is
+                    increasingly valuable in business and diplomacy.
                   </p>
                 </div>
               </div>

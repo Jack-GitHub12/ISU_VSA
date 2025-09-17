@@ -6,31 +6,33 @@ import { motion } from 'framer-motion'
 import { ArrowLeft, Trophy, Swords, BookOpen, Target } from 'lucide-react'
 import Link from 'next/link'
 
-// Dynamically import GameCanvas to avoid SSR issues with Phaser
-const GameCanvas = dynamic(
-  () => import('@/components/vsa-royale/GameCanvas'),
-  { 
-    ssr: false,
-    loading: () => (
-      <div className="flex items-center justify-center h-[600px] bg-gray-900 rounded-xl">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-gold mb-4 mx-auto" />
-          <p className="text-white text-xl">Loading Game...</p>
-        </div>
+// Dynamically import enhanced GameCanvas to avoid SSR issues
+const GameCanvasEnhanced = dynamic(() => import('@/components/vsa-royale/GameCanvasEnhanced'), {
+  ssr: false,
+  loading: () => (
+    <div className="flex items-center justify-center h-[600px] bg-gray-900 rounded-xl">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-gold mb-3 mx-auto" />
+        <p className="text-white text-lg font-fredoka">Loading Enhanced Battle Arena...</p>
       </div>
-    )
-  }
-)
+    </div>
+  ),
+})
 
 export default function PlayPage() {
   const [gameMode, setGameMode] = useState<'battle' | 'campaign' | 'puzzle' | null>(null)
-  const [difficulty, setDifficulty] = useState<'easy' | 'normal' | 'hard' | 'expert' | 'legendary'>('normal')
+  const [difficulty, setDifficulty] = useState<'easy' | 'normal' | 'hard' | 'expert' | 'legendary'>(
+    'normal'
+  )
 
   if (!gameMode) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-charcoal to-black text-white py-8 px-4">
         <div className="max-w-6xl mx-auto">
-          <Link href="/vsa-royale" className="inline-flex items-center text-gold hover:text-gold-light mb-8">
+          <Link
+            href="/vsa-royale"
+            className="inline-flex items-center text-gold hover:text-gold-light mb-8"
+          >
             <ArrowLeft className="w-5 h-5 mr-2" />
             Back to VSA Royale
           </Link>
@@ -63,8 +65,7 @@ export default function PlayPage() {
                     Earn eggroll rewards
                   </li>
                   <li className="flex items-center text-gray-300">
-                    <Trophy className="w-4 h-4 text-gold mr-2" />
-                    5 difficulty levels
+                    <Trophy className="w-4 h-4 text-gold mr-2" />5 difficulty levels
                   </li>
                   <li className="flex items-center text-gray-300">
                     <Trophy className="w-4 h-4 text-gold mr-2" />
@@ -84,9 +85,7 @@ export default function PlayPage() {
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
                 <h2 className="text-2xl font-bold text-center mb-2">Campaign</h2>
-                <p className="text-gray-400 text-center">
-                  Follow the VSA story across ISU campus
-                </p>
+                <p className="text-gray-400 text-center">Follow the VSA story across ISU campus</p>
                 <ul className="mt-4 space-y-2 text-sm">
                   <li className="flex items-center text-gray-300">
                     <Trophy className="w-4 h-4 text-gold mr-2" />
@@ -180,7 +179,10 @@ export default function PlayPage() {
           </div>
         </div>
 
-        <GameCanvas mode={gameMode} difficulty={difficulty} />
+        <GameCanvasEnhanced
+          mode={gameMode}
+          difficulty={difficulty}
+        />
       </div>
     </div>
   )

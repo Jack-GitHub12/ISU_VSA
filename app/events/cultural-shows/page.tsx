@@ -13,11 +13,17 @@ export default function CulturalShowsPage() {
       date: '2025-04-12',
       time: '7:00 PM - 9:30 PM',
       location: 'Stephens Auditorium',
-      description: 'A spectacular evening featuring traditional Vietnamese dances, modern fusion performances, and cultural storytelling.',
-      image: '/placeholder.svg',
-      acts: ['Traditional Fan Dance', 'Vietnamese Folk Songs', 'Modern Fusion Dance', 'Cultural Fashion Show'],
-      ticketPrice: '$12 Students, $18 General'
-    }
+      description:
+        'A spectacular evening featuring traditional Vietnamese dances, modern fusion performances, and cultural storytelling.',
+      image: '/images/eboard/eboardGroup.JPG',
+      acts: [
+        'Traditional Fan Dance',
+        'Vietnamese Folk Songs',
+        'Modern Fusion Dance',
+        'Cultural Fashion Show',
+      ],
+      ticketPrice: '$12 Students, $18 General',
+    },
   ]
 
   const pastShows = [
@@ -25,18 +31,24 @@ export default function CulturalShowsPage() {
       id: 1,
       title: 'Fall Cultural Show 2024',
       date: '2024-11-15',
-      description: 'Featured 12 performances celebrating Vietnamese heritage with over 280 attendees.',
-      image: '/placeholder.svg',
-      highlights: ['Traditional Dances', 'Fashion Show', 'Musical Performances', 'Cultural Stories']
+      description:
+        'Featured 12 performances celebrating Vietnamese heritage with over 280 attendees.',
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: [
+        'Traditional Dances',
+        'Fashion Show',
+        'Musical Performances',
+        'Cultural Stories',
+      ],
     },
     {
       id: 2,
       title: 'Heritage Night 2024',
       date: '2024-04-20',
       description: 'An intimate evening showcasing the diversity of Vietnamese culture.',
-      image: '/placeholder.svg',
-      highlights: ['Poetry Reading', 'Traditional Music', 'Dance Workshop', 'Cultural Exhibits']
-    }
+      image: '/images/eboard/eboardGroup.JPG',
+      highlights: ['Poetry Reading', 'Traditional Music', 'Dance Workshop', 'Cultural Exhibits'],
+    },
   ]
 
   return (
@@ -47,7 +59,8 @@ export default function CulturalShowsPage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Cultural Shows</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto">
-              Experience the beauty and richness of Vietnamese culture through captivating performances
+              Experience the beauty and richness of Vietnamese culture through captivating
+              performances
             </p>
           </AnimatedSection>
         </div>
@@ -66,25 +79,20 @@ export default function CulturalShowsPage() {
                 <div className="card">
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                     <div className="relative h-64 lg:h-full rounded-lg overflow-hidden">
-                      <Image
-                        src={show.image}
-                        alt={show.title}
-                        fill
-                        className="object-cover"
-                      />
+                      <Image src={show.image} alt={show.title} fill className="object-cover" />
                     </div>
                     <div>
                       <h3 className="text-3xl font-bold mb-4 text-cardinal">{show.title}</h3>
                       <p className="text-gray-700 mb-6">{show.description}</p>
-                      
+
                       <div className="space-y-3 mb-6">
                         <div className="flex items-center text-gray-600">
                           <Calendar className="w-5 h-5 mr-3 text-cardinal" />
-                          {new Date(show.date).toLocaleDateString('en-US', { 
-                            weekday: 'long', 
-                            year: 'numeric', 
-                            month: 'long', 
-                            day: 'numeric' 
+                          {new Date(show.date).toLocaleDateString('en-US', {
+                            weekday: 'long',
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric',
                           })}
                         </div>
                         <div className="flex items-center text-gray-600">
@@ -101,7 +109,10 @@ export default function CulturalShowsPage() {
                         <h4 className="font-semibold mb-3">Featured Acts:</h4>
                         <div className="flex flex-wrap gap-2">
                           {show.acts.map((act) => (
-                            <span key={act} className="bg-cardinal/10 text-cardinal px-3 py-1 rounded-full text-sm">
+                            <span
+                              key={act}
+                              className="bg-cardinal/10 text-cardinal px-3 py-1 rounded-full text-sm"
+                            >
                               {act}
                             </span>
                           ))}
@@ -109,12 +120,8 @@ export default function CulturalShowsPage() {
                       </div>
 
                       <div className="flex flex-col sm:flex-row gap-4">
-                        <button className="btn-primary">
-                          Get Tickets
-                        </button>
-                        <button className="btn-outline">
-                          Learn More
-                        </button>
+                        <button className="btn-primary">Get Tickets</button>
+                        <button className="btn-outline">Learn More</button>
                       </div>
                     </div>
                   </div>
@@ -153,7 +160,10 @@ export default function CulturalShowsPage() {
                   <p className="text-gray-600 mb-4">{show.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {show.highlights.map((highlight) => (
-                      <span key={highlight} className="bg-gold/20 text-charcoal px-2 py-1 rounded text-sm">
+                      <span
+                        key={highlight}
+                        className="bg-gold/20 text-charcoal px-2 py-1 rounded text-sm"
+                      >
                         {highlight}
                       </span>
                     ))}

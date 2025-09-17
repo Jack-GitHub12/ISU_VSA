@@ -2,7 +2,17 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Play, ChevronLeft, ChevronRight, Target, Shield, Zap, Trophy, Users, Star } from 'lucide-react'
+import {
+  Play,
+  ChevronLeft,
+  ChevronRight,
+  Target,
+  Shield,
+  Zap,
+  Trophy,
+  Users,
+  Star,
+} from 'lucide-react'
 import AnimatedSection from '@/components/animations/AnimatedSection'
 
 export default function TutorialPage() {
@@ -11,67 +21,90 @@ export default function TutorialPage() {
   const tutorialSteps = [
     {
       title: 'Welcome to VSA Royale',
-      description: 'VSA Royale is a strategic tower defense game where you build and defend your base while attacking your opponent.',
-      image: '/placeholder.svg',
-      tips: ['Each game lasts 5-10 minutes', 'Strategy is more important than speed', 'Practice makes perfect!']
+      description:
+        'VSA Royale is a strategic tower defense game where you build and defend your base while attacking your opponent.',
+      image: '/images/dong/dongKawaii.JPG',
+      tips: [
+        'Each game lasts 5-10 minutes',
+        'Strategy is more important than speed',
+        'Practice makes perfect!',
+      ],
     },
     {
       title: 'Understanding Cards',
-      description: 'There are four main types of cards: Towers (defense), Units (attack), Spells (special effects), and Support (boosts).',
-      image: '/placeholder.svg',
-      tips: ['Each card has an energy cost', 'Balance your deck with different types', 'Consider card synergies']
+      description:
+        'There are four main types of cards: Towers (defense), Units (attack), Spells (special effects), and Support (boosts).',
+      image: '/images/dong/dongKawaii.JPG',
+      tips: [
+        'Each card has an energy cost',
+        'Balance your deck with different types',
+        'Consider card synergies',
+      ],
     },
     {
       title: 'Building Your Defense',
       description: 'Place towers strategically to defend your base from incoming enemy units.',
-      image: '/placeholder.svg',
-      tips: ['Cover all possible paths', 'Upgrade towers when possible', 'Use terrain to your advantage']
+      image: '/images/dong/dongKawaii.JPG',
+      tips: [
+        'Cover all possible paths',
+        'Upgrade towers when possible',
+        'Use terrain to your advantage',
+      ],
     },
     {
       title: 'Attacking Your Opponent',
       description: 'Deploy units to attack the enemy base while managing your energy resources.',
-      image: '/placeholder.svg',
-      tips: ['Time your attacks carefully', 'Combine different unit types', 'Watch your energy meter']
+      image: '/images/dong/dongKawaii.JPG',
+      tips: [
+        'Time your attacks carefully',
+        'Combine different unit types',
+        'Watch your energy meter',
+      ],
     },
     {
       title: 'Advanced Strategies',
-      description: 'Master spell timing, resource management, and reading your opponent to achieve victory.',
-      image: '/placeholder.svg',
-      tips: ['Save spells for key moments', 'Adapt to opponent strategy', 'Practice different deck types']
-    }
+      description:
+        'Master spell timing, resource management, and reading your opponent to achieve victory.',
+      image: '/images/dong/dongKawaii.JPG',
+      tips: [
+        'Save spells for key moments',
+        'Adapt to opponent strategy',
+        'Practice different deck types',
+      ],
+    },
   ]
 
   const gameFeatures = [
     {
       icon: Target,
       title: 'Strategic Gameplay',
-      description: 'Plan your moves and outsmart opponents with tactical thinking'
+      description: 'Plan your moves and outsmart opponents with tactical thinking',
     },
     {
       icon: Shield,
       title: 'Defense Building',
-      description: 'Construct powerful towers and barriers to protect your base'
+      description: 'Construct powerful towers and barriers to protect your base',
     },
     {
       icon: Zap,
       title: 'Spell Casting',
-      description: 'Use magical spells to turn the tide of battle'
+      description: 'Use magical spells to turn the tide of battle',
     },
     {
       icon: Trophy,
       title: 'Competitive Ranking',
-      description: 'Climb the leaderboards and earn prestigious titles'
+      description: 'Climb the leaderboards and earn prestigious titles',
     },
     {
       icon: Users,
       title: 'Multiplayer Battles',
-      description: 'Challenge friends or find opponents in ranked matches'
+      description: 'Challenge friends or find opponents in ranked matches',
     },
     {
       icon: Star,
       title: 'Regular Updates',
-      description: 'New cards, features, and events added regularly'
-    }
+      description: 'New cards, features, and events added regularly',
+    },
   ]
 
   const nextStep = () => {
@@ -113,7 +146,9 @@ export default function TutorialPage() {
         <div className="max-w-6xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-8">
             <h2 className="section-title">Interactive Tutorial</h2>
-            <p className="text-gray-600">Step {currentStep + 1} of {tutorialSteps.length}</p>
+            <p className="text-gray-600">
+              Step {currentStep + 1} of {tutorialSteps.length}
+            </p>
           </AnimatedSection>
 
           <AnimatedSection direction="up">
@@ -201,16 +236,14 @@ export default function TutorialPage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Game Features</h2>
-            <p className="section-subtitle">Discover what makes VSA Royale exciting and challenging</p>
+            <p className="section-subtitle">
+              Discover what makes VSA Royale exciting and challenging
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {gameFeatures.map((feature, index) => (
-              <AnimatedSection
-                key={feature.title}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={feature.title} direction="up" delay={index * 0.1}>
                 <div className="card text-center h-full">
                   <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
                     <feature.icon className="w-8 h-8 text-white" />
@@ -238,34 +271,32 @@ export default function TutorialPage() {
                 step: '1',
                 title: 'Create Account',
                 description: 'Sign up with your ISU email to get started',
-                color: 'bg-blue-600'
+                color: 'bg-blue-600',
               },
               {
                 step: '2',
                 title: 'Complete Tutorial',
                 description: 'Learn the basics with our interactive guide',
-                color: 'bg-green-600'
+                color: 'bg-green-600',
               },
               {
                 step: '3',
                 title: 'Build Your Deck',
                 description: 'Choose cards that match your strategy',
-                color: 'bg-purple-600'
+                color: 'bg-purple-600',
               },
               {
                 step: '4',
                 title: 'Enter Battle',
                 description: 'Find an opponent and start playing!',
-                color: 'bg-cardinal'
-              }
+                color: 'bg-cardinal',
+              },
             ].map((step, index) => (
-              <AnimatedSection
-                key={step.step}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={step.step} direction="up" delay={index * 0.1}>
                 <div className="text-center">
-                  <div className={`w-16 h-16 ${step.color} rounded-full flex items-center justify-center mx-auto mb-4`}>
+                  <div
+                    className={`w-16 h-16 ${step.color} rounded-full flex items-center justify-center mx-auto mb-4`}
+                  >
                     <span className="text-white font-bold text-xl">{step.step}</span>
                   </div>
                   <h3 className="text-lg font-bold mb-2">{step.title}</h3>
@@ -284,10 +315,11 @@ export default function TutorialPage() {
             <AnimatedSection direction="left">
               <h2 className="section-title">Practice Mode</h2>
               <p className="text-lg text-gray-700 mb-6">
-                Perfect your skills against AI opponents before jumping into ranked matches. 
-                Practice mode lets you experiment with different strategies without affecting your rank.
+                Perfect your skills against AI opponents before jumping into ranked matches.
+                Practice mode lets you experiment with different strategies without affecting your
+                rank.
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 <div className="flex items-center">
                   <Target className="w-6 h-6 text-cardinal mr-3" />
@@ -303,15 +335,13 @@ export default function TutorialPage() {
                 </div>
               </div>
 
-              <button className="btn-primary">
-                Start Practice Game
-              </button>
+              <button className="btn-primary">Start Practice Game</button>
             </AnimatedSection>
 
             <AnimatedSection direction="right">
               <div className="bg-white rounded-2xl p-8 shadow-lg">
                 <h3 className="text-2xl font-bold mb-6 text-center">Practice Statistics</h3>
-                
+
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-blue-600">Easy AI</div>

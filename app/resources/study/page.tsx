@@ -12,15 +12,20 @@ export default function StudyPage() {
       icon: Users,
       features: ['Math & Engineering', 'Business & Economics', 'Science & Pre-Med', 'Liberal Arts'],
       schedule: 'Weekly sessions',
-      color: 'from-blue-500 to-blue-700'
+      color: 'from-blue-500 to-blue-700',
     },
     {
       title: 'Tutoring Program',
       description: 'Get one-on-one help from upperclassmen and graduate students',
       icon: GraduationCap,
-      features: ['Free for members', 'All subjects covered', 'Flexible scheduling', 'Peer mentorship'],
+      features: [
+        'Free for members',
+        'All subjects covered',
+        'Flexible scheduling',
+        'Peer mentorship',
+      ],
       schedule: 'By appointment',
-      color: 'from-green-500 to-green-700'
+      color: 'from-green-500 to-green-700',
     },
     {
       title: 'Exam Prep Sessions',
@@ -28,34 +33,39 @@ export default function StudyPage() {
       icon: Target,
       features: ['Finals week support', 'MCAT/GRE prep', 'Study strategies', 'Practice tests'],
       schedule: 'Before exams',
-      color: 'from-purple-500 to-purple-700'
+      color: 'from-purple-500 to-purple-700',
     },
     {
       title: 'Academic Workshops',
       description: 'Learn essential academic skills for college success',
       icon: BookOpen,
-      features: ['Time management', 'Note-taking skills', 'Research methods', 'Presentation skills'],
+      features: [
+        'Time management',
+        'Note-taking skills',
+        'Research methods',
+        'Presentation skills',
+      ],
       schedule: 'Monthly',
-      color: 'from-orange-500 to-orange-700'
-    }
+      color: 'from-orange-500 to-orange-700',
+    },
   ]
 
   const successStories = [
     {
       name: 'Emily Chen',
       major: 'Computer Science',
-      achievement: 'Improved GPA from 2.8 to 3.6 with study group support'
+      achievement: 'Improved GPA from 2.8 to 3.6 with study group support',
     },
     {
       name: 'David Nguyen',
       major: 'Pre-Med',
-      achievement: 'Scored 520 on MCAT after joining exam prep sessions'
+      achievement: 'Scored 520 on MCAT after joining exam prep sessions',
     },
     {
       name: 'Sarah Le',
       major: 'Business',
-      achievement: 'Made Dean\'s List after utilizing tutoring program'
-    }
+      achievement: "Made Dean's List after utilizing tutoring program",
+    },
   ]
 
   return (
@@ -66,7 +76,8 @@ export default function StudyPage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Study Resources</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto">
-              Excel academically with peer support, tutoring, and study resources designed for success
+              Excel academically with peer support, tutoring, and study resources designed for
+              success
             </p>
           </AnimatedSection>
         </div>
@@ -89,7 +100,9 @@ export default function StudyPage() {
               >
                 <div className="card h-full">
                   <div className="flex items-center mb-4">
-                    <div className={`w-12 h-12 bg-gradient-to-br ${resource.color} rounded-full flex items-center justify-center mr-4`}>
+                    <div
+                      className={`w-12 h-12 bg-gradient-to-br ${resource.color} rounded-full flex items-center justify-center mr-4`}
+                    >
                       <resource.icon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-xl font-bold">{resource.title}</h3>
@@ -116,9 +129,7 @@ export default function StudyPage() {
                     </span>
                   </div>
 
-                  <button className="btn-primary w-full">
-                    Join Program
-                  </button>
+                  <button className="btn-primary w-full">Join Program</button>
                 </div>
               </AnimatedSection>
             ))}
@@ -131,16 +142,14 @@ export default function StudyPage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Success Stories</h2>
-            <p className="section-subtitle">See how our academic support has helped VSA members excel</p>
+            <p className="section-subtitle">
+              See how our academic support has helped VSA members excel
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {successStories.map((story, index) => (
-              <AnimatedSection
-                key={story.name}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={story.name} direction="up" delay={index * 0.1}>
                 <div className="card text-center">
                   <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
                     <Trophy className="w-8 h-8 text-white" />
@@ -160,7 +169,9 @@ export default function StudyPage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Weekly Study Schedule</h2>
-            <p className="section-subtitle">Join us for regular study sessions throughout the week</p>
+            <p className="section-subtitle">
+              Join us for regular study sessions throughout the week
+            </p>
           </AnimatedSection>
 
           <AnimatedSection direction="up">
@@ -168,16 +179,44 @@ export default function StudyPage() {
               <div className="bg-gradient-cardinal-gold text-white p-4">
                 <h3 className="text-xl font-bold text-center">Study Session Schedule</h3>
               </div>
-              
+
               <div className="p-6 space-y-4">
                 {[
-                  { day: 'Monday', time: '7:00 PM - 9:00 PM', subject: 'Math & Engineering', location: 'Parks Library 298' },
-                  { day: 'Tuesday', time: '6:00 PM - 8:00 PM', subject: 'Science & Pre-Med', location: 'Biorenewables 1017' },
-                  { day: 'Wednesday', time: '7:00 PM - 9:00 PM', subject: 'Business & Economics', location: 'Gerdin 3002' },
-                  { day: 'Thursday', time: '6:00 PM - 8:00 PM', subject: 'Liberal Arts', location: 'Parks Library 298' },
-                  { day: 'Friday', time: '5:00 PM - 7:00 PM', subject: 'Open Study Hall', location: 'Memorial Union Pioneer Room' }
+                  {
+                    day: 'Monday',
+                    time: '7:00 PM - 9:00 PM',
+                    subject: 'Math & Engineering',
+                    location: 'Parks Library 298',
+                  },
+                  {
+                    day: 'Tuesday',
+                    time: '6:00 PM - 8:00 PM',
+                    subject: 'Science & Pre-Med',
+                    location: 'Biorenewables 1017',
+                  },
+                  {
+                    day: 'Wednesday',
+                    time: '7:00 PM - 9:00 PM',
+                    subject: 'Business & Economics',
+                    location: 'Gerdin 3002',
+                  },
+                  {
+                    day: 'Thursday',
+                    time: '6:00 PM - 8:00 PM',
+                    subject: 'Liberal Arts',
+                    location: 'Parks Library 298',
+                  },
+                  {
+                    day: 'Friday',
+                    time: '5:00 PM - 7:00 PM',
+                    subject: 'Open Study Hall',
+                    location: 'Memorial Union Pioneer Room',
+                  },
                 ].map((session) => (
-                  <div key={session.day} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div
+                    key={session.day}
+                    className="flex items-center justify-between p-4 bg-gray-50 rounded-lg"
+                  >
                     <div>
                       <h4 className="font-bold text-cardinal">{session.day}</h4>
                       <p className="text-sm text-gray-600">{session.time}</p>
@@ -186,9 +225,7 @@ export default function StudyPage() {
                       <p className="font-semibold">{session.subject}</p>
                       <p className="text-sm text-gray-600">{session.location}</p>
                     </div>
-                    <button className="btn-outline text-sm px-3 py-1">
-                      Join
-                    </button>
+                    <button className="btn-outline text-sm px-3 py-1">Join</button>
                   </div>
                 ))}
               </div>

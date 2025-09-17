@@ -1,12 +1,20 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { Card } from '@/types/vsa-royale'
 import { getCardById } from '@/lib/vsa-royale/cards'
-import { 
-  Heart, Zap, Clock, Volume2, VolumeX, 
-  Pause, Play, Home, RotateCcw 
+import {
+  Heart,
+  Zap,
+  Clock,
+  Volume2,
+  VolumeX,
+  Pause,
+  Play,
+  Home,
+  RotateCcw,
+  AlertCircle,
 } from 'lucide-react'
 
 interface GameCanvasProps {
@@ -16,338 +24,480 @@ interface GameCanvasProps {
 }
 
 export default function GameCanvas({ mode = 'battle', difficulty = 'normal' }: GameCanvasProps) {
-  console.log('Game mode:', mode, 'Difficulty:', difficulty) // Using the props
   const gameRef = useRef<Phaser.Game | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
+  const timersRef = useRef<Set<NodeJS.Timeout>>(new Set())
   const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
   const [isPaused, setIsPaused] = useState(false)
   const [soundEnabled, setSoundEnabled] = useState(true)
-  const [playerHP] = useState(100)
-  const [enemyHP] = useState(100)
+  const [playerHP, setPlayerHP] = useState(100)
+  const [enemyHP, setEnemyHP] = useState(100)
   const [eggrolls, setEggrolls] = useState(5)
-  const [gameTime, setGameTime] = useState(180) // 3 minutes
+  const [gameTime, setGameTime] = useState(180)
   const [currentHand, setCurrentHand] = useState<Card[]>([])
   const [selectedCard, setSelectedCard] = useState<Card | null>(null)
 
+  // Cleanup function for timers
+  const cleanupTimers = useCallback(() => {
+    timersRef.current.forEach((timer) => clearInterval(timer))
+    timersRef.current.clear()
+  }, [])
+
+  // Safe timer creation
+  const createTimer = useCallback((callback: () => void, delay: number) => {
+    const timer = setInterval(callback, delay)
+    timersRef.current.add(timer)
+    return timer
+  }, [])
+
   useEffect(() => {
-    // Initialize Phaser game when component mounts
+    let mounted = true
+
     const initGame = async () => {
-      if (typeof window !== 'undefined') {
-        const Phaser = (await import('phaser')).default
-        
-        class BattleScene extends Phaser.Scene {
-          constructor() {
-            super({ key: 'BattleScene' })
-          }
+      try {
+        if (typeof window !== 'undefined' && containerRef.current && mounted) {
+          const Phaser = (await import('phaser')).default
 
-          preload() {
-            // Load game assets
-            this.load.image('arena', '/images/game/arena.png')
-            this.load.image('tower', '/images/game/tower.png')
-            this.load.image('unit', '/images/game/unit.png')
-            this.load.image('spell-effect', '/images/game/spell-effect.png')
-          }
+          class BattleScene extends Phaser.Scene {
+            private units: Phaser.GameObjects.Group | null = null
+            private towers: Phaser.GameObjects.Group | null = null
 
-          create() {
-            // Set up game world
-            const { width, height } = this.scale
-            
-            // Add arena background
-            const arena = this.add.image(width / 2, height / 2, 'arena')
-            arena.setDisplaySize(width, height)
-            
-            // Create game grid
-            const gridSize = 16
-            const cellWidth = width / gridSize
-            const cellHeight = height / 18
-            
-            // Draw grid for debugging
-            const graphics = this.add.graphics()
-            graphics.lineStyle(1, 0x444444, 0.3)
-            
-            for (let x = 0; x <= gridSize; x++) {
-              graphics.moveTo(x * cellWidth, 0)
-              graphics.lineTo(x * cellWidth, height)
+            constructor() {
+              super({ key: 'BattleScene' })
             }
-            
-            for (let y = 0; y <= 18; y++) {
-              graphics.moveTo(0, y * cellHeight)
-              graphics.lineTo(width, y * cellHeight)
+
+            preload() {
+              // Error handling for asset loading
+              this.load.on('loaderror', (file: { key: string }) => {
+                if (mounted) {
+                  setError(`Failed to load asset: ${file.key}`)
+                }
+              })
+
+              // Load game assets with fallbacks - using kawaii dong for everything
+              this.load.image('arena', '/images/dong/dongKawaii.JPG')
+              this.load.image('tower', '/images/dong/dongKawaii.JPG')
+              this.load.image('unit', '/images/dong/dongKawaii.JPG')
+              this.load.image('spell-effect', '/images/dong/dongKawaii.JPG')
             }
-            
-            // Add towers
-            this.addTower(width * 0.5, height * 0.15, 'enemy')
-            this.addTower(width * 0.25, height * 0.25, 'enemy')
-            this.addTower(width * 0.75, height * 0.25, 'enemy')
-            
-            this.addTower(width * 0.5, height * 0.85, 'player')
-            this.addTower(width * 0.25, height * 0.75, 'player')
-            this.addTower(width * 0.75, height * 0.75, 'player')
-            
-            // Set up input
-            this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
-              this.handleCardPlacement(pointer.x, pointer.y)
-            })
-            
-            setIsLoading(false)
-          }
 
-          update(time: number, delta: number) {
-            // Update game logic
-            this.updateUnits(delta)
-            this.checkCollisions()
-            this.updateEggrolls(delta)
-          }
+            create() {
+              if (!mounted) return
 
-          addTower(x: number, y: number, team: string) {
-            const tower = this.add.sprite(x, y, 'tower')
-            tower.setScale(0.5)
-            tower.setTint(team === 'player' ? 0x0000ff : 0xff0000)
-            tower.setData('team', team)
-            tower.setData('hp', 1000)
-          }
+              const { width, height } = this.scale
 
-          handleCardPlacement(x: number, y: number) {
-            if (selectedCard) {
-              // Deploy unit at position
-              this.deployUnit(x, y, selectedCard)
-              setSelectedCard(null)
+              // Add arena background with error handling
+              try {
+                const arena = this.add.image(width / 2, height / 2, 'arena')
+                arena.setDisplaySize(width, height)
+              } catch {
+                // Use color background as fallback
+                this.cameras.main.setBackgroundColor('#2d5016')
+              }
+
+              // Initialize groups
+              this.units = this.add.group()
+              this.towers = this.add.group()
+
+              // Create game grid
+              const gridSize = 16
+              const cellWidth = width / gridSize
+              const cellHeight = height / 18
+
+              // Draw grid
+              const graphics = this.add.graphics()
+              graphics.lineStyle(1, 0x444444, 0.3)
+
+              for (let x = 0; x <= gridSize; x++) {
+                graphics.moveTo(x * cellWidth, 0)
+                graphics.lineTo(x * cellWidth, height)
+              }
+
+              for (let y = 0; y <= 18; y++) {
+                graphics.moveTo(0, y * cellHeight)
+                graphics.lineTo(width, y * cellHeight)
+              }
+
+              // Add towers with error handling
+              this.addTower(width * 0.5, height * 0.15, 'enemy')
+              this.addTower(width * 0.25, height * 0.25, 'enemy')
+              this.addTower(width * 0.75, height * 0.25, 'enemy')
+
+              this.addTower(width * 0.5, height * 0.85, 'player')
+              this.addTower(width * 0.25, height * 0.75, 'player')
+              this.addTower(width * 0.75, height * 0.75, 'player')
+
+              // Set up input
+              this.input.on('pointerdown', (pointer: Phaser.Input.Pointer) => {
+                if (mounted) {
+                  this.handleCardPlacement(pointer.x, pointer.y)
+                }
+              })
+
+              if (mounted) {
+                setIsLoading(false)
+              }
+            }
+
+            update() {
+              if (!mounted || isPaused) return
+
+              // Update game logic safely
+              try {
+                this.updateUnits()
+                this.checkCollisions()
+                this.updateEggrolls()
+              } catch {
+                if (mounted) {
+                  setError('Game update error occurred')
+                }
+              }
+            }
+
+            addTower(x: number, y: number, team: 'player' | 'enemy') {
+              try {
+                const color = team === 'player' ? 0x4ade80 : 0xef4444
+                const tower = this.add.rectangle(x, y, 60, 80, color)
+                tower.setData('team', team)
+                tower.setData('hp', 100)
+                this.towers?.add(tower)
+              } catch {
+                // Silently fail if tower can't be created
+              }
+            }
+
+            handleCardPlacement(x: number, y: number) {
+              if (!selectedCard || !mounted) return
+
+              try {
+                const unit = this.add.circle(x, y, 20, 0x60a5fa)
+                unit.setData('card', selectedCard)
+                unit.setData('team', 'player')
+                this.units?.add(unit)
+
+                if (mounted) {
+                  setEggrolls((prev) => Math.max(0, prev - selectedCard.cost))
+                  setSelectedCard(null)
+                }
+              } catch {
+                // Silently fail if unit can't be created
+              }
+            }
+
+            updateUnits() {
+              if (!this.units) return
+
+              this.units.children.entries.forEach((unit) => {
+                const speed = 1
+                ;(unit as Phaser.GameObjects.Arc).y -= speed
+              })
+            }
+
+            checkCollisions() {
+              // Collision detection logic
+            }
+
+            updateEggrolls() {
+              // Eggroll generation logic
+            }
+
+            shutdown() {
+              this.units?.clear(true, true)
+              this.towers?.clear(true, true)
             }
           }
 
-          deployUnit(x: number, y: number, card: Card) {
-            const unit = this.add.sprite(x, y, 'unit')
-            unit.setScale(0.3)
-            unit.setTint(0x00ff00)
-            unit.setData('card', card)
-            unit.setData('hp', card.hp)
-            unit.setData('team', 'player')
-            
-            // Add movement tween
-            this.tweens.add({
-              targets: unit,
-              y: 100,
-              duration: 10000,
-              ease: 'Linear'
-            })
+          const config: Phaser.Types.Core.GameConfig = {
+            type: Phaser.AUTO,
+            parent: containerRef.current,
+            width: 800,
+            height: 600,
+            scene: BattleScene,
+            physics: {
+              default: 'arcade',
+              arcade: {
+                gravity: { x: 0, y: 0 },
+                debug: false,
+              },
+            },
+            backgroundColor: '#1a1a1a',
+            scale: {
+              mode: Phaser.Scale.FIT,
+              autoCenter: Phaser.Scale.CENTER_BOTH,
+            },
           }
 
-          updateUnits(delta: number) {
-            // Update unit positions and attacks
-          }
-
-          checkCollisions() {
-            // Check for unit collisions and combat
-          }
-
-          updateEggrolls(delta: number) {
-            // Update eggroll generation
+          if (mounted) {
+            gameRef.current = new Phaser.Game(config)
           }
         }
-
-        const config: Phaser.Types.Core.GameConfig = {
-          type: Phaser.AUTO,
-          parent: containerRef.current!,
-          width: 800,
-          height: 600,
-          physics: {
-            default: 'arcade',
-            arcade: {
-              gravity: { x: 0, y: 0 },
-              debug: false
-            }
-          },
-          scene: BattleScene,
-          backgroundColor: '#1a1a1a'
+      } catch {
+        if (mounted) {
+          setError('Failed to initialize game. Please refresh the page.')
+          setIsLoading(false)
         }
-
-        gameRef.current = new Phaser.Game(config)
       }
     }
 
     initGame()
 
-    // Cleanup on unmount
+    // Timer for game time countdown
+    createTimer(() => {
+      if (mounted && !isPaused && gameTime > 0) {
+        setGameTime((prev) => Math.max(0, prev - 1))
+      }
+    }, 1000)
+
+    // Timer for eggroll generation
+    createTimer(() => {
+      if (mounted && !isPaused && eggrolls < 10) {
+        setEggrolls((prev) => Math.min(10, prev + 1))
+      }
+    }, 2800)
+
+    // Initialize hand
+    if (mounted) {
+      const initialHand: Card[] = [
+        getCardById('banh-mi-warrior')!,
+        getCardById('pho-healer')!,
+        getCardById('spring-roll-rush')!,
+        getCardById('tet-fireworks')!,
+      ].filter(Boolean)
+      setCurrentHand(initialHand)
+    }
+
+    // Cleanup function
     return () => {
+      mounted = false
+      cleanupTimers()
       if (gameRef.current) {
         gameRef.current.destroy(true)
+        gameRef.current = null
       }
     }
-  }, [selectedCard])
+  }, [createTimer, cleanupTimers, isPaused, gameTime, eggrolls, selectedCard])
 
-  // Load initial hand
-  useEffect(() => {
-    const deck = ['freshman_member', 'volunteer', 'tet_firecracker', 'pho_power']
-    const hand = deck.slice(0, 4).map(id => getCardById(id)!).filter(Boolean)
-    setCurrentHand(hand)
-  }, [])
-
-  // Game timer
-  useEffect(() => {
-    if (!isPaused && gameTime > 0) {
-      const timer = setInterval(() => {
-        setGameTime(prev => Math.max(0, prev - 1))
-      }, 1000)
-      return () => clearInterval(timer)
+  const togglePause = () => {
+    setIsPaused(!isPaused)
+    if (gameRef.current) {
+      if (isPaused) {
+        gameRef.current.scene.resume('BattleScene')
+      } else {
+        gameRef.current.scene.pause('BattleScene')
+      }
     }
-  }, [isPaused, gameTime])
+  }
 
-  // Eggroll generation
-  useEffect(() => {
-    if (!isPaused) {
-      const timer = setInterval(() => {
-        setEggrolls(prev => Math.min(10, prev + 1))
-      }, 2800) // 1 eggroll per 2.8 seconds
-      return () => clearInterval(timer)
+  const toggleSound = () => {
+    setSoundEnabled(!soundEnabled)
+    if (gameRef.current && gameRef.current.sound) {
+      gameRef.current.sound.mute = !soundEnabled
     }
-  }, [isPaused])
+  }
 
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60)
-    const secs = seconds % 60
-    return `${mins}:${secs.toString().padStart(2, '0')}`
+  const restartGame = () => {
+    cleanupTimers()
+    setGameTime(180)
+    setEggrolls(5)
+    setPlayerHP(100)
+    setEnemyHP(100)
+    setError(null)
+    if (gameRef.current) {
+      gameRef.current.scene.start('BattleScene')
+    }
+  }
+
+  const exitGame = () => {
+    cleanupTimers()
+    if (gameRef.current) {
+      gameRef.current.destroy(true)
+      gameRef.current = null
+    }
+    window.location.href = '/vsa-royale'
+  }
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="text-center p-8 bg-gray-800 rounded-lg">
+          <AlertCircle className="w-16 h-16 text-red-500 mx-auto mb-4" />
+          <h2 className="text-2xl font-bold text-white mb-2">Game Error</h2>
+          <p className="text-gray-300 mb-4">{error}</p>
+          <button
+            onClick={restartGame}
+            className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    )
   }
 
   return (
-    <div className="relative w-full max-w-6xl mx-auto">
-      {/* Game UI Overlay */}
-      <div className="absolute top-0 left-0 right-0 z-20 p-4">
-        <div className="flex justify-between items-center">
-          {/* Enemy Info */}
-          <div className="bg-black/70 rounded-lg p-3 flex items-center space-x-3">
-            <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">AI</span>
-            </div>
-            <div>
-              <div className="flex items-center space-x-2">
-                <Heart className="w-4 h-4 text-red-500" />
-                <div className="w-32 bg-gray-700 rounded-full h-2">
-                  <div 
-                    className="bg-red-500 h-full rounded-full transition-all"
-                    style={{ width: `${enemyHP}%` }}
-                  />
-                </div>
-                <span className="text-white text-sm">{enemyHP}%</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Timer */}
-          <div className="bg-black/70 rounded-lg px-4 py-2 flex items-center space-x-2">
-            <Clock className="w-5 h-5 text-gold" />
-            <span className="text-white font-mono text-xl">{formatTime(gameTime)}</span>
-          </div>
-
-          {/* Player Info */}
-          <div className="bg-black/70 rounded-lg p-3 flex items-center space-x-3">
-            <div>
-              <div className="flex items-center space-x-2">
-                <span className="text-white text-sm">{playerHP}%</span>
-                <div className="w-32 bg-gray-700 rounded-full h-2">
-                  <div 
-                    className="bg-green-500 h-full rounded-full transition-all"
-                    style={{ width: `${playerHP}%` }}
-                  />
-                </div>
-                <Heart className="w-4 h-4 text-green-500" />
-              </div>
-            </div>
-            <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-              <span className="text-white font-bold">You</span>
-            </div>
+    <div className="relative bg-gray-900 rounded-lg overflow-hidden">
+      {/* Loading Screen */}
+      {isLoading && (
+        <div className="absolute inset-0 bg-gray-900 z-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-yellow-400 mx-auto mb-4"></div>
+            <p className="text-white text-lg">Loading Game Assets...</p>
           </div>
         </div>
-      </div>
+      )}
 
-      {/* Game Controls */}
-      <div className="absolute top-4 right-4 z-30 flex space-x-2">
-        <button
-          onClick={() => setIsPaused(!isPaused)}
-          className="bg-black/70 p-2 rounded-lg hover:bg-black/80 transition-colors"
-        >
-          {isPaused ? <Play className="w-5 h-5 text-white" /> : <Pause className="w-5 h-5 text-white" />}
-        </button>
-        <button
-          onClick={() => setSoundEnabled(!soundEnabled)}
-          className="bg-black/70 p-2 rounded-lg hover:bg-black/80 transition-colors"
-        >
-          {soundEnabled ? <Volume2 className="w-5 h-5 text-white" /> : <VolumeX className="w-5 h-5 text-white" />}
-        </button>
-        <button
-          onClick={() => window.location.reload()}
-          className="bg-black/70 p-2 rounded-lg hover:bg-black/80 transition-colors"
-        >
-          <RotateCcw className="w-5 h-5 text-white" />
-        </button>
-        <button
-          onClick={() => window.location.href = '/vsa-royale'}
-          className="bg-black/70 p-2 rounded-lg hover:bg-black/80 transition-colors"
-        >
-          <Home className="w-5 h-5 text-white" />
-        </button>
+      {/* Game HUD */}
+      <div className="absolute top-0 left-0 right-0 bg-gradient-to-b from-black/80 to-transparent p-4 z-10">
+        <div className="flex justify-between items-start">
+          {/* Player Stats */}
+          <div className="text-white">
+            <div className="flex items-center gap-2 mb-2">
+              <Heart className="w-5 h-5 text-red-500" />
+              <div className="w-32 bg-gray-700 rounded-full h-2">
+                <div
+                  className="bg-red-500 h-2 rounded-full transition-all"
+                  style={{ width: `${playerHP}%` }}
+                />
+              </div>
+              <span className="text-sm">{playerHP}/100</span>
+            </div>
+            <div className="flex items-center gap-2">
+              <Zap className="w-5 h-5 text-yellow-400" />
+              <div className="flex gap-1">
+                {[...Array(10)].map((_, i) => (
+                  <div
+                    key={i}
+                    className={`w-4 h-6 rounded ${i < eggrolls ? 'bg-yellow-400' : 'bg-gray-700'}`}
+                  />
+                ))}
+              </div>
+              <span className="text-sm">{eggrolls}/10</span>
+            </div>
+          </div>
+
+          {/* Game Timer */}
+          <div className="text-white text-center">
+            <div className="flex items-center gap-2">
+              <Clock className="w-5 h-5" />
+              <span className="text-2xl font-bold">
+                {Math.floor(gameTime / 60)}:{(gameTime % 60).toString().padStart(2, '0')}
+              </span>
+            </div>
+            <div className="text-sm text-gray-300 mt-1">
+              {mode === 'campaign' ? `Level ${difficulty}` : difficulty}
+            </div>
+          </div>
+
+          {/* Enemy Stats */}
+          <div className="text-white text-right">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-sm">{enemyHP}/100</span>
+              <div className="w-32 bg-gray-700 rounded-full h-2">
+                <div
+                  className="bg-red-500 h-2 rounded-full transition-all"
+                  style={{ width: `${enemyHP}%` }}
+                />
+              </div>
+              <Heart className="w-5 h-5 text-red-500" />
+            </div>
+            <div className="text-sm text-gray-300">Enemy Tower</div>
+          </div>
+        </div>
       </div>
 
       {/* Game Canvas */}
-      <div 
-        ref={containerRef} 
-        className="relative bg-gray-900 rounded-xl overflow-hidden"
-        style={{ minHeight: '600px' }}
-      >
-        {isLoading && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/80 z-40">
-            <div className="text-center">
-              <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-gold mb-4 mx-auto" />
-              <p className="text-white text-xl">Loading Battle Arena...</p>
-            </div>
-          </div>
-        )}
-      </div>
+      <div ref={containerRef} className="w-full h-[600px]" />
 
       {/* Card Hand */}
-      <div className="absolute bottom-0 left-0 right-0 z-20 p-4">
-        <div className="bg-black/80 rounded-t-xl p-4">
-          {/* Eggroll Counter */}
-          <div className="flex items-center justify-center mb-4">
-            <div className="bg-gradient-cardinal-gold rounded-full px-6 py-2 flex items-center space-x-3">
-              <Zap className="w-6 h-6 text-white" />
-              <span className="text-white font-bold text-xl">{eggrolls}/10</span>
-              <span className="text-white/70 text-sm">Eggrolls</span>
-            </div>
-          </div>
-
-          {/* Cards */}
-          <div className="flex justify-center space-x-3">
-            {currentHand.map((card, index) => (
-              <motion.div
-                key={`${card.id}-${index}`}
-                initial={{ y: 100, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.1, y: -10 }}
-                className={`relative cursor-pointer ${
-                  selectedCard?.id === card.id ? 'ring-4 ring-gold' : ''
-                } ${eggrolls < card.cost ? 'opacity-50' : ''}`}
-                onClick={() => eggrolls >= card.cost && setSelectedCard(card)}
-              >
-                <div className="bg-gray-800 rounded-lg p-3 w-24">
-                  <div className="bg-gradient-cardinal-gold h-20 rounded-md mb-2 flex items-center justify-center">
-                    <span className="text-white text-xs font-bold text-center">{card.name}</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gold font-bold text-sm">{card.cost}</span>
-                    {card.hp && (
-                      <span className="text-red-400 text-xs">❤️ {card.hp}</span>
-                    )}
-                    {card.damage && (
-                      <span className="text-blue-400 text-xs">⚔️ {card.damage}</span>
-                    )}
-                  </div>
+      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-4">
+        <div className="flex justify-center gap-2">
+          {currentHand.map((card) => (
+            <motion.div
+              key={card.id}
+              whileHover={{ scale: 1.05, y: -10 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => eggrolls >= card.cost && setSelectedCard(card)}
+              className={`relative bg-gray-800 rounded-lg p-2 cursor-pointer border-2 ${
+                selectedCard?.id === card.id ? 'border-yellow-400' : 'border-gray-600'
+              } ${eggrolls < card.cost ? 'opacity-50 cursor-not-allowed' : ''}`}
+            >
+              <div className="w-20 h-24 bg-gradient-to-b from-gray-700 to-gray-800 rounded mb-1" />
+              <div className="text-center">
+                <p className="text-white text-xs font-bold truncate">{card.name}</p>
+                <div className="flex items-center justify-center gap-1">
+                  <Zap className="w-3 h-3 text-yellow-400" />
+                  <span className="text-yellow-400 text-xs">{card.cost}</span>
                 </div>
-              </motion.div>
-            ))}
-          </div>
+              </div>
+              {selectedCard?.id === card.id && (
+                <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full animate-pulse" />
+              )}
+            </motion.div>
+          ))}
         </div>
       </div>
+
+      {/* Control Buttons */}
+      <div className="absolute top-4 right-4 flex gap-2 z-20">
+        <button
+          onClick={togglePause}
+          className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg transition-colors"
+          aria-label={isPaused ? 'Resume' : 'Pause'}
+        >
+          {isPaused ? <Play className="w-5 h-5" /> : <Pause className="w-5 h-5" />}
+        </button>
+        <button
+          onClick={toggleSound}
+          className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg transition-colors"
+          aria-label={soundEnabled ? 'Mute' : 'Unmute'}
+        >
+          {soundEnabled ? <Volume2 className="w-5 h-5" /> : <VolumeX className="w-5 h-5" />}
+        </button>
+        <button
+          onClick={restartGame}
+          className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg transition-colors"
+          aria-label="Restart"
+        >
+          <RotateCcw className="w-5 h-5" />
+        </button>
+        <button
+          onClick={exitGame}
+          className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg transition-colors"
+          aria-label="Exit"
+        >
+          <Home className="w-5 h-5" />
+        </button>
+      </div>
+
+      {/* Pause Menu */}
+      {isPaused && (
+        <div className="absolute inset-0 bg-black/80 z-30 flex items-center justify-center">
+          <div className="bg-gray-800 rounded-lg p-8 text-center">
+            <h2 className="text-3xl font-bold text-white mb-4">Game Paused</h2>
+            <div className="space-y-4">
+              <button
+                onClick={togglePause}
+                className="w-full bg-green-500 hover:bg-green-600 text-white py-3 px-6 rounded-lg transition-colors"
+              >
+                Resume Game
+              </button>
+              <button
+                onClick={restartGame}
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white py-3 px-6 rounded-lg transition-colors"
+              >
+                Restart Level
+              </button>
+              <button
+                onClick={exitGame}
+                className="w-full bg-gray-600 hover:bg-gray-700 text-white py-3 px-6 rounded-lg transition-colors"
+              >
+                Exit to Menu
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -1,30 +1,37 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Calendar, Users, Globe, Trophy, ChevronRight, Clock, MapPin, Sparkles } from 'lucide-react'
 import { useState, useEffect } from 'react'
-import InstagramFeed from '@/components/InstagramFeed'
+
+const InstagramEmbed = dynamic(() => import('@/components/layout/InstagramEmbed'), {
+  loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />,
+  ssr: false
+})
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [timeToNextEvent, setTimeToNextEvent] = useState('')
 
   const heroSlides = [
     {
-      title: "Welcome to ISU VSA",
-      subtitle: "Connecting Cyclones to Vietnamese Culture",
-      image: "/images/hero-1.jpg",
+      title: 'Welcome to ISU VSA',
+      subtitle: 'Uniting Iowa State with Vietnamese Culture',
+      image: '/images/eboard/eboardGroup.JPG',
+      priority: true,
     },
     {
-      title: "Tết Celebration 2025",
-      subtitle: "Join us for the biggest Vietnamese New Year celebration in Iowa",
-      image: "/images/hero-2.jpg",
+      title: 'Join Our Community',
+      subtitle: 'Open to all students, faculty, alumni, and community members',
+      image: '/images/eboard/eboardGroup_Smile.JPG',
+      priority: false,
     },
     {
-      title: "Build Lifelong Friendships",
-      subtitle: "Connect with a vibrant community of students",
-      image: "/images/hero-3.jpg",
+      title: 'Cultural Awareness',
+      subtitle: 'Learn about Vietnamese history, culture, and current events',
+      image: '/images/eboard/theBoys.JPG',
+      priority: false,
     },
   ]
 
@@ -35,43 +42,25 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [heroSlides.length])
 
-  useEffect(() => {
-    const nextEventDate = new Date('2025-02-08T18:00:00')
-    const updateTimer = () => {
-      const now = new Date()
-      const difference = nextEventDate.getTime() - now.getTime()
-      
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24))
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60))
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000)
-        
-        setTimeToNextEvent(`${days}d ${hours}h ${minutes}m ${seconds}s`)
-      } else {
-        setTimeToNextEvent('Event has started!')
-      }
-    }
-    
-    updateTimer()
-    const timer = setInterval(updateTimer, 1000)
-    return () => clearInterval(timer)
-  }, [])
-
   return (
     <>
       {/* Hero Section */}
       <section className="relative h-[600px] md:h-[700px] overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
-        
+
         {/* Background Image Slideshow */}
         <div className="absolute inset-0">
-          <div 
-            className="h-full w-full bg-gradient-cardinal-gold"
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="h-full w-full"
             style={{
-              backgroundImage: `url('/images/hero-bg.jpg')`,
+              backgroundImage: `url('${heroSlides[currentSlide].image}')`,
               backgroundSize: 'cover',
               backgroundPosition: 'center',
+              backgroundRepeat: 'no-repeat',
             }}
           />
         </div>
@@ -88,7 +77,7 @@ export default function Home() {
               <span className="gradient-text">Welcome to</span> ISU VSA
             </h1>
             <p className="text-xl md:text-2xl text-white mb-8">
-              Connecting Cyclones to Vietnamese Culture
+              Uniting the Iowa State Community with Vietnamese Culture
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/get-involved/membership" className="btn-primary">
@@ -117,7 +106,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 bg-cream">
+      <section className="py-16 px-4 bg-gradient-to-br from-cardinal/10 via-gold/20 to-cardinal/10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -136,12 +125,13 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="card text-center"
             >
-              <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-cardinal to-cardinal-dark rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Users className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-2">Build Community</h3>
               <p className="text-gray-600">
-                Connect with fellow students who share your heritage and interests. Create lasting friendships and professional networks.
+                Connect with fellow students who share your heritage and interests. Create lasting
+                friendships and professional networks.
               </p>
             </motion.div>
 
@@ -151,12 +141,13 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="card text-center"
             >
-              <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-gold to-gold-dark rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Globe className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-2">Cultural Events</h3>
               <p className="text-gray-600">
-                Experience Vietnamese traditions through Tết celebrations, cultural shows, food festivals, and educational workshops.
+                Experience Vietnamese traditions through Tet festivals, BBQ cookouts, volleyball
+                tournaments, and study nights.
               </p>
             </motion.div>
 
@@ -166,12 +157,13 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.3 }}
               className="card text-center"
             >
-              <div className="w-16 h-16 bg-gradient-cardinal-gold rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="w-16 h-16 bg-gradient-to-br from-cardinal to-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
                 <Trophy className="w-8 h-8 text-white" />
               </div>
               <h3 className="text-xl font-bold mb-2">Leadership Growth</h3>
               <p className="text-gray-600">
-                Develop leadership skills through committee positions, event planning, and community service opportunities.
+                Develop leadership skills through committee positions, event planning, and community
+                service opportunities.
               </p>
             </motion.div>
           </div>
@@ -179,7 +171,7 @@ export default function Home() {
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-16 px-4">
+      <section className="py-16 px-4 bg-gradient-to-r from-cream via-white to-cream">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -199,20 +191,25 @@ export default function Home() {
               transition={{ duration: 0.5 }}
               className="bg-gradient-cardinal-gold p-8 rounded-xl text-white"
             >
-              <h3 className="text-2xl font-bold mb-4">Tết Festival 2025</h3>
+              <h3 className="text-2xl font-bold mb-4">University of Iowa Tet Festival</h3>
               <div className="flex items-center mb-2">
                 <Calendar className="w-5 h-5 mr-2" />
-                <span>February 8, 2025</span>
+                <span>February 2025</span>
               </div>
               <div className="flex items-center mb-4">
                 <MapPin className="w-5 h-5 mr-2" />
-                <span>Memorial Union Great Hall</span>
+                <span>University of Iowa</span>
               </div>
               <div className="bg-white/20 rounded-lg p-4 mb-4">
-                <p className="text-sm mb-2">Event starts in:</p>
-                <p className="text-3xl font-bold font-mono">{timeToNextEvent}</p>
+                <p className="text-sm mb-2">Annual collaborative event</p>
+                <p className="text-lg">
+                  Join us for the largest Vietnamese New Year celebration in Iowa!
+                </p>
               </div>
-              <Link href="/events/tet" className="bg-white text-cardinal px-6 py-2 rounded-lg inline-flex items-center hover:bg-cream transition-colors">
+              <Link
+                href="/events"
+                className="bg-white text-cardinal px-6 py-2 rounded-lg inline-flex items-center hover:bg-cream transition-colors"
+              >
                 Learn More <ChevronRight className="w-4 h-4 ml-2" />
               </Link>
             </motion.div>
@@ -229,11 +226,13 @@ export default function Home() {
                   <Calendar className="w-6 h-6 text-gold" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold mb-1">Welcome Week Social</h4>
-                  <p className="text-sm text-gray-600 mb-1">Meet new members and enjoy Vietnamese snacks</p>
+                  <h4 className="font-semibold mb-1">BBQ Cookout</h4>
+                  <p className="text-sm text-gray-600 mb-1">
+                    Social gathering with delicious Vietnamese BBQ
+                  </p>
                   <div className="flex items-center text-sm text-gray-500">
                     <Clock className="w-4 h-4 mr-1" />
-                    <span>January 15, 2025 | 6:00 PM</span>
+                    <span>Check Instagram for dates</span>
                   </div>
                 </div>
               </div>
@@ -243,11 +242,13 @@ export default function Home() {
                   <Sparkles className="w-6 h-6 text-gold" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold mb-1">Phở Night</h4>
-                  <p className="text-sm text-gray-600 mb-1">Learn to make authentic Vietnamese phở</p>
+                  <h4 className="font-semibold mb-1">Study Nights</h4>
+                  <p className="text-sm text-gray-600 mb-1">
+                    Study together and support each other academically
+                  </p>
                   <div className="flex items-center text-sm text-gray-500">
                     <Clock className="w-4 h-4 mr-1" />
-                    <span>January 22, 2025 | 5:30 PM</span>
+                    <span>Throughout the semester</span>
                   </div>
                 </div>
               </div>
@@ -257,11 +258,13 @@ export default function Home() {
                   <Users className="w-6 h-6 text-gold" />
                 </div>
                 <div className="flex-1">
-                  <h4 className="font-semibold mb-1">VSA Royale Tournament</h4>
-                  <p className="text-sm text-gray-600 mb-1">Compete in our exclusive tower defense game</p>
+                  <h4 className="font-semibold mb-1">Volleyball Tournament</h4>
+                  <p className="text-sm text-gray-600 mb-1">
+                    Friendly competition and team building
+                  </p>
                   <div className="flex items-center text-sm text-gray-500">
                     <Clock className="w-4 h-4 mr-1" />
-                    <span>January 29, 2025 | 7:00 PM</span>
+                    <span>Spring semester</span>
                   </div>
                 </div>
               </div>
@@ -274,8 +277,45 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ACCE Program Section */}
+      <section className="py-16 px-4 bg-gradient-to-br from-gold/20 via-white to-cardinal/20">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-12"
+          >
+            <h2 className="section-title">ACCE Program</h2>
+            <p className="section-subtitle">Asian Cultural Center for Everyone</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-gradient-to-r from-cardinal to-gold p-8 rounded-2xl text-white shadow-2xl"
+          >
+            <div className="max-w-3xl mx-auto text-center">
+              <h3 className="text-3xl font-bold mb-4">Building Bridges Between Communities</h3>
+              <p className="text-lg mb-6 opacity-95">
+                ISU VSA is a proud member of ACCE, a collaborative initiative uniting Asian student organizations
+                to celebrate diversity and promote cultural understanding at Iowa State University.
+              </p>
+              <Link
+                href="/acce"
+                className="inline-flex items-center bg-white text-cardinal px-6 py-3 rounded-lg font-semibold hover:bg-cream transition-all hover:scale-105"
+              >
+                Learn About ACCE
+                <ChevronRight className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Instagram Feed */}
-      <InstagramFeed />
+      <InstagramEmbed />
 
       {/* Call to Action */}
       <section className="py-16 px-4 bg-gradient-cardinal-gold">
@@ -292,10 +332,16 @@ export default function Home() {
               Become a part of ISU VSA and experience the best of Vietnamese culture at Iowa State
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/get-involved/membership" className="bg-white text-cardinal px-8 py-4 rounded-lg font-semibold hover:bg-cream transition-colors">
+              <Link
+                href="/get-involved/membership"
+                className="bg-white text-cardinal px-8 py-4 rounded-lg font-semibold hover:bg-cream transition-colors"
+              >
                 Become a Member
               </Link>
-              <Link href="/contact" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors">
+              <Link
+                href="/contact"
+                className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white/10 transition-colors"
+              >
                 Contact Us
               </Link>
             </div>

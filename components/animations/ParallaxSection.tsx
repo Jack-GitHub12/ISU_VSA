@@ -14,12 +14,12 @@ export default function ParallaxSection({
   children,
   className = '',
   speed = 0.5,
-  backgroundImage
+  backgroundImage,
 }: ParallaxSectionProps) {
   const ref = useRef(null)
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start start", "end start"]
+    offset: ['start start', 'end start'],
   })
 
   const y = useTransform(scrollYProgress, [0, 1], ['0%', `${speed * 100}%`])
@@ -39,9 +39,7 @@ export default function ParallaxSection({
           }}
         />
       )}
-      <div className="relative z-10">
-        {children}
-      </div>
+      <div className="relative z-10">{children}</div>
     </div>
   )
 }

@@ -11,7 +11,7 @@ export default function ConstitutionPage() {
       icon: BookOpen,
       content: `The organization shall be known as the Iowa State University Vietnamese Student Association (ISU VSA). 
                 The purpose of this organization is to promote Vietnamese culture, provide support for Vietnamese students, 
-                and foster community connections within Iowa State University and the greater Ames community.`
+                and foster community connections within Iowa State University and the greater Ames community.`,
     },
     {
       id: 'article2',
@@ -19,14 +19,14 @@ export default function ConstitutionPage() {
       icon: Users,
       content: `Membership is open to all students, faculty, staff, and community members who support the mission and 
                 values of ISU VSA. Active membership requires participation in organizational activities and payment of 
-                annual dues as determined by the Executive Board.`
+                annual dues as determined by the Executive Board.`,
     },
     {
       id: 'article3',
       title: 'Article III: Executive Board',
       icon: Gavel,
       content: `The Executive Board shall consist of President, Vice President, Secretary, Treasurer, Cultural Chair, 
-                Social Chair, and Public Relations Chair. Officers serve one-year terms and are elected by general membership.`
+                Social Chair, and Public Relations Chair. Officers serve one-year terms and are elected by general membership.`,
     },
     {
       id: 'article4',
@@ -34,49 +34,49 @@ export default function ConstitutionPage() {
       icon: Scale,
       content: `General meetings shall be held bi-weekly during the academic year. Special meetings may be called by 
                 the President or by petition of at least 25% of active members. Quorum for official business requires 
-                50% of active membership.`
+                50% of active membership.`,
     },
     {
       id: 'article5',
       title: 'Article V: Finances',
       icon: Shield,
       content: `The organization's finances shall be managed by the Treasurer under oversight of the Executive Board. 
-                Annual budgets must be approved by general membership. All expenditures over $100 require Executive Board approval.`
+                Annual budgets must be approved by general membership. All expenditures over $100 require Executive Board approval.`,
     },
     {
       id: 'article6',
       title: 'Article VI: Amendments',
       icon: FileText,
       content: `This constitution may be amended by a two-thirds vote of active members present at a general meeting, 
-                provided that proposed amendments have been distributed to membership at least one week prior to the vote.`
-    }
+                provided that proposed amendments have been distributed to membership at least one week prior to the vote.`,
+    },
   ]
 
   const bylaws = [
     {
       title: 'Election Procedures',
-      description: 'Detailed process for nominating and electing Executive Board members'
+      description: 'Detailed process for nominating and electing Executive Board members',
     },
     {
       title: 'Committee Structure',
-      description: 'Organization and responsibilities of standing committees'
+      description: 'Organization and responsibilities of standing committees',
     },
     {
       title: 'Event Planning Guidelines',
-      description: 'Standards and procedures for organizing VSA events'
+      description: 'Standards and procedures for organizing VSA events',
     },
     {
       title: 'Membership Benefits',
-      description: 'Privileges and responsibilities of active members'
+      description: 'Privileges and responsibilities of active members',
     },
     {
       title: 'Disciplinary Procedures',
-      description: 'Process for addressing violations of organizational policies'
+      description: 'Process for addressing violations of organizational policies',
     },
     {
       title: 'Alumni Relations',
-      description: 'Framework for maintaining connections with VSA graduates'
-    }
+      description: 'Framework for maintaining connections with VSA graduates',
+    },
   ]
 
   return (
@@ -87,7 +87,8 @@ export default function ConstitutionPage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Constitution & Bylaws</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto">
-              The governing documents that guide our organization&apos;s structure, operations, and values
+              The governing documents that guide our organization&apos;s structure, operations, and
+              values
             </p>
           </AnimatedSection>
         </div>
@@ -99,8 +100,9 @@ export default function ConstitutionPage() {
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Our Governing Documents</h2>
             <p className="section-subtitle max-w-3xl mx-auto">
-              These documents establish the framework for our organization&apos;s governance, ensuring transparency, 
-              accountability, and democratic participation in all VSA activities.
+              These documents establish the framework for our organization&apos;s governance,
+              ensuring transparency, accountability, and democratic participation in all VSA
+              activities.
             </p>
           </AnimatedSection>
 
@@ -114,8 +116,9 @@ export default function ConstitutionPage() {
                   <h3 className="text-2xl font-bold">Constitution</h3>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  Our constitution establishes the fundamental principles, structure, and purpose of ISU VSA. 
-                  It serves as the foundation for all organizational activities and decision-making processes.
+                  Our constitution establishes the fundamental principles, structure, and purpose of
+                  ISU VSA. It serves as the foundation for all organizational activities and
+                  decision-making processes.
                 </p>
                 <div className="flex space-x-4">
                   <button className="btn-primary inline-flex items-center">
@@ -139,8 +142,9 @@ export default function ConstitutionPage() {
                   <h3 className="text-2xl font-bold">Bylaws</h3>
                 </div>
                 <p className="text-gray-600 mb-6">
-                  Our bylaws provide detailed procedures and guidelines for implementing the constitution. 
-                  They cover operational matters such as elections, committees, and event planning.
+                  Our bylaws provide detailed procedures and guidelines for implementing the
+                  constitution. They cover operational matters such as elections, committees, and
+                  event planning.
                 </p>
                 <div className="flex space-x-4">
                   <button className="btn-primary inline-flex items-center">
@@ -200,11 +204,7 @@ export default function ConstitutionPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {bylaws.map((bylaw, index) => (
-              <AnimatedSection
-                key={bylaw.title}
-                direction="up"
-                delay={index * 0.1}
-              >
+              <AnimatedSection key={bylaw.title} direction="up" delay={index * 0.1}>
                 <div className="card h-full text-center">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Scale className="w-8 h-8 text-white" />
@@ -269,8 +269,8 @@ export default function ConstitutionPage() {
               <div className="bg-white rounded-lg p-8 shadow-lg">
                 <h3 className="text-xl font-bold mb-4">Have Questions or Suggestions?</h3>
                 <p className="text-gray-600 mb-6">
-                  We welcome feedback and suggestions for improving our governing documents. 
-                  Contact the Executive Board to discuss potential amendments or clarifications.
+                  We welcome feedback and suggestions for improving our governing documents. Contact
+                  the Executive Board to discuss potential amendments or clarifications.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button className="btn-primary">Contact Executive Board</button>

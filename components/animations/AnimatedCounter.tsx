@@ -20,14 +20,12 @@ export default function AnimatedCounter({
   prefix = '',
   suffix = '',
   className = '',
-  decimals = 0
+  decimals = 0,
 }: AnimatedCounterProps) {
   const ref = useRef(null)
   const motionValue = useMotionValue(from)
   const rounded = useTransform(motionValue, (latest) => {
-    return decimals > 0 
-      ? latest.toFixed(decimals)
-      : Math.round(latest).toLocaleString()
+    return decimals > 0 ? latest.toFixed(decimals) : Math.round(latest).toLocaleString()
   })
   const isInView = useInView(ref, { once: true })
 
@@ -35,7 +33,7 @@ export default function AnimatedCounter({
     if (isInView) {
       const animation = animate(motionValue, to, {
         duration,
-        ease: "easeOut"
+        ease: 'easeOut',
       })
       return animation.stop
     }

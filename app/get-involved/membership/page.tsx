@@ -2,73 +2,132 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { 
-  Users, CheckCircle, Star, Gift, Calendar,
-  CreditCard, Mail, User, School
+import {
+  Users,
+  CheckCircle,
+  Star,
+  Gift,
+  Calendar,
+  CreditCard,
+  Mail,
+  User,
+  School,
 } from 'lucide-react'
 
 export default function MembershipPage() {
-  const [selectedTier, setSelectedTier] = useState<'semester' | 'year'>('semester')
+  const [selectedTier, setSelectedTier] = useState<'semester' | 'annual'>('semester')
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
-    phone: '',
     major: '',
     year: '',
     dietary: '',
-    interests: [] as string[]
+    interests: [] as string[],
   })
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{
+    type: 'success' | 'error' | null
+    message: string
+  }>({ type: null, message: '' })
 
   const membershipTiers = [
     {
       id: 'semester',
       name: 'Semester Membership',
-      price: '$20',
+      price: '$10',
       duration: 'One Semester',
       benefits: [
-        'Access to all general meetings',
-        'Voting rights in elections',
-        'Discounted event tickets',
+        'Attend all general meetings',
+        'Participate in cultural events',
+        'Join social activities',
+        'Access to study groups',
+        'Learn about Vietnamese culture',
+        'Build community connections',
+        'Member-only events and discounts',
         'VSA merchandise discounts',
-        'Priority event registration',
-        'Access to study groups'
       ],
-      popular: false
+      popular: false,
     },
     {
-      id: 'year',
+      id: 'annual',
       name: 'Annual Membership',
-      price: '$35',
+      price: '$15',
       duration: 'Full Academic Year',
       benefits: [
-        'All semester benefits',
-        'Save $5 compared to semester',
-        'Exclusive annual member events',
-        'Free VSA t-shirt',
-        'Early access to Tết tickets',
-        'Recognition at annual banquet'
+        'All semester member benefits',
+        'Save $5 compared to semester pricing',
+        'Voting rights in elections',
+        'Run for leadership positions',
+        'Priority event registration',
+        'Year-round community access',
+        'Special recognition at events',
+        'Exclusive annual member activities',
       ],
-      popular: true
-    }
+      popular: true,
+    },
   ]
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Membership form submitted:', { ...formData, tier: selectedTier })
+    setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
+
+    try {
+      const response = await fetch('/api/membership', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, tier: selectedTier }),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setSubmitStatus({
+          type: 'success',
+          message: data.message || 'Registration successful!',
+        })
+        // Reset form
+        setFormData({
+          firstName: '',
+          lastName: '',
+          email: '',
+          major: '',
+          year: '',
+          dietary: '',
+          interests: [],
+        })
+      } else {
+        setSubmitStatus({
+          type: 'error',
+          message: data.error || 'Failed to register. Please try again.',
+        })
+      }
+    } catch (error) {
+      setSubmitStatus({
+        type: 'error',
+        message: 'Network error. Please check your connection and try again.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target
-    setFormData(prev => ({ ...prev, [name]: value }))
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
   const handleInterestToggle = (interest: string) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       interests: prev.interests.includes(interest)
-        ? prev.interests.filter(i => i !== interest)
-        : [...prev.interests, interest]
+        ? prev.interests.filter((i) => i !== interest)
+        : [...prev.interests, interest],
     }))
   }
 
@@ -109,33 +168,34 @@ export default function MembershipPage() {
               {
                 icon: Users,
                 title: 'Community',
-                description: 'Connect with 100+ members who share your interests and heritage'
+                description: 'Connect with fellow students who share your interests and heritage',
               },
               {
                 icon: Calendar,
                 title: 'Exclusive Events',
-                description: 'Access member-only events and priority registration for all activities'
+                description:
+                  'Access member-only events and priority registration for all activities',
               },
               {
                 icon: Gift,
                 title: 'Discounts',
-                description: 'Save on event tickets, merchandise, and partner restaurants'
+                description: 'Save on event tickets, merchandise, and partner restaurants',
               },
               {
                 icon: Star,
                 title: 'Leadership',
-                description: 'Opportunity to run for executive board and committee positions'
+                description: 'Opportunity to run for executive board and committee positions',
               },
               {
                 icon: School,
                 title: 'Academic Support',
-                description: 'Join study groups and get mentorship from upperclassmen'
+                description: 'Join study groups and get mentorship from upperclassmen',
               },
               {
                 icon: CheckCircle,
                 title: 'Voting Rights',
-                description: 'Have a say in VSA decisions and elect your representatives'
-              }
+                description: 'Have a say in VSA decisions and elect your representatives',
+              },
             ].map((benefit, index) => (
               <motion.div
                 key={benefit.title}
@@ -190,7 +250,7 @@ export default function MembershipPage() {
                       ? 'ring-4 ring-cardinal bg-gradient-to-br from-white to-cream'
                       : ''
                   } cursor-pointer transition-all hover:shadow-xl`}
-                  onClick={() => setSelectedTier(tier.id as 'semester' | 'year')}
+                  onClick={() => setSelectedTier(tier.id as 'semester' | 'annual')}
                 >
                   <div className="text-center mb-6">
                     <h3 className="text-2xl font-bold mb-2">{tier.name}</h3>
@@ -229,7 +289,7 @@ export default function MembershipPage() {
             className="card"
           >
             <h2 className="text-3xl font-bold mb-8 text-center">Complete Your Registration</h2>
-            
+
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Personal Information */}
               <div>
@@ -288,19 +348,6 @@ export default function MembershipPage() {
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal"
                     />
                   </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="(515) 555-0000"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal"
-                    />
-                  </div>
                 </div>
               </div>
 
@@ -312,9 +359,7 @@ export default function MembershipPage() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Major *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Major *</label>
                     <input
                       type="text"
                       name="major"
@@ -326,9 +371,7 @@ export default function MembershipPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Year *
-                    </label>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">Year *</label>
                     <select
                       name="year"
                       required
@@ -348,13 +391,25 @@ export default function MembershipPage() {
               </div>
 
               {/* Interests */}
-              <div>
-                <h3 className="text-xl font-semibold mb-4">Interests (Select all that apply)</h3>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              <fieldset>
+                <legend className="text-xl font-semibold mb-4">
+                  Interests (Select all that apply)
+                </legend>
+                <div
+                  className="grid grid-cols-2 md:grid-cols-3 gap-3"
+                  role="group"
+                  aria-label="Interest selection"
+                >
                   {[
-                    'Cultural Events', 'Social Activities', 'Community Service',
-                    'Professional Development', 'Sports', 'Cooking',
-                    'Dance', 'Music', 'Language Learning'
+                    'Cultural Events',
+                    'Social Activities',
+                    'Community Service',
+                    'Professional Development',
+                    'Sports',
+                    'Cooking',
+                    'Dance',
+                    'Music',
+                    'Language Learning',
                   ].map((interest) => (
                     <label
                       key={interest}
@@ -374,7 +429,7 @@ export default function MembershipPage() {
                     </label>
                   ))}
                 </div>
-              </div>
+              </fieldset>
 
               {/* Payment */}
               <div className="bg-gray-50 p-6 rounded-lg">
@@ -384,10 +439,10 @@ export default function MembershipPage() {
                 </h3>
                 <div className="mb-4">
                   <p className="text-lg font-semibold">
-                    Selected Plan: {membershipTiers.find(t => t.id === selectedTier)?.name}
+                    Selected Plan: {membershipTiers.find((t) => t.id === selectedTier)?.name}
                   </p>
                   <p className="text-2xl font-bold text-cardinal">
-                    Total: {membershipTiers.find(t => t.id === selectedTier)?.price}
+                    Total: {membershipTiers.find((t) => t.id === selectedTier)?.price}
                   </p>
                 </div>
                 <p className="text-sm text-gray-600 mb-4">
@@ -397,9 +452,7 @@ export default function MembershipPage() {
 
               {/* Submit */}
               <div className="flex items-center justify-between">
-                <p className="text-sm text-gray-600">
-                  * Required fields
-                </p>
+                <p className="text-sm text-gray-600">* Required fields</p>
                 <button type="submit" className="btn-primary">
                   Complete Registration
                 </button>

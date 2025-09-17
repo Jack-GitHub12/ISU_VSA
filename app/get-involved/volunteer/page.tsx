@@ -13,7 +13,7 @@ export default function VolunteerPage() {
       frequency: 'Multiple times per month',
       skills: ['Organization', 'Teamwork', 'Physical work'],
       impact: 'Ensure smooth event operations',
-      icon: Calendar
+      icon: Calendar,
     },
     {
       title: 'Community Service Projects',
@@ -22,7 +22,7 @@ export default function VolunteerPage() {
       frequency: 'Monthly',
       skills: ['Community engagement', 'Initiative', 'Compassion'],
       impact: 'Make a difference in the Ames community',
-      icon: Heart
+      icon: Heart,
     },
     {
       title: 'Mentorship Program',
@@ -31,7 +31,7 @@ export default function VolunteerPage() {
       frequency: 'Ongoing',
       skills: ['Communication', 'Leadership', 'Empathy'],
       impact: 'Help new members feel welcomed and supported',
-      icon: Users
+      icon: Users,
     },
     {
       title: 'Social Media Support',
@@ -40,8 +40,8 @@ export default function VolunteerPage() {
       frequency: 'Ongoing',
       skills: ['Creativity', 'Social media', 'Photography'],
       impact: 'Expand VSA reach and engagement',
-      icon: Star
-    }
+      icon: Star,
+    },
   ]
 
   const benefits = [
@@ -50,7 +50,7 @@ export default function VolunteerPage() {
     'Develop leadership skills',
     'Give back to community',
     'Make lifelong friends',
-    'Enhance resume'
+    'Enhance resume',
   ]
 
   return (
@@ -61,7 +61,8 @@ export default function VolunteerPage() {
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Volunteer</h1>
             <p className="text-xl md:text-2xl max-w-4xl mx-auto mb-8">
-              Make a difference in your community while gaining valuable experience and building lasting connections
+              Make a difference in your community while gaining valuable experience and building
+              lasting connections
             </p>
             <motion.button
               whileHover={{ scale: 1.05 }}
@@ -80,7 +81,9 @@ export default function VolunteerPage() {
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center mb-12">
             <h2 className="section-title">Volunteer Opportunities</h2>
-            <p className="section-subtitle">Find the perfect way to contribute your time and skills</p>
+            <p className="section-subtitle">
+              Find the perfect way to contribute your time and skills
+            </p>
           </AnimatedSection>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -115,7 +118,10 @@ export default function VolunteerPage() {
                     <h4 className="font-semibold mb-2">Skills You&apos;ll Develop:</h4>
                     <div className="flex flex-wrap gap-2">
                       {opportunity.skills.map((skill) => (
-                        <span key={skill} className="bg-cardinal/10 text-cardinal px-2 py-1 rounded text-sm">
+                        <span
+                          key={skill}
+                          className="bg-cardinal/10 text-cardinal px-2 py-1 rounded text-sm"
+                        >
                           {skill}
                         </span>
                       ))}
@@ -128,9 +134,7 @@ export default function VolunteerPage() {
                     </p>
                   </div>
 
-                  <button className="btn-primary w-full">
-                    Sign Up
-                  </button>
+                  <button className="btn-primary w-full">Sign Up</button>
                 </div>
               </AnimatedSection>
             ))}
@@ -145,9 +149,10 @@ export default function VolunteerPage() {
             <AnimatedSection direction="left">
               <h2 className="section-title">Why Volunteer with VSA?</h2>
               <p className="text-lg text-gray-700 mb-6">
-                Volunteering with VSA is more than just giving back – it&apos;s an opportunity to grow personally and professionally while making a meaningful impact.
+                Volunteering with VSA is more than just giving back – it&apos;s an opportunity to
+                grow personally and professionally while making a meaningful impact.
               </p>
-              
+
               <div className="space-y-3">
                 {benefits.map((benefit, index) => (
                   <motion.div
@@ -167,7 +172,7 @@ export default function VolunteerPage() {
             <AnimatedSection direction="right">
               <div className="bg-white rounded-2xl p-8 shadow-lg">
                 <h3 className="text-2xl font-bold mb-6 text-center">Volunteer Impact</h3>
-                
+
                 <div className="grid grid-cols-2 gap-6">
                   <div className="text-center">
                     <div className="text-3xl font-bold text-cardinal">150+</div>
@@ -208,7 +213,8 @@ export default function VolunteerPage() {
                 </div>
                 <h3 className="text-xl font-bold mb-3">Choose Your Interest</h3>
                 <p className="text-gray-600">
-                  Browse volunteer opportunities and find one that matches your interests and schedule
+                  Browse volunteer opportunities and find one that matches your interests and
+                  schedule
                 </p>
               </div>
             </AnimatedSection>

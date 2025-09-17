@@ -6,7 +6,7 @@ export default function StyleTestPage() {
   return (
     <div className="min-h-screen p-8">
       <h1 className="text-4xl font-bold mb-8 text-center">ISU VSA Style Test</h1>
-      
+
       {/* Color Palette */}
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">Color Palette</h2>
@@ -59,8 +59,13 @@ export default function StyleTestPage() {
           <h1 className="text-5xl font-montserrat font-bold">Heading 1 - Montserrat</h1>
           <h2 className="text-4xl font-montserrat font-bold">Heading 2 - Montserrat</h2>
           <h3 className="text-3xl font-montserrat font-bold">Heading 3 - Montserrat</h3>
-          <p className="text-lg font-openSans">Body text using Open Sans font. This is how regular paragraph text will appear throughout the website.</p>
-          <p className="text-lg font-playfair italic">Accent text using Playfair Display for elegant touches.</p>
+          <p className="text-lg font-openSans">
+            Body text using Open Sans font. This is how regular paragraph text will appear
+            throughout the website.
+          </p>
+          <p className="text-lg font-playfair italic">
+            Accent text using Playfair Display for elegant touches.
+          </p>
           <p className="gradient-text text-3xl font-bold">Gradient Text Effect</p>
         </div>
       </section>
@@ -72,7 +77,9 @@ export default function StyleTestPage() {
           <button className="btn-primary">Primary Button</button>
           <button className="btn-secondary">Secondary Button</button>
           <button className="btn-outline">Outline Button</button>
-          <button className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">Default Button</button>
+          <button className="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-all">
+            Default Button
+          </button>
         </div>
       </section>
 
@@ -82,9 +89,11 @@ export default function StyleTestPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="card">
             <h3 className="text-xl font-bold mb-2">Standard Card</h3>
-            <p className="text-gray-600">This is a standard card component with shadow and hover effects.</p>
+            <p className="text-gray-600">
+              This is a standard card component with shadow and hover effects.
+            </p>
           </div>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="card"
@@ -103,21 +112,11 @@ export default function StyleTestPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-bold mb-4">Animations</h2>
         <div className="flex flex-wrap gap-8">
-          <div className="animate-fade-in bg-cardinal text-white p-4 rounded">
-            Fade In
-          </div>
-          <div className="animate-slide-up bg-gold text-charcoal p-4 rounded">
-            Slide Up
-          </div>
-          <div className="animate-scale-in bg-deepRed text-white p-4 rounded">
-            Scale In
-          </div>
-          <div className="animate-float bg-cream text-charcoal p-4 rounded border">
-            Float
-          </div>
-          <div className="animate-glow bg-cardinal text-white p-4 rounded">
-            Glow
-          </div>
+          <div className="animate-fade-in bg-cardinal text-white p-4 rounded">Fade In</div>
+          <div className="animate-slide-up bg-gold text-charcoal p-4 rounded">Slide Up</div>
+          <div className="animate-scale-in bg-deepRed text-white p-4 rounded">Scale In</div>
+          <div className="animate-float bg-cream text-charcoal p-4 rounded border">Float</div>
+          <div className="animate-glow bg-cardinal text-white p-4 rounded">Glow</div>
         </div>
       </section>
 
@@ -139,9 +138,7 @@ export default function StyleTestPage() {
         <h2 className="text-2xl font-bold mb-4">Form Elements</h2>
         <div className="max-w-md space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Input Field
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Input Field</label>
             <input
               type="text"
               placeholder="Enter text..."
@@ -149,9 +146,7 @@ export default function StyleTestPage() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Select Field
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Select Field</label>
             <select className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal transition-colors">
               <option>Option 1</option>
               <option>Option 2</option>
@@ -159,9 +154,7 @@ export default function StyleTestPage() {
             </select>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Textarea
-            </label>
+            <label className="block text-sm font-medium text-gray-700 mb-2">Textarea</label>
             <textarea
               rows={3}
               placeholder="Enter message..."

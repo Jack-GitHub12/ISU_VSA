@@ -17,7 +17,7 @@ export default function AnimatedCard({
   className = '',
   delay = 0,
   hover = true,
-  glow = false
+  glow = false,
 }: AnimatedCardProps) {
   return (
     <motion.div
@@ -26,13 +26,17 @@ export default function AnimatedCard({
       transition={{
         duration: 0.5,
         delay,
-        ease: [0.25, 0.1, 0.25, 1]
+        ease: [0.25, 0.1, 0.25, 1],
       }}
-      whileHover={hover ? {
-        y: -5,
-        scale: 1.02,
-        transition: { duration: 0.2 }
-      } : {}}
+      whileHover={
+        hover
+          ? {
+              y: -5,
+              scale: 1.02,
+              transition: { duration: 0.2 },
+            }
+          : {}
+      }
       className={cn(
         'bg-white rounded-xl shadow-md p-6 transition-all duration-300',
         hover && 'hover:shadow-2xl',

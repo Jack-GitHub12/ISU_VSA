@@ -7,7 +7,7 @@ const STORAGE_KEYS = {
   ACHIEVEMENTS: 'vsa_royale_achievements',
   STATS: 'vsa_royale_stats',
   DECK: 'vsa_royale_deck',
-  CAMPAIGN_PROGRESS: 'vsa_royale_campaign'
+  CAMPAIGN_PROGRESS: 'vsa_royale_campaign',
 }
 
 /**
@@ -23,7 +23,7 @@ export function initializePlayer(): Player {
     losses: 0,
     currentArena: 1,
     cardCollection: getStarterDeck(),
-    currentDeck: getStarterDeck().slice(0, 8)
+    currentDeck: getStarterDeck().slice(0, 8),
   }
 
   const stored = getPlayer()
@@ -39,12 +39,12 @@ export function initializePlayer(): Player {
  */
 export function getPlayer(): Player | null {
   if (typeof window === 'undefined') return null
-  
+
   try {
     const data = localStorage.getItem(STORAGE_KEYS.PLAYER)
     return data ? JSON.parse(data) : null
-  } catch (error) {
-    console.error('Failed to load player data:', error)
+  } catch {
+    // console.error('Failed to load player data')
     return null
   }
 }
@@ -54,11 +54,11 @@ export function getPlayer(): Player | null {
  */
 export function savePlayer(player: Player): void {
   if (typeof window === 'undefined') return
-  
+
   try {
     localStorage.setItem(STORAGE_KEYS.PLAYER, JSON.stringify(player))
-  } catch (error) {
-    console.error('Failed to save player data:', error)
+  } catch {
+    // console.error('Failed to save player data:', error)
   }
 }
 
@@ -78,7 +78,7 @@ export function updatePlayerStats(won: boolean, xpGained: number = 10): void {
   if (player.xp >= xpNeeded) {
     player.level += 1
     player.xp = player.xp - xpNeeded
-    
+
     // Unlock new arena every 5 levels
     if (player.level % 5 === 0) {
       player.currentArena = Math.min(player.currentArena + 1, 5)
@@ -99,8 +99,8 @@ export function getSettings(): GameSettings {
   try {
     const data = localStorage.getItem(STORAGE_KEYS.SETTINGS)
     return data ? JSON.parse(data) : getDefaultSettings()
-  } catch (error) {
-    console.error('Failed to load settings:', error)
+  } catch {
+    // console.error('Failed to load settings:', error)
     return getDefaultSettings()
   }
 }
@@ -110,11 +110,11 @@ export function getSettings(): GameSettings {
  */
 export function saveSettings(settings: GameSettings): void {
   if (typeof window === 'undefined') return
-  
+
   try {
     localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings))
-  } catch (error) {
-    console.error('Failed to save settings:', error)
+  } catch {
+    // console.error('Failed to save settings:', error)
   }
 }
 
@@ -127,7 +127,7 @@ function getDefaultSettings(): GameSettings {
     musicVolume: 0.7,
     sfxVolume: 0.8,
     graphicsQuality: 'medium',
-    notifications: true
+    notifications: true,
   }
 }
 
@@ -136,12 +136,12 @@ function getDefaultSettings(): GameSettings {
  */
 export function getAchievements(): Achievement[] {
   if (typeof window === 'undefined') return []
-  
+
   try {
     const data = localStorage.getItem(STORAGE_KEYS.ACHIEVEMENTS)
     return data ? JSON.parse(data) : getDefaultAchievements()
-  } catch (error) {
-    console.error('Failed to load achievements:', error)
+  } catch {
+    // console.error('Failed to load achievements:', error)
     return getDefaultAchievements()
   }
 }
@@ -151,12 +151,12 @@ export function getAchievements(): Achievement[] {
  */
 export function unlockAchievement(achievementId: string): void {
   const achievements = getAchievements()
-  const achievement = achievements.find(a => a.id === achievementId)
-  
+  const achievement = achievements.find((a) => a.id === achievementId)
+
   if (achievement && !achievement.isUnlocked) {
     achievement.isUnlocked = true
     achievement.progress = achievement.maxProgress
-    
+
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS, JSON.stringify(achievements))
     }
@@ -168,15 +168,15 @@ export function unlockAchievement(achievementId: string): void {
  */
 export function updateAchievementProgress(achievementId: string, progress: number): void {
   const achievements = getAchievements()
-  const achievement = achievements.find(a => a.id === achievementId)
-  
+  const achievement = achievements.find((a) => a.id === achievementId)
+
   if (achievement && !achievement.isUnlocked) {
     achievement.progress = Math.min(progress, achievement.maxProgress)
-    
+
     if (achievement.progress >= achievement.maxProgress) {
       achievement.isUnlocked = true
     }
-    
+
     if (typeof window !== 'undefined') {
       localStorage.setItem(STORAGE_KEYS.ACHIEVEMENTS, JSON.stringify(achievements))
     }
@@ -195,7 +195,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '🏆',
       progress: 0,
       maxProgress: 1,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'tet_champion',
@@ -204,7 +204,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '🧧',
       progress: 0,
       maxProgress: 10,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'executive_board',
@@ -213,7 +213,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '👥',
       progress: 0,
       maxProgress: 4,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'eggroll_master',
@@ -222,7 +222,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '🥟',
       progress: 0,
       maxProgress: 1,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'cultural_ambassador',
@@ -231,7 +231,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '🌏',
       progress: 0,
       maxProgress: 100,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'ai_slayer',
@@ -240,7 +240,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '🤖',
       progress: 0,
       maxProgress: 1,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'puzzle_master',
@@ -249,7 +249,7 @@ function getDefaultAchievements(): Achievement[] {
       icon: '🧩',
       progress: 0,
       maxProgress: 100,
-      isUnlocked: false
+      isUnlocked: false,
     },
     {
       id: 'speed_runner',
@@ -258,8 +258,8 @@ function getDefaultAchievements(): Achievement[] {
       icon: '⚡',
       progress: 0,
       maxProgress: 1,
-      isUnlocked: false
-    }
+      isUnlocked: false,
+    },
   ]
 }
 
@@ -268,11 +268,11 @@ function getDefaultAchievements(): Achievement[] {
  */
 export function saveDeck(deck: string[]): void {
   if (typeof window === 'undefined') return
-  
+
   try {
     localStorage.setItem(STORAGE_KEYS.DECK, JSON.stringify(deck))
-  } catch (error) {
-    console.error('Failed to save deck:', error)
+  } catch {
+    // console.error('Failed to save deck:', error)
   }
 }
 
@@ -281,12 +281,12 @@ export function saveDeck(deck: string[]): void {
  */
 export function loadDeck(): string[] | null {
   if (typeof window === 'undefined') return null
-  
+
   try {
     const data = localStorage.getItem(STORAGE_KEYS.DECK)
     return data ? JSON.parse(data) : null
-  } catch (error) {
-    console.error('Failed to load deck:', error)
+  } catch {
+    // console.error('Failed to load deck:', error)
     return null
   }
 }
@@ -296,13 +296,13 @@ export function loadDeck(): string[] | null {
  */
 export function saveCampaignProgress(level: number, stars: number): void {
   if (typeof window === 'undefined') return
-  
+
   try {
     const progress = getCampaignProgress()
     progress[`level_${level}`] = stars
     localStorage.setItem(STORAGE_KEYS.CAMPAIGN_PROGRESS, JSON.stringify(progress))
-  } catch (error) {
-    console.error('Failed to save campaign progress:', error)
+  } catch {
+    // console.error('Failed to save campaign progress:', error)
   }
 }
 
@@ -311,12 +311,12 @@ export function saveCampaignProgress(level: number, stars: number): void {
  */
 export function getCampaignProgress(): Record<string, number> {
   if (typeof window === 'undefined') return {}
-  
+
   try {
     const data = localStorage.getItem(STORAGE_KEYS.CAMPAIGN_PROGRESS)
     return data ? JSON.parse(data) : {}
-  } catch (error) {
-    console.error('Failed to load campaign progress:', error)
+  } catch {
+    // console.error('Failed to load campaign progress:', error)
     return {}
   }
 }
@@ -326,8 +326,8 @@ export function getCampaignProgress(): Record<string, number> {
  */
 export function clearAllData(): void {
   if (typeof window === 'undefined') return
-  
-  Object.values(STORAGE_KEYS).forEach(key => {
+
+  Object.values(STORAGE_KEYS).forEach((key) => {
     localStorage.removeItem(key)
   })
 }
@@ -342,9 +342,9 @@ export function exportGameData(): string {
     achievements: getAchievements(),
     deck: loadDeck(),
     campaign: getCampaignProgress(),
-    exportDate: new Date().toISOString()
+    exportDate: new Date().toISOString(),
   }
-  
+
   return JSON.stringify(data, null, 2)
 }
 
@@ -354,7 +354,7 @@ export function exportGameData(): string {
 export function importGameData(jsonData: string): boolean {
   try {
     const data = JSON.parse(jsonData)
-    
+
     if (data.player) savePlayer(data.player)
     if (data.settings) saveSettings(data.settings)
     if (data.achievements) {
@@ -364,10 +364,10 @@ export function importGameData(jsonData: string): boolean {
     if (data.campaign) {
       localStorage.setItem(STORAGE_KEYS.CAMPAIGN_PROGRESS, JSON.stringify(data.campaign))
     }
-    
+
     return true
-  } catch (error) {
-    console.error('Failed to import game data:', error)
+  } catch {
+    // console.error('Failed to import game data:', error)
     return false
   }
 }

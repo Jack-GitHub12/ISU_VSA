@@ -15,7 +15,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1,
     description: 'The leader of VSA with area damage and leadership aura',
     ability: 'Boosts nearby units attack speed by 35%',
-    imageUrl: '/images/cards/president.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'vice_president',
@@ -30,7 +30,7 @@ export const VSA_CARDS: Card[] = [
     speed: 0.8,
     description: 'Tank unit with high HP and shield ability',
     ability: 'Generates shield for nearby units',
-    imageUrl: '/images/cards/vice_president.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'treasurer',
@@ -45,7 +45,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.2,
     description: 'Manages resources efficiently',
     ability: 'Generates +1 eggroll every 10 seconds',
-    imageUrl: '/images/cards/treasurer.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'secretary',
@@ -60,7 +60,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.5,
     description: 'Fast attack speed with documentation projectiles',
     ability: 'Attacks hit multiple targets',
-    imageUrl: '/images/cards/secretary.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
 
   // Epic Cards - Committee Chairs
@@ -77,7 +77,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.2,
     description: 'Spawns traditional dancers',
     ability: 'Spawns 3 mini dancers on death',
-    imageUrl: '/images/cards/cultural_chair.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'social_chair',
@@ -92,7 +92,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.4,
     description: 'Boosts allied unit speed',
     ability: 'Party aura: +25% movement speed',
-    imageUrl: '/images/cards/social_chair.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'pr_chair',
@@ -107,7 +107,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.0,
     description: 'Long-range camera flash attacks',
     ability: 'Stuns enemies for 0.5 seconds',
-    imageUrl: '/images/cards/pr_chair.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'fundraising_chair',
@@ -122,7 +122,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.1,
     description: 'Converts enemy units',
     ability: 'Has 30% chance to convert low HP enemies',
-    imageUrl: '/images/cards/fundraising_chair.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
 
   // Rare Cards
@@ -139,7 +139,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.2,
     description: 'Experienced and balanced fighter',
     ability: 'None',
-    imageUrl: '/images/cards/senior_member.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'junior_member',
@@ -154,7 +154,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.4,
     description: 'Enthusiastic and quick',
     ability: 'None',
-    imageUrl: '/images/cards/junior_member.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'alumni_supporter',
@@ -169,7 +169,7 @@ export const VSA_CARDS: Card[] = [
     speed: 0.8,
     description: 'Powerful but slow',
     ability: 'None',
-    imageUrl: '/images/cards/alumni_supporter.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
 
   // Common Cards
@@ -186,7 +186,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.3,
     description: 'New but eager to help',
     ability: 'None',
-    imageUrl: '/images/cards/freshman_member.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'volunteer',
@@ -201,7 +201,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.5,
     description: 'Quick and cheap unit',
     ability: 'None',
-    imageUrl: '/images/cards/volunteer.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'exchange_student',
@@ -216,7 +216,7 @@ export const VSA_CARDS: Card[] = [
     speed: 1.2,
     description: 'Random ability each deployment',
     ability: 'Random buff on spawn',
-    imageUrl: '/images/cards/exchange_student.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
 
   // Spell Cards
@@ -228,7 +228,7 @@ export const VSA_CARDS: Card[] = [
     cost: 3,
     description: 'Area damage spell',
     ability: 'Deals 300 damage in area',
-    imageUrl: '/images/cards/tet_firecracker.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'pho_power',
@@ -238,7 +238,7 @@ export const VSA_CARDS: Card[] = [
     cost: 4,
     description: 'Heal all friendly units',
     ability: 'Heals 400 HP to all allies',
-    imageUrl: '/images/cards/pho_power.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'banh_mi_barrage',
@@ -248,7 +248,7 @@ export const VSA_CARDS: Card[] = [
     cost: 5,
     description: 'Projectile rain from above',
     ability: 'Deals 150 damage x 8 projectiles',
-    imageUrl: '/images/cards/banh_mi_barrage.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'dragon_dance',
@@ -258,7 +258,7 @@ export const VSA_CARDS: Card[] = [
     cost: 6,
     description: 'Temporary invincibility shield',
     ability: 'All units invincible for 2 seconds',
-    imageUrl: '/images/cards/dragon_dance.png'
+    imageUrl: '/images/dong/dongKawaii.JPG',
   },
   {
     id: 'spring_roll_rush',
@@ -268,16 +268,16 @@ export const VSA_CARDS: Card[] = [
     cost: 2,
     description: 'Speed boost for units',
     ability: '+50% speed for 5 seconds',
-    imageUrl: '/images/cards/spring_roll_rush.png'
-  }
+    imageUrl: '/images/dong/dongKawaii.JPG',
+  },
 ]
 
 export function getCardById(id: string): Card | undefined {
-  return VSA_CARDS.find(card => card.id === id)
+  return VSA_CARDS.find((card) => card.id === id)
 }
 
 export function getCardsByRarity(rarity: Card['rarity']): Card[] {
-  return VSA_CARDS.filter(card => card.rarity === rarity)
+  return VSA_CARDS.filter((card) => card.rarity === rarity)
 }
 
 export function getStarterDeck(): string[] {
@@ -289,6 +289,6 @@ export function getStarterDeck(): string[] {
     'spring_roll_rush',
     'exchange_student',
     'senior_member',
-    'pho_power'
+    'pho_power',
   ]
 }

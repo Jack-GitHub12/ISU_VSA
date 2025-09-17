@@ -19,7 +19,8 @@ export default function AboutPage() {
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">About ISU VSA</h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto">
-              Building bridges between Vietnamese culture and the Iowa State community since 1985
+              Uniting the Iowa State community with Vietnamese culture through education and
+              awareness
             </p>
           </motion.div>
         </div>
@@ -37,12 +38,14 @@ export default function AboutPage() {
             <div>
               <h2 className="section-title">Our Mission</h2>
               <p className="text-lg text-gray-700 mb-6">
-                The Iowa State University Vietnamese Student Association (ISU VSA) is dedicated to promoting Vietnamese culture, 
-                fostering community connections, and supporting the academic and personal growth of our members.
+                The Iowa State University Vietnamese Student Association (ISU VSA) exists to unite
+                the Iowa State University community with the local Vietnamese community and to
+                create more awareness about Vietnamese culture and history.
               </p>
               <p className="text-lg text-gray-700 mb-8">
-                We strive to create an inclusive environment where students can explore their heritage, 
-                build lasting friendships, and develop leadership skills that will serve them throughout their lives.
+                We focus on educating our members and the broader community about Vietnamese
+                culture, history, current events, and Vietnamese American issues while providing
+                leadership opportunities and fostering meaningful connections.
               </p>
               <Link href="/about/mission" className="btn-primary inline-flex items-center">
                 Learn More About Our Mission
@@ -50,12 +53,7 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className="relative h-96 rounded-xl overflow-hidden">
-              <Image
-                src="/placeholder.svg"
-                alt="ISU VSA Mission"
-                fill
-                className="object-cover"
-              />
+              <Image src="/images/eboard/eboardGroup.JPG" alt="ISU VSA Mission" fill className="object-cover" />
             </div>
           </motion.div>
         </div>
@@ -79,23 +77,25 @@ export default function AboutPage() {
               {
                 icon: Heart,
                 title: 'Community',
-                description: 'Building strong bonds and supporting each other through our journey at ISU'
+                description:
+                  'Uniting ISU students, faculty, alumni, and local Vietnamese community members',
               },
               {
                 icon: Globe,
                 title: 'Culture',
-                description: 'Preserving and sharing Vietnamese traditions with the broader community'
+                description:
+                  'Creating awareness about Vietnamese culture, history, and current events',
               },
               {
                 icon: Users,
                 title: 'Leadership',
-                description: 'Developing future leaders through hands-on experience and mentorship'
+                description: 'Developing future leaders through hands-on experience and mentorship',
               },
               {
                 icon: Target,
                 title: 'Excellence',
-                description: 'Striving for excellence in academics, events, and personal growth'
-              }
+                description: 'Striving for excellence in academics, events, and personal growth',
+              },
             ].map((value, index) => (
               <motion.div
                 key={value.title}
@@ -134,20 +134,20 @@ export default function AboutPage() {
                 title: 'Executive Board',
                 description: 'Meet the dedicated leaders who guide our organization',
                 link: '/about/board',
-                image: '/placeholder.svg'
+                image: '/images/eboard/eboardGroup.JPG',
               },
               {
                 title: 'Our History',
                 description: 'Discover our journey from 1985 to today',
                 link: '/about/history',
-                image: '/placeholder.svg'
+                image: '/images/eboard/eboardGroup.JPG',
               },
               {
                 title: 'Constitution',
                 description: 'Read our governing documents and bylaws',
                 link: '/about/constitution',
-                image: '/placeholder.svg'
-              }
+                image: '/images/eboard/eboardGroup.JPG',
+              },
             ].map((item, index) => (
               <motion.div
                 key={item.title}
