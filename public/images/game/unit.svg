@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="60" height="60" xmlns="http://www.w3.org/2000/svg">
+  <rect width="60" height="60" fill="#60a5fa"/>
+  <text x="50%" y="50%" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="white" text-anchor="middle" dominant-baseline="middle">
+    UNIT
+  </text>
+</svg>

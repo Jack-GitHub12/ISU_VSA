@@ -1,0 +1,45 @@
+# Robots.txt for ISU VSA Website
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Directories/pages that should not be indexed
+Disallow: /admin/
+Disallow: /api/
+Disallow: /_next/
+Disallow: /scripts/
+Disallow: /__tests__/
+Disallow: /style-test/
+
+# Sitemap location
+Sitemap: https://isuvsa.org/sitemap.xml
+
+# Crawl delay (in seconds) - helps prevent server overload
+Crawl-delay: 1
+
+# Major search engine specific rules
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1
+
+# Block bad bots (optional - you can add more as needed)
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /

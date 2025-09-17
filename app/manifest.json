@@ -1,0 +1,22 @@
+{
+  "name": "ISU VSA - Iowa State University Vietnamese Student Association",
+  "short_name": "ISU VSA",
+  "description": "Uniting the Iowa State University community with Vietnamese culture",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#CE1126",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
