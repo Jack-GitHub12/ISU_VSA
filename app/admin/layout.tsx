@@ -47,7 +47,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-cardinal-gold flex items-center justify-center p-4">
+      <div className="min-h-screen bg-cardinal flex items-center justify-center p-4 text-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

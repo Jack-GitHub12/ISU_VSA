@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-cream to-white">
+    <div className="min-h-screen flex items-center justify-center bg-cream">
       <div className="text-center animate-fade-in">
         <div className="relative">
           {/* Main spinner */}
@@ -16,7 +16,7 @@ export default function Loading() {
           Loading ISU VSA...
         </p>
 
-        <div className="mt-4 h-1 w-32 bg-gradient-cardinal-gold rounded-full mx-auto animate-pulse" />
+        <div className="mt-4 h-1 w-32 bg-cardinal rounded-full mx-auto animate-pulse" />
       </div>
     </div>
   )

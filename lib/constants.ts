@@ -3,20 +3,20 @@ export const SITE_CONFIG = {
   name: 'ISU VSA',
   fullName: 'Iowa State University Vietnamese Student Association',
   description:
-    'Uniting the Iowa State University community with the local Vietnamese community. Creating awareness about Vietnamese culture and history.',
+    'Est. 2015 @ Iowa State. Bi-weekly GBMs on Thursdays from 6:00–7:30 PM in Pearson Hall 2105.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://isuvsa.org',
 
   // Contact Information
-  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'isuvsa@gmail.com',
-  gmail: 'isuvsa@gmail.com', // Primary contact email
-  location: 'Memorial Union, Ames, IA',
+  email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@isuvsa.org',
+  gmail: 'info@isuvsa.org', // Legacy placeholder
+  location: 'Pearson Hall 2105, Ames, IA',
 
   // Social Media
   social: {
     instagram: 'https://www.instagram.com/isuvsa/',
     instagram_handle: '@isuvsa',
-    discord: process.env.NEXT_PUBLIC_DISCORD_URL || '#', // To be updated with actual Discord server
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'isuvsa@gmail.com',
+    discord: process.env.NEXT_PUBLIC_DISCORD_URL || 'https://discord.com/invite/Yg7We4pECw',
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || 'info@isuvsa.org',
   },
 } as const
 
@@ -97,53 +97,10 @@ export const ACADEMIC_YEARS = [
 // Navigation structure
 export const NAVIGATION = [
   { name: 'Home', href: '/', icon: '🏠' },
-  {
-    name: 'About',
-    href: '/about',
-    icon: '📖',
-    subItems: [
-      { name: 'Our Mission', href: '/about/mission' },
-      { name: 'Executive Board', href: '/about/board' },
-      { name: 'History', href: '/about/history' },
-      { name: 'Constitution', href: '/about/constitution' },
-    ],
-  },
-  {
-    name: 'Events',
-    href: '/events',
-    icon: '🎉',
-    subItems: [
-      { name: 'Upcoming Events', href: '/events/upcoming' },
-      { name: 'Past Events', href: '/events/past' },
-      { name: 'Tết Celebration', href: '/events/tet' },
-      { name: 'Cultural Shows', href: '/events/cultural-shows' },
-    ],
-  },
-  { name: 'ACCE', href: '/acce', icon: '🌏', highlight: true },
-  {
-    name: 'Get Involved',
-    href: '/get-involved',
-    icon: '🤝',
-    subItems: [
-      { name: 'Membership', href: '/get-involved/membership' },
-      { name: 'Committees', href: '/get-involved/committees' },
-      { name: 'Volunteer', href: '/get-involved/volunteer' },
-      { name: 'Newsletter', href: '/get-involved/newsletter' },
-    ],
-  },
-  {
-    name: 'Resources',
-    href: '/resources',
-    icon: '📚',
-    subItems: [
-      { name: 'Cultural Library', href: '/resources/cultural-library' },
-      { name: 'Language Learning', href: '/resources/language' },
-      { name: 'Recipes', href: '/resources/recipes' },
-      { name: 'Study Resources', href: '/resources/study' },
-    ],
-  },
+  { name: 'E-Board', href: '/about/board', icon: '🧑‍🤝‍🧑' },
+  { name: 'ACCE', href: '/acce', icon: '🌏' },
+  { name: 'Events', href: '/events/upcoming', icon: '🎉' },
   { name: 'Gallery', href: '/gallery', icon: '📸' },
-  { name: 'VSA Royale', href: '/vsa-royale', special: true, icon: '🎮' },
   { name: 'Contact', href: '/contact', icon: '📧' },
 ] as const
 

@@ -1,13 +1,13 @@
 import React from 'react'
 import Link from 'next/link'
-import { Instagram, Mail, MapPin, MessageSquare } from 'lucide-react'
+import { Calendar, Clock, Instagram, MapPin, MessageSquare } from 'lucide-react'
 import { SITE_CONFIG, UNIVERSITY } from '@/lib/constants'
 
 const Footer = React.memo(function Footer() {
   return (
-    <footer className="bg-gradient-to-br from-cardinal via-cardinal-dark to-charcoal text-white relative overflow-hidden">
+    <footer className="bg-cardinal text-white relative overflow-hidden">
       <div className="absolute inset-0 bg-black/20" />
-      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-gold via-cardinal to-gold" />
+      <div className="absolute top-0 left-0 w-full h-1 bg-gold" />
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* About Section */}
@@ -29,34 +29,18 @@ const Footer = React.memo(function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/about"
+                  href="/about/board"
                   className="text-gray-300 hover:text-gold transition-colors text-sm"
                 >
-                  About Us
+                  E-Board
                 </Link>
               </li>
               <li>
                 <Link
-                  href="/events"
+                  href="/events/upcoming"
                   className="text-gray-300 hover:text-gold transition-colors text-sm"
                 >
-                  Events
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/get-involved/membership"
-                  className="text-gray-300 hover:text-gold transition-colors text-sm"
-                >
-                  Join VSA
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/resources"
-                  className="text-gray-300 hover:text-gold transition-colors text-sm"
-                >
-                  Resources
+                  Upcoming Events
                 </Link>
               </li>
             </ul>
@@ -65,12 +49,19 @@ const Footer = React.memo(function Footer() {
           {/* Contact Info */}
           <div>
             <h4 className="text-gold font-semibold mb-4">Contact</h4>
-            <ul className="space-y-2">
-              <li className="flex items-center space-x-2 text-gray-300 text-sm">
-                <Mail className="w-4 h-4" aria-hidden="true" />
-                <span>{SITE_CONFIG.email}</span>
+            <ul className="space-y-2 text-gray-300 text-sm">
+              <li className="flex items-center space-x-2">
+                <span className="font-semibold">Est. 2015 @ Iowa State</span>
               </li>
-              <li className="flex items-center space-x-2 text-gray-300 text-sm">
+              <li className="flex items-center space-x-2">
+                <Calendar className="w-4 h-4" aria-hidden="true" />
+                <span>Bi-weekly GBMs on Thursdays</span>
+              </li>
+              <li className="flex items-center space-x-2">
+                <Clock className="w-4 h-4" aria-hidden="true" />
+                <span>6:00–7:30 PM</span>
+              </li>
+              <li className="flex items-center space-x-2">
                 <MapPin className="w-4 h-4" aria-hidden="true" />
                 <span>{SITE_CONFIG.location}</span>
               </li>
@@ -79,8 +70,8 @@ const Footer = React.memo(function Footer() {
 
           {/* Social Media */}
           <div>
-            <h4 className="text-gold font-semibold mb-4">Follow Us</h4>
-            <div className="flex space-x-4" role="list" aria-label="Social media links">
+            <h4 className="text-gold font-semibold mb-4">Additional Links</h4>
+            <div className="flex flex-wrap gap-3" role="list" aria-label="Additional links">
               <a
                 href={SITE_CONFIG.social.instagram}
                 target="_blank"
@@ -101,19 +92,16 @@ const Footer = React.memo(function Footer() {
               >
                 <MessageSquare className="w-5 h-5" aria-hidden="true" />
               </a>
-              <a
-                href={`mailto:${SITE_CONFIG.social.email}`}
-                className="bg-gray-700 p-2 rounded-full hover:bg-gold transition-colors"
-                aria-label={`Send email to ${SITE_CONFIG.social.email}`}
+              <Link
+                href="/contact"
+                className="bg-gray-700 px-3 py-2 rounded-full hover:bg-gold transition-colors text-sm font-semibold"
                 role="listitem"
               >
-                <Mail className="w-5 h-5" aria-hidden="true" />
-              </a>
-            </div>
-            <div className="mt-4">
-              <Link href="/get-involved/newsletter" className="btn-secondary inline-block text-sm">
-                Subscribe to Newsletter
+                Contact Page
               </Link>
+            </div>
+            <div className="mt-4 text-sm text-gray-300">
+              <p>DM us on Instagram @isuvsa for the quickest response.</p>
             </div>
           </div>
         </div>

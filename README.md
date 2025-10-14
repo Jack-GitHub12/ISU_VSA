@@ -1,16 +1,14 @@
 # ISU VSA Website
 
-The official website for Iowa State University Vietnamese Student Association, featuring event management, member resources, and the exclusive VSA Royale game.
+The official website for Iowa State University Vietnamese Student Association, featuring event management and member resources.
 
 ## 🚀 Features
 
 - **Modern Design**: Built with Next.js 15, TypeScript, and Tailwind CSS
 - **ISU Branding**: Cardinal red and gold theme throughout
 - **Responsive**: Works perfectly on all devices
-- **VSA Royale Game**: Exclusive tower defense game featuring VSA members
 - **Event Management**: Browse and RSVP to upcoming events
 - **Photo Gallery**: Relive memories from past events
-- **Member Resources**: Access cultural library, recipes, and study materials
 - **Admin Dashboard**: Comprehensive admin panel for managing events and content
 - **Performance Optimized**: Static generation, lazy loading, and image optimization
 - **SEO Ready**: Meta tags and structured data for better search visibility
@@ -24,7 +22,6 @@ The official website for Iowa State University Vietnamese Student Association, f
 - **Styling**: Tailwind CSS 3.4.17
 - **UI Components**: Custom components with Framer Motion animations
 - **Icons**: Lucide React & React Icons
-- **Game Engine**: Phaser.js 3.90.0
 
 ### State Management & Forms
 
@@ -109,34 +106,13 @@ isu-vsa-website/
 │   │   └── content/       # Content management
 │   ├── events/            # Events pages
 │   ├── gallery/           # Photo/video gallery
-│   ├── vsa-royale/        # Game pages
 │   └── contact/           # Contact page
 ├── components/            # Reusable components
-│   ├── navigation/        # Navigation components
-│   └── vsa-royale/        # Game components
+│   └── navigation/        # Navigation components
 ├── lib/                   # Utility functions
-│   └── vsa-royale/        # Game logic
 ├── data/                  # Data files and mock data
-├── types/                 # TypeScript types
 └── public/                # Static assets
 ```
-
-## 🎮 VSA Royale Game
-
-The website features an exclusive tower defense game called VSA Royale:
-
-- **Play as VSA Members**: Executive board and committee chairs as playable characters
-- **Multiple Game Modes**: Battle, Campaign, and Puzzle modes
-- **Resource Management**: Use "Eggrolls" instead of elixir
-- **Local Storage**: Progress saved in browser
-- **Leaderboards**: Compete with other members
-
-### Game Controls
-
-- Click cards to select them
-- Click on the battlefield to deploy units
-- Manage your eggroll resources wisely
-- Defend your towers while attacking the enemy
 
 ## 🎨 Customization
 

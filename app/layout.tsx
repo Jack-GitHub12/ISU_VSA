@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import './globals.css'
 import Navbar from '@/components/navigation/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   title: 'ISU VSA - Iowa State University Vietnamese Student Association',
   description:
     'Uniting the Iowa State University community with Vietnamese culture. Join ISU VSA for cultural events, Tet festivals, community building, and academic support.',
-  keywords: 'ISU VSA, Iowa State University, Vietnamese Student Association, Vietnamese culture, Tet festival, cultural events, student organization, Ames Iowa, VSA Royale, Vietnamese community',
+  keywords: 'ISU VSA, Iowa State University, Vietnamese Student Association, Vietnamese culture, Tet festival, cultural events, student organization, Ames Iowa, Vietnamese community',
   authors: [{ name: 'ISU VSA' }],
   icons: {
     icon: '/images/logo.png',
@@ -71,9 +72,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <script src="/scroll-optimize.js" defer />
       </head>
       <body className="antialiased min-h-screen flex flex-col font-quicksand">
+        <Script src="/scroll-optimize.js" strategy="afterInteractive" />
         <StructuredData type="Organization" />
         <StructuredData type="Website" />
         <Navbar />

@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Calendar, Users, Globe, Trophy, ChevronRight, Clock, MapPin, Sparkles } from 'lucide-react'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 
 const InstagramEmbed = dynamic(() => import('@/components/layout/InstagramEmbed'), {
   loading: () => <div className="h-96 bg-gray-100 animate-pulse rounded-lg" />,
@@ -13,40 +13,103 @@ const InstagramEmbed = dynamic(() => import('@/components/layout/InstagramEmbed'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
+  const autoAdvanceRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const heroSlides = [
     {
-      title: 'Welcome to ISU VSA',
-      subtitle: 'Uniting Iowa State with Vietnamese Culture',
-      image: '/images/eboard/eboardGroup.JPG',
+      title: 'ISU VSA 2023',
+      subtitle: 'Celebrating our 2023-2024 family',
+      image: '/images/groupPhoto/vsa_2023.jpeg',
       priority: true,
     },
     {
-      title: 'Join Our Community',
-      subtitle: 'Open to all students, faculty, alumni, and community members',
-      image: '/images/eboard/eboardGroup_Smile.JPG',
+      title: 'ISU VSA 2020',
+      subtitle: 'Resilient and connected in 2020',
+      image: '/images/groupPhoto/vsa_2020.jpg',
       priority: false,
     },
     {
-      title: 'Cultural Awareness',
-      subtitle: 'Learn about Vietnamese history, culture, and current events',
-      image: '/images/eboard/theBoys.JPG',
+      title: 'ISU VSA 2019',
+      subtitle: 'Building friendships in 2019',
+      image: '/images/groupPhoto/vsa_2019.jpg',
+      priority: false,
+    },
+    {
+      title: 'ISU VSA 2018',
+      subtitle: 'Honoring traditions in 2018',
+      image: '/images/groupPhoto/vsa_2018.jpg',
+      priority: false,
+    },
+    {
+      title: 'ISU VSA 2017',
+      subtitle: 'Memories from our 2017 crew',
+      image: '/images/groupPhoto/vsa_2017.jpg',
+      priority: false,
+    },
+    {
+      title: 'ISU VSA 2016',
+      subtitle: 'Throwback to 2016 beginnings',
+      image: '/images/groupPhoto/vsa_2016.jpg',
       priority: false,
     },
   ]
 
-  useEffect(() => {
-    const interval = setInterval(() => {
+  const startAutoAdvance = useCallback(() => {
+    if (autoAdvanceRef.current) clearInterval(autoAdvanceRef.current)
+    autoAdvanceRef.current = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length)
     }, 5000)
-    return () => clearInterval(interval)
   }, [heroSlides.length])
+
+  useEffect(() => {
+    setIsMounted(true)
+    startAutoAdvance()
+    return () => {
+      if (autoAdvanceRef.current) clearInterval(autoAdvanceRef.current)
+    }
+  }, [startAutoAdvance])
+
+  const handleManualSlide = useCallback(
+    (index: number) => {
+      setCurrentSlide((prev) => {
+        const nextIndex = (index + heroSlides.length) % heroSlides.length
+        return nextIndex === prev ? prev : nextIndex
+      })
+      startAutoAdvance()
+    },
+    [heroSlides.length, startAutoAdvance]
+  )
+
+  const featureCards = [
+    {
+      icon: Users,
+      title: 'Build Community',
+      description:
+        'Connect with fellow students who share your heritage and interests. Create lasting friendships and professional networks.',
+      iconClass: 'bg-cardinal text-white',
+    },
+    {
+      icon: Globe,
+      title: 'Cultural Events',
+      description:
+        'Experience Vietnamese traditions through Tet festivals, BBQ cookouts, volleyball tournaments, and study nights.',
+      iconClass: 'bg-[#F1BE48] text-white',
+    },
+    {
+      icon: Trophy,
+      title: 'Leadership Growth',
+      description:
+        'Develop leadership skills through committee positions, event planning, and community service opportunities.',
+      iconClass: 'bg-cardinal text-white',
+    },
+  ] as const
 
   return (
     <>
       {/* Hero Section */}
       <section className="relative h-[600px] md:h-[700px] overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-black/50 to-black/30 z-10" />
+        <div className="absolute inset-0 bg-black/40 z-10" />
 
         {/* Background Image Slideshow */}
         <div className="absolute inset-0">
@@ -73,19 +136,12 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="max-w-4xl mx-auto"
           >
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-              <span className="gradient-text">Welcome to</span> ISU VSA
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-8 text-balance">
+              Iowa State&apos;s Vietnamese Student Association
             </h1>
-            <p className="text-xl md:text-2xl text-white mb-8">
-              Uniting the Iowa State Community with Vietnamese Culture
-            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/get-involved/membership" className="btn-primary">
-                Join VSA Today
-              </Link>
-              <Link href="/vsa-royale" className="btn-secondary">
-                <Trophy className="w-5 h-5 inline mr-2" />
-                Play VSA Royale
+              <Link href="/events/upcoming" className="btn-primary">
+                Explore Upcoming Events
               </Link>
             </div>
           </motion.div>
@@ -96,7 +152,7 @@ export default function Home() {
           {heroSlides.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => handleManualSlide(index)}
               className={`w-3 h-3 rounded-full transition-all ${
                 currentSlide === index ? 'bg-gold w-8' : 'bg-white/50'
               }`}
@@ -106,7 +162,7 @@ export default function Home() {
       </section>
 
       {/* Features Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-cardinal/10 via-gold/20 to-cardinal/10">
+      <section className="py-16 px-4 bg-cardinal/10">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -119,59 +175,47 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="card text-center"
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-cardinal to-cardinal-dark rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Users className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Build Community</h3>
-              <p className="text-gray-600">
-                Connect with fellow students who share your heritage and interests. Create lasting
-                friendships and professional networks.
-              </p>
-            </motion.div>
+            {featureCards.map((card, index) => {
+              const Icon = card.icon
+              const CardContent = () => (
+                <>
+                  <div
+                    className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg ${card.iconClass}`}
+                  >
+                    <Icon className="w-8 h-8 text-white" />
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{card.title}</h3>
+                  <p className="text-gray-600">{card.description}</p>
+                </>
+              )
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-              className="card text-center"
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-gold to-gold-dark rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Globe className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Cultural Events</h3>
-              <p className="text-gray-600">
-                Experience Vietnamese traditions through Tet festivals, BBQ cookouts, volleyball
-                tournaments, and study nights.
-              </p>
-            </motion.div>
+              if (!isMounted) {
+                return (
+                  <div key={card.title} className="card text-center">
+                    <CardContent />
+                  </div>
+                )
+              }
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-              className="card text-center"
-            >
-              <div className="w-16 h-16 bg-gradient-to-br from-cardinal to-gold rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Trophy className="w-8 h-8 text-white" />
-              </div>
-              <h3 className="text-xl font-bold mb-2">Leadership Growth</h3>
-              <p className="text-gray-600">
-                Develop leadership skills through committee positions, event planning, and community
-                service opportunities.
-              </p>
-            </motion.div>
+              return (
+                <motion.div
+                  key={card.title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.1 * (index + 1) }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  className="card text-center"
+                >
+                  <CardContent />
+                </motion.div>
+              )
+            })}
           </div>
         </div>
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-16 px-4 bg-gradient-to-r from-cream via-white to-cream">
+      <section className="py-16 px-4 bg-cream">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -189,7 +233,7 @@ export default function Home() {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
-              className="bg-gradient-cardinal-gold p-8 rounded-xl text-white"
+              className="bg-cardinal p-8 rounded-xl text-white"
             >
               <h3 className="text-2xl font-bold mb-4">University of Iowa Tet Festival</h3>
               <div className="flex items-center mb-2">
@@ -278,7 +322,7 @@ export default function Home() {
       </section>
 
       {/* ACCE Program Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-gold/20 via-white to-cardinal/20">
+      <section className="py-16 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0 }}
@@ -294,7 +338,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="bg-gradient-to-r from-cardinal to-gold p-8 rounded-2xl text-white shadow-2xl"
+            className="bg-cardinal p-8 rounded-2xl text-white shadow-2xl"
           >
             <div className="max-w-3xl mx-auto text-center">
               <h3 className="text-3xl font-bold mb-4">Building Bridges Between Communities</h3>
@@ -318,7 +362,7 @@ export default function Home() {
       <InstagramEmbed />
 
       {/* Call to Action */}
-      <section className="py-16 px-4 bg-gradient-cardinal-gold">
+      <section className="py-16 px-4 bg-cardinal text-white">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

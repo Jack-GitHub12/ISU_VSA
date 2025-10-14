@@ -65,39 +65,24 @@ export const pageMetadata = {
     description: SITE_CONFIG.description,
     keywords: ['Vietnamese culture', 'student organization', 'Iowa State', 'cultural events', 'Tet festival'],
   },
-  about: {
-    title: 'About ISU VSA',
-    description: 'Learn about the Iowa State University Vietnamese Student Association, our mission, history, and executive board.',
-    keywords: ['about VSA', 'mission', 'history', 'executive board', 'Vietnamese community'],
+  executiveBoard: {
+    title: 'Executive Board',
+    description: 'Meet the leaders of ISU VSA and learn how they support Vietnamese culture on campus.',
+    keywords: ['executive board', 'student leadership', 'ISU VSA officers'],
   },
   events: {
-    title: 'Events & Activities',
-    description: 'Join ISU VSA for cultural celebrations, Tet festivals, social gatherings, and educational workshops throughout the year.',
-    keywords: ['VSA events', 'Tet festival', 'cultural shows', 'Vietnamese celebrations', 'student activities'],
-  },
-  membership: {
-    title: 'Become a Member',
-    description: 'Join ISU VSA to connect with the Vietnamese community, participate in cultural events, and develop leadership skills.',
-    keywords: ['VSA membership', 'join VSA', 'student organization', 'member benefits', 'how to join'],
+    title: 'Upcoming Events',
+    description: 'Stay up to date with ISU VSA activities, from cultural celebrations to community gatherings.',
+    keywords: ['VSA events', 'Vietnamese culture events', 'Iowa State student activities'],
   },
   contact: {
     title: 'Contact Us',
     description: 'Get in touch with ISU VSA. We welcome students, faculty, alumni, and community members interested in Vietnamese culture.',
-    keywords: ['contact VSA', 'email', 'location', 'Memorial Union', 'get involved'],
+    keywords: ['contact VSA', 'email', 'location', 'Memorial Union', 'Ames Iowa'],
   },
   gallery: {
     title: 'Photo Gallery',
     description: 'Browse photos from ISU VSA events, cultural celebrations, and community gatherings.',
     keywords: ['VSA photos', 'event gallery', 'Vietnamese culture', 'student activities', 'Iowa State'],
-  },
-  vsaRoyale: {
-    title: 'VSA Royale Game',
-    description: 'Play VSA Royale - a strategic card game featuring Vietnamese culture, ISU traditions, and exciting gameplay!',
-    keywords: ['VSA Royale', 'card game', 'online game', 'Vietnamese game', 'strategy game'],
-  },
-  resources: {
-    title: 'Resources',
-    description: 'Access Vietnamese language resources, cultural guides, recipes, and study materials for ISU students.',
-    keywords: ['Vietnamese resources', 'language learning', 'cultural library', 'recipes', 'study resources'],
   },
 }

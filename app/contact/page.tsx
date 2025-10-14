@@ -73,7 +73,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-16 px-4 bg-gradient-to-br from-cardinal to-gold text-white">
+      <section className="relative py-16 px-4 bg-cardinal text-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -299,7 +299,7 @@ export default function ContactPage() {
                     href="https://instagram.com/isuvsa"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 bg-gradient-to-br from-purple-600 to-pink-500 text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity w-full"
+                className="flex items-center justify-center space-x-2 bg-[#9333ea] text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity w-full"
                   >
                     <Instagram className="w-5 h-5" />
                     <span className="font-medium">Follow @isuvsa</span>

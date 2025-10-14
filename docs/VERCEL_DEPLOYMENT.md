@@ -103,7 +103,6 @@ EMAIL_TO=isuvsa@iastate.edu
 - [ ] Visit your live URL: `your-project.vercel.app`
 - [ ] Test all navigation links
 - [ ] Check board member page loads correctly
-- [ ] Test VSA Royale game page
 - [ ] Verify mobile responsiveness
 - [ ] Add custom domain (if available)
 - [ ] Share with team for feedback
