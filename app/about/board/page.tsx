@@ -51,7 +51,7 @@ const executiveBoard: BoardMember[] = [
     email: 'dong0603@iastate.edu',
     major: 'Community and Regional Planning Major',
     year: '3rd Year',
-    bio: 'hello my name is dong :3, i like capabaras and fart sounds',
+    bio: 'Meet Dong Nguyen in his starter kit!❤️🖊️💌\nDong is the president of ISU VSA! He will be leading and guiding all of executive board on putting on some amazing events and connecting to other VSAs across the midwest. We love you Dong!',
   },
   {
     name: 'Trish Nguyen',
@@ -60,7 +60,7 @@ const executiveBoard: BoardMember[] = [
     email: 'phuong@iastate.edu',
     major: 'Apparel Mechandising and Design',
     year: '2nd Year',
-    bio: 'hello I am trish the greatest',
+    bio: 'Meet Trish Nguyen in her starter kit! 💛🪻🐶\nTrish is our Vice President for this year! She will be overlooking and helping out our whole exec team as well as running and facilitating our ACCE Family program!',
   },
   {
     name: 'Dylan Topic',
@@ -69,7 +69,7 @@ const executiveBoard: BoardMember[] = [
     email: 'dylan004@iastate.edu',
     major: 'Computer Science',
     year: '3rd Year',
-    bio: 'This is Dylan Topic also known for being the esport president',
+    bio: 'Meet Dylan Topic in his starter kit! 💜💵🧗🏻‍♂️\nDylan is our treasurer for this year! He will be buying all the goodies for our GBMS! Thank you Dylan!',
   },
   {
     name: 'Kaylee Rianto',
@@ -78,7 +78,7 @@ const executiveBoard: BoardMember[] = [
     email: 'comet15@iastate.edu',
     major: 'Community and Regional Planning',
     year: '2nd Year',
-    bio: 'hello I am Kaylee also known as K and I have a collection of pickles',
+    bio: 'Meet K Rianto in her starter kit!💙🐳🏍️\nK is our secretary for this year, she will be taking notes during meetings, gathering media, and sending out our monthly emails! K is also the face of our K-pons that we will be giving out at GBMS! Keep a look out for those as they can give you discounts on fundraisers and merch items!',
   },
   {
     name: 'Anh Le',
@@ -87,7 +87,7 @@ const executiveBoard: BoardMember[] = [
     email: 'anhnle@iastate.edu',
     major: 'Graphic Design',
     year: '4th Year',
-    bio: 'Greatest President',
+    bio: 'Meet Anh Le in her starter kit! 🤍🐰🍡\nAnh is our student advisor, and former VSA president! She is here to help advise our team and help VSA continue to grow and thrive!',
   },
   {
     name: 'Sabyn Jones',
@@ -96,7 +96,7 @@ const executiveBoard: BoardMember[] = [
     email: 'sabynaj@iastate.edu',
     major: 'Graphic Design',
     year: '3rd Year',
-    bio: 'Hello',
+    bio: 'Meet Sabyn Jones in her starter kit!🌸🐼🍓\nSabyn is the face behind the majority of the social media posts! I can’t wait to make some amazing graphics for you all this year!',
   },
   {
     name: 'Jenna Le',
@@ -105,7 +105,7 @@ const executiveBoard: BoardMember[] = [
     email: 'jennale@iastate.edu',
     major: 'Integrated Studio Arts',
     year: '2nd Year',
-    bio: 'Education',
+    bio: 'Meet Jenna Le in her Starter Kit! 💛🎧🌷\nJenna will be making educational posts about VSA and vietnamese culture! As well as gathering media and posting other info on GBMS and Fundraisers! (She has recently made our ARAM fundraiser post and “What is VSA ?” post!) 💌',
   },
   {
     name: 'Andrew Sinnorai',
@@ -114,7 +114,7 @@ const executiveBoard: BoardMember[] = [
     email: 'andsin17@iastate.edu',
     major: 'Supply Chain Mangement',
     year: '2nd Year',
-    bio: 'my credit counts me as a first year',
+    bio: 'Meet Andrew Sinnorai in his Starter Kit! 🏀🏐🎼\nAndrew will be creating the amazing fundraisers for our club and our beneficiary this year! (join our ARAM fundraiser this month🎮)',
   },
   {
     name: 'Winson Vetsavong',
@@ -123,7 +123,7 @@ const executiveBoard: BoardMember[] = [
     email: 'wvetsa1@iastate.edu',
     major: 'Software Engineering',
     year: '4th Year',
-    bio: 'Hello',
+    bio: 'Meet Winson Vetsavong in his Starter Kit! 🍥🌸\nWinson is the other 1/2 of our Event Planner team at VSA, he is cooking up some amazing events for you all this year!',
   },
   {
     name: 'Andrew Pham',
@@ -132,7 +132,7 @@ const executiveBoard: BoardMember[] = [
     email: 'phama23@iastate.edu',
     major: 'Software Engineering',
     year: '2nd Year',
-    bio: 'yes sir',
+    bio: 'Meet Andrew Pham in his Starter Kit! 💿🍵\nAndrew is 1/2 of our Event Planner team at VSA, he is cooking up some amazing events for you all this year!',
   },
 ]
 
@@ -252,7 +252,7 @@ export default function ExecutiveBoardPage() {
                       {[currentSlide.major, currentSlide.year].filter(Boolean).join(' • ')}
                     </p>
                   )}
-                  <p className="text-gray-700 leading-relaxed">{currentSlide.bio}</p>
+                  <p className="text-gray-700 leading-relaxed whitespace-pre-line">{currentSlide.bio}</p>
                 </div>
               </div>
 

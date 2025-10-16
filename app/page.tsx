@@ -84,9 +84,9 @@ export default function Home() {
   const featureCards = [
     {
       icon: Users,
-      title: 'Build Community',
+      title: 'Connection',
       description:
-        'Connect with fellow students who share your heritage and interests. Create lasting friendships and professional networks.',
+        'VSA provides an interactive communicity that allows individuals to build long lasting bonds',
       iconClass: 'bg-cardinal text-white',
     },
     {
