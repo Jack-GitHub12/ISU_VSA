@@ -99,7 +99,7 @@ export const NAVIGATION = [
   { name: 'Home', href: '/', icon: '🏠' },
   { name: 'E-Board', href: '/about/board', icon: '🧑‍🤝‍🧑' },
   { name: 'ACCE', href: '/acce', icon: '🌏' },
-  { name: 'Events', href: '/events/upcoming', icon: '🎉' },
+  { name: 'Events', href: '/events/upcoming', icon: '🎉', hidden: true },
   { name: 'Gallery', href: '/gallery', icon: '📸' },
   { name: 'Contact', href: '/contact', icon: '📧' },
 ] as const

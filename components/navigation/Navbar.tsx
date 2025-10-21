@@ -33,6 +33,8 @@ const Navbar = React.memo(function Navbar() {
     setIsOpen((prev) => !prev)
   }, [])
 
+  const visibleNavigation = NAVIGATION.filter((item) => !item.hidden)
+
   const closeMobileMenu = useCallback(() => {
     setIsOpen(false)
   }, [])
@@ -65,7 +67,7 @@ const Navbar = React.memo(function Navbar() {
             role="navigation"
             aria-label="Main navigation"
           >
-            {NAVIGATION.map((item) => (
+            {visibleNavigation.map((item) => (
               <NavigationItem key={item.name} item={item} />
             ))}
           </nav>
@@ -103,7 +105,7 @@ const Navbar = React.memo(function Navbar() {
             aria-label="Mobile navigation"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
-              {NAVIGATION.map((item) => (
+              {visibleNavigation.map((item) => (
                 <div key={item.name}>
                   <Link
                     href={item.href}

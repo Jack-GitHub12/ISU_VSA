@@ -186,30 +186,28 @@ export default function ExecutiveBoardPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative h-[600px] md:h-[700px] overflow-hidden text-white">
-        <Image
-          src="/images/eboard/eboardGroup_Smile.JPG"
-          alt="ISU VSA Executive Board"
-          fill
-          priority
-          className="object-cover object-center"
-          sizes="100vw"
-        />
-        <div className="absolute inset-0 bg-black/25" />
-        <div className="relative z-20 h-full flex items-center justify-center text-center px-4">
+      <section className="relative py-20 px-4 bg-cardinal text-white overflow-hidden">
+        <div className="absolute inset-0 bg-black/15" />
+        <div className="max-w-7xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-3xl space-y-4"
+            transition={{ duration: 0.8 }}
+            className="text-center space-y-4"
           >
-            <h1 className="text-5xl md:text-7xl font-bold tracking-tight text-white">Executive Board</h1>
+            <p className="uppercase tracking-[0.5em] text-gold font-semibold text-sm">2025-2026</p>
+            <h1 className="text-5xl md:text-6xl font-bold tracking-tight text-white">
+              Meet the Executive Board
+            </h1>
+            <p className="max-w-3xl mx-auto text-lg opacity-90">
+              Meet our amazing leaders!
+            </p>
           </motion.div>
         </div>
       </section>
 
       {/* Executive Board Slideshow */}
-      <section className="py-24 bg-cream">
+      <section className="pt-0 pb-0 bg-cream">
         <div className="flex flex-col lg:flex-row min-h-[75vh]">
           <div className="relative w-full lg:w-[35%] min-h-[320px] lg:min-h-[75vh] overflow-hidden">
             <AnimatePresence mode="wait">
@@ -308,7 +306,7 @@ export default function ExecutiveBoardPage() {
           </AnimatePresence>
         </div>
       </section>
-      <section className="py-16 px-4 bg-cardinal text-white">
+      <section className="pt-12 pb-16 px-4 bg-cardinal text-white">
         <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
