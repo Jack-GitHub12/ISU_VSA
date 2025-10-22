@@ -95,7 +95,15 @@ export const ACADEMIC_YEARS = [
 ] as const
 
 // Navigation structure
-export const NAVIGATION = [
+type NavigationItem = {
+  name: string;
+  href: string;
+  icon: string;
+  hidden?: boolean;
+  special?: boolean;
+}
+
+export const NAVIGATION: readonly NavigationItem[] = [
   { name: 'Home', href: '/', icon: '🏠' },
   { name: 'E-Board', href: '/about/board', icon: '🧑‍🤝‍🧑' },
   { name: 'ACCE', href: '/acce', icon: '🌏' },

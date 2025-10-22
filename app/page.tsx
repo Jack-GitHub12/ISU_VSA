@@ -89,7 +89,7 @@ export default function Home() {
       icon: PlugZap,
       title: 'Connection',
       description:
-        'We provides an inclusive communicity that allows everyone to build long lasting friendships',
+        'We provide an inclusive community that allows everyone to build long lasting friendships',
       iconClass: 'bg-cardinal text-white',
     },
     {
@@ -344,7 +344,7 @@ export default function Home() {
             className="bg-cardinal p-8 rounded-2xl text-white shadow-2xl"
           >
             <div className="max-w-3xl mx-auto text-center">
-              <h3 className="text-3xl font-bold mb-4">Building bonds between our communicity</h3>
+              <h3 className="text-3xl font-bold mb-4">Building bonds between our community</h3>
               <p className="text-lg mb-6 opacity-95">
                 ISU VSA is proud to present the ACCE program, a place where members come together, form lasting friendships, and become part of a close-knit family within VSA. 
               </p>
