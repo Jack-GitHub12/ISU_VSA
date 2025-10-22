@@ -43,19 +43,6 @@ export const upcomingEvents: Event[] = [
   },
   {
     id: '3',
-    title: 'VSA Royale Tournament',
-    date: '2025-01-29',
-    time: '7:00 PM - 9:00 PM',
-    location: 'Parks Library 198',
-    category: 'social',
-    featured: false,
-    description: 'Compete in our exclusive tower defense game tournament with prizes!',
-    attendees: 50,
-    image: '/images/eboard/eboardGroup.JPG',
-    price: 'Free',
-  },
-  {
-    id: '4',
     title: 'Community Service: Food Bank',
     date: '2025-02-01',
     time: '9:00 AM - 12:00 PM',
@@ -68,7 +55,7 @@ export const upcomingEvents: Event[] = [
     price: 'Free',
   },
   {
-    id: '5',
+    id: '4',
     title: 'Study Night with VSA',
     date: '2025-02-05',
     time: '6:00 PM - 10:00 PM',
@@ -81,7 +68,7 @@ export const upcomingEvents: Event[] = [
     price: 'Free',
   },
   {
-    id: '6',
+    id: '5',
     title: 'Spring Roll Workshop',
     date: '2025-02-15',
     time: '3:00 PM - 5:00 PM',

@@ -3,10 +3,10 @@ import { NextResponse } from 'next/server'
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const { name, email, subject, message } = body
+    const { name, email, recipient, subject, message } = body
 
     // Validate the data
-    if (!name || !email || !subject || !message) {
+    if (!name || !email || !recipient || !subject || !message) {
       return NextResponse.json(
         { error: 'All fields are required' },
         { status: 400 }
@@ -32,10 +32,11 @@ export async function POST(request: Request) {
     console.log('Contact form submission:', {
       name,
       email,
+      recipient,
       subject,
       message,
       timestamp: new Date().toISOString(),
-    })
+   })
 
     // In production, you would send an actual email here
     // Example with a service like Resend:

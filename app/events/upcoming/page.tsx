@@ -12,29 +12,30 @@ export default function UpcomingEventsPage() {
   const upcomingEvents = [
     {
       id: 1,
-      title: 'Tết Festival 2025',
-      date: '2025-02-08',
-      time: '6:00 PM - 10:00 PM',
-      location: 'Memorial Union Great Hall',
-      category: 'cultural',
+      title: 'ARAM Tournament',
+      date: '2025-09-28',
+      time: '4:00 PM - 8:00 PM',
+      location: 'via Discord',
+      category: 'Gaming',
       featured: true,
       description:
-        'Celebrate Vietnamese New Year with traditional lion dances, authentic cuisine, cultural performances, and family activities. Join us for our biggest event of the year!',
-      attendees: 350,
+        'Sure you can handle me, summoner?\n\n🚨 CALLING ALL GAMERS 🚨\n\nISU VSA presents our first ever ARAM tournament! Join us for a night of fun, and chaotic araming! Register now for our tournament happening on SEPTEMBER 28th from 4-8 PM CT!\n\n This tournament is a fundraiser supporting both our club and the CPP Vietnam Assistance for the Handicap',
+      attendees: 300,
       maxAttendees: 400,
-      image: '/images/eboard/eboardGroup.JPG',
-      price: '$10 Students, $15 General',
+      image: '/images/others/aram.jpeg',
+      price: '$5 Entry',
       highlights: [
-        'Lion Dance Performance',
-        'Traditional Music',
-        'Vietnamese Cuisine',
-        'Cultural Exhibits',
+        'Social',
+        'Gaming',
+        'Charity/Fundraiser',
+        'League of Legends',
+        'ARAM Tournment',
       ],
       rsvpDeadline: '2025-02-05',
     },
     {
       id: 2,
-      title: 'Phở Night Cooking Class',
+      title: 'ARAM Tournament',
       date: '2025-01-22',
       time: '5:30 PM - 7:30 PM',
       location: 'Student Innovation Center Kitchen',
@@ -51,7 +52,7 @@ export default function UpcomingEventsPage() {
     },
     {
       id: 3,
-      title: 'VSA Royale Tournament',
+      title: 'ARAM Tournament',
       date: '2025-01-29',
       time: '7:00 PM - 9:00 PM',
       location: 'Parks Library 198',
@@ -68,7 +69,7 @@ export default function UpcomingEventsPage() {
     },
     {
       id: 4,
-      title: 'Mid-Autumn Festival Celebration',
+      title: 'ARAM Tournament',
       date: '2025-02-12',
       time: '4:00 PM - 8:00 PM',
       location: 'Memorial Union Oak Room',
@@ -85,7 +86,7 @@ export default function UpcomingEventsPage() {
     },
     {
       id: 5,
-      title: 'Vietnamese Language Exchange',
+      title: 'ARAM Tournament',
       date: '2025-01-25',
       time: '3:00 PM - 5:00 PM',
       location: 'Memorial Union Pioneer Room',
@@ -102,7 +103,7 @@ export default function UpcomingEventsPage() {
     },
     {
       id: 6,
-      title: 'Study Night with Vietnamese Snacks',
+      title: 'ARAM Tournament',
       date: '2025-02-02',
       time: '6:00 PM - 10:00 PM',
       location: 'Parks Library',
@@ -139,26 +140,26 @@ export default function UpcomingEventsPage() {
       : upcomingEvents.filter((event) => event.category === selectedCategory)
 
   const getCategoryColor = (category: string) => {
-    switch (category) {
+    switch (category.toLowerCase()) {
       case 'cultural':
-        return 'from-purple-500 to-purple-700'
+        return 'bg-purple-600'
       case 'culinary':
-        return 'from-orange-500 to-red-600'
+        return 'bg-orange-500'
       case 'educational':
-        return 'from-blue-500 to-blue-700'
+        return 'bg-blue-600'
       case 'gaming':
-        return 'from-green-500 to-green-700'
+        return 'bg-green-600'
       case 'academic':
-        return 'from-indigo-500 to-indigo-700'
+        return 'bg-indigo-600'
       default:
-        return 'from-gray-500 to-gray-700'
+        return 'bg-gray-600'
     }
   }
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 bg-gradient-cardinal-gold text-white">
+      <section className="relative py-20 px-4 bg-cardinal text-white">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center">
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Upcoming Events</h1>
@@ -176,7 +177,7 @@ export default function UpcomingEventsPage() {
         if (!featuredEvent) return null
 
         return (
-          <section className="py-12 px-4 bg-gradient-to-b from-gold/10 to-transparent">
+          <section className="py-12 px-4" style={{ backgroundColor: '#fdf4d7' }}>
             <div className="max-w-7xl mx-auto">
               <AnimatedSection direction="up">
                 <div className="bg-white rounded-2xl shadow-2xl overflow-hidden">
@@ -203,7 +204,7 @@ export default function UpcomingEventsPage() {
                       <h2 className="text-3xl lg:text-4xl font-bold mb-4 text-cardinal">
                         {featuredEvent.title}
                       </h2>
-                      <p className="text-gray-700 mb-6 text-lg">{featuredEvent.description}</p>
+                      <p className="text-gray-700 mb-6 text-lg whitespace-pre-line">{featuredEvent.description}</p>
 
                       {/* Event Details */}
                       <div className="space-y-3 mb-6">
@@ -307,7 +308,7 @@ export default function UpcomingEventsPage() {
                     />
                     <div className="absolute top-2 left-2">
                       <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold text-white bg-gradient-to-r ${getCategoryColor(event.category)}`}
+                        className={`px-3 py-1 rounded-full text-xs font-semibold text-white ${getCategoryColor(event.category)}`}
                       >
                         {event.category.charAt(0).toUpperCase() + event.category.slice(1)}
                       </span>
@@ -320,7 +321,7 @@ export default function UpcomingEventsPage() {
                   </div>
 
                   <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                  <p className="text-gray-600 mb-4 flex-grow line-clamp-3">{event.description}</p>
+                  <p className="text-gray-600 mb-4 flex-grow line-clamp-3 whitespace-pre-line">{event.description}</p>
 
                   {/* Event Details */}
                   <div className="space-y-2 text-sm text-gray-600 mb-4">
@@ -387,7 +388,7 @@ export default function UpcomingEventsPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 px-4 bg-gradient-to-r from-cardinal/10 to-gold/10">
+      <section className="py-16 px-4 bg-cardinal/10">
         <div className="max-w-7xl mx-auto">
           <AnimatedSection direction="up" className="text-center">
             <h2 className="section-title">Don&apos;t See What You&apos;re Looking For?</h2>

@@ -48,7 +48,6 @@ describe('InstagramFeed', () => {
     // Check for post content
     expect(screen.getByText(/Tết Festival 2025 is coming!/)).toBeInTheDocument()
     expect(screen.getByText(/Phở Night!/)).toBeInTheDocument()
-    expect(screen.getByText(/VSA Royale Tournament was a huge success!/)).toBeInTheDocument()
   })
 
   it('has proper alt text for images', async () => {

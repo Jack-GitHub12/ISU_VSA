@@ -7,40 +7,16 @@ const currentDate = new Date().toISOString().split('T')[0];
 // Define your routes with their properties
 const routes = [
   { path: '/', changefreq: 'weekly', priority: 1.0 },
-
-  // About Section
-  { path: '/about', changefreq: 'monthly', priority: 0.9 },
-  { path: '/about/mission', changefreq: 'yearly', priority: 0.8 },
-  { path: '/about/history', changefreq: 'yearly', priority: 0.7 },
   { path: '/about/board', changefreq: 'monthly', priority: 0.8 },
-  { path: '/about/constitution', changefreq: 'yearly', priority: 0.6 },
 
-  // Events Section
-  { path: '/events', changefreq: 'weekly', priority: 0.9 },
+  // Events
   { path: '/events/upcoming', changefreq: 'weekly', priority: 0.9 },
-  { path: '/events/past', changefreq: 'monthly', priority: 0.7 },
-  { path: '/events/cultural-shows', changefreq: 'monthly', priority: 0.8 },
-  { path: '/events/tet', changefreq: 'yearly', priority: 0.8 },
 
-  // Get Involved Section
-  { path: '/get-involved', changefreq: 'monthly', priority: 0.9 },
-  { path: '/get-involved/membership', changefreq: 'monthly', priority: 0.8 },
-  { path: '/get-involved/committees', changefreq: 'monthly', priority: 0.7 },
-  { path: '/get-involved/newsletter', changefreq: 'monthly', priority: 0.7 },
-  { path: '/get-involved/volunteer', changefreq: 'monthly', priority: 0.7 },
-
-  // Resources Section
-  { path: '/resources', changefreq: 'monthly', priority: 0.8 },
-  { path: '/resources/new-students', changefreq: 'yearly', priority: 0.7 },
-  { path: '/resources/cultural', changefreq: 'monthly', priority: 0.7 },
-  { path: '/resources/academic', changefreq: 'monthly', priority: 0.7 },
 
   // Other pages
+  { path: '/acce', changefreq: 'monthly', priority: 0.7 },
   { path: '/gallery', changefreq: 'weekly', priority: 0.7 },
   { path: '/contact', changefreq: 'yearly', priority: 0.8 },
-  { path: '/news', changefreq: 'daily', priority: 0.8 },
-  { path: '/social', changefreq: 'monthly', priority: 0.6 },
-  { path: '/vietnamese-culture', changefreq: 'monthly', priority: 0.7 },
 ];
 
 function generateSitemap() {
