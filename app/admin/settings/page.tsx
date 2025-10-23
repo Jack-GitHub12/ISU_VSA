@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { Settings, Save, Globe, Mail, Lock, Bell, Shield, Eye, EyeOff } from 'lucide-react'
+import { Settings, Save, Globe, Bell, Shield, Info } from 'lucide-react'
 
 interface SiteSettings {
   siteName: string
@@ -30,9 +30,6 @@ export default function AdminSettingsPage() {
     maintenanceMode: false
   })
 
-  const [showPassword, setShowPassword] = useState(false)
-  const [newPassword, setNewPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
   const [saved, setSaved] = useState(false)
 
   useEffect(() => {
@@ -48,22 +45,6 @@ export default function AdminSettingsPage() {
     setTimeout(() => setSaved(false), 3000)
   }
 
-  const handlePasswordChange = () => {
-    if (newPassword !== confirmPassword) {
-      alert('Passwords do not match!')
-      return
-    }
-
-    if (newPassword.length < 8) {
-      alert('Password must be at least 8 characters long!')
-      return
-    }
-
-    // In production, this would make an API call to update the password
-    alert('Password change functionality will be implemented with backend integration')
-    setNewPassword('')
-    setConfirmPassword('')
-  }
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
@@ -213,61 +194,39 @@ export default function AdminSettingsPage() {
         </div>
       </div>
 
-      {/* Security Settings */}
+      {/* Security Information */}
       <div className="bg-white rounded-lg shadow-lg p-6">
         <h2 className="text-lg font-semibold mb-4 flex items-center">
           <Shield className="w-5 h-5 mr-2" />
-          Security Settings
+          Security Information
         </h2>
 
         <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              New Admin Password
-            </label>
-            <div className="relative">
-              <input
-                type={showPassword ? 'text' : 'password'}
-                value={newPassword}
-                onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-3 py-2 pr-10 border rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal"
-                placeholder="Enter new password"
-              />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-500"
-              >
-                {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-              </button>
+          <div className="p-4 bg-blue-50 border border-blue-200 rounded-lg">
+            <div className="flex items-start">
+              <Info className="w-5 h-5 text-blue-600 mt-0.5 mr-3 flex-shrink-0" />
+              <div className="text-sm text-blue-800">
+                <p className="font-semibold mb-2">Admin Password Management</p>
+                <p className="mb-2">
+                  The admin password is securely managed through environment variables for maximum security.
+                </p>
+                <p className="font-medium">To change the admin password:</p>
+                <ol className="list-decimal list-inside mt-1 space-y-1">
+                  <li>Update the <code className="bg-blue-100 px-1 py-0.5 rounded">ADMIN_PASSWORD</code> environment variable</li>
+                  <li>Restart the application</li>
+                  <li>Use the new password to login</li>
+                </ol>
+                <p className="mt-2 text-xs">
+                  Default password: <code className="bg-blue-100 px-1 py-0.5 rounded">vsaadmin2025</code> (change immediately in production)
+                </p>
+              </div>
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Confirm New Password
-            </label>
-            <input
-              type={showPassword ? 'text' : 'password'}
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal"
-              placeholder="Confirm new password"
-            />
-          </div>
-
-          <button
-            onClick={handlePasswordChange}
-            className="flex items-center px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-          >
-            <Lock className="w-5 h-5 mr-2" />
-            Change Password
-          </button>
-
-          <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-            <p className="text-sm text-yellow-800">
-              <strong>Note:</strong> Password changes require backend integration to be functional.
-              For now, update the ADMIN_PASSWORD environment variable to change the admin password.
+          <div className="p-4 bg-gray-50 rounded-lg">
+            <p className="text-sm text-gray-700">
+              <strong>Session Management:</strong> Admin sessions expire after 24 hours for security.
+              You will need to login again after session expiration.
             </p>
           </div>
         </div>

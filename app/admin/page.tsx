@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { Calendar, Users, Eye, Clock, Award, ArrowRight, Activity } from 'lucide-react'
+import { Calendar, Users, Eye, Instagram, Award, ArrowRight, Activity, Settings } from 'lucide-react'
 import useEventStore from '@/lib/stores/eventStore'
 
 export default function AdminDashboard() {
@@ -12,8 +12,8 @@ export default function AdminDashboard() {
     totalEvents: 0,
     upcomingEvents: 0,
     pastEvents: 0,
-    totalAttendees: 0,
-    avgAttendance: 0,
+    totalMembers: 0,
+    instagramPosts: 0,
     publishedEvents: 0,
   })
 
@@ -21,14 +21,21 @@ export default function AdminDashboard() {
     const upcoming = getUpcomingEvents()
     const past = getPastEvents()
     const published = events.filter((e) => e.isPublished)
-    const totalAttendees = events.reduce((sum, e) => sum + e.attendees, 0)
+
+    // Get member count from localStorage
+    const membersData = localStorage.getItem('vsa-members')
+    const memberCount = membersData ? JSON.parse(membersData).length : 0
+
+    // Get Instagram posts count from localStorage
+    const instagramData = localStorage.getItem('vsa-instagram-posts')
+    const instagramCount = instagramData ? JSON.parse(instagramData).length : 0
 
     setStats({
       totalEvents: events.length,
       upcomingEvents: upcoming.length,
       pastEvents: past.length,
-      totalAttendees,
-      avgAttendance: events.length > 0 ? Math.round(totalAttendees / events.length) : 0,
+      totalMembers: memberCount,
+      instagramPosts: instagramCount,
       publishedEvents: published.length,
     })
   }, [events, getUpcomingEvents, getPastEvents])
@@ -44,22 +51,22 @@ export default function AdminDashboard() {
       link: '/admin/events',
     },
     {
-      title: 'Upcoming Events',
-      value: stats.upcomingEvents,
-      icon: Clock,
-      color: 'from-green-500 to-green-600',
-      link: '/admin/events',
-    },
-    {
-      title: 'Total Attendees',
-      value: stats.totalAttendees,
+      title: 'Members',
+      value: stats.totalMembers,
       icon: Users,
-      color: 'from-purple-500 to-purple-600',
+      color: 'from-green-500 to-green-600',
       link: '/admin/members',
     },
     {
-      title: 'Published Events',
-      value: stats.publishedEvents,
+      title: 'Instagram Posts',
+      value: stats.instagramPosts,
+      icon: Instagram,
+      color: 'from-pink-500 to-pink-600',
+      link: '/admin/content',
+    },
+    {
+      title: 'Upcoming Events',
+      value: stats.upcomingEvents,
       icon: Eye,
       color: 'from-orange-500 to-orange-600',
       link: '/admin/events',
@@ -158,9 +165,9 @@ export default function AdminDashboard() {
               </button>
             </Link>
             <Link href="/admin/content" className="block">
-              <button className="w-full bg-gold text-charcoal py-3 px-4 rounded-lg hover:bg-gold-dark transition-colors flex items-center justify-center">
-                <Activity className="w-5 h-5 mr-2" />
-                Manage Social Media
+              <button className="w-full bg-pink-500 text-white py-3 px-4 rounded-lg hover:bg-pink-600 transition-colors flex items-center justify-center">
+                <Instagram className="w-5 h-5 mr-2" />
+                Add Instagram Posts
               </button>
             </Link>
             <Link href="/admin/members" className="block">
@@ -171,7 +178,7 @@ export default function AdminDashboard() {
             </Link>
             <Link href="/admin/settings" className="block">
               <button className="w-full border-2 border-gray-300 text-gray-700 py-3 px-4 rounded-lg hover:bg-gray-50 transition-colors flex items-center justify-center">
-                <Award className="w-5 h-5 mr-2" />
+                <Settings className="w-5 h-5 mr-2" />
                 Site Settings
               </button>
             </Link>
@@ -179,31 +186,47 @@ export default function AdminDashboard() {
         </motion.div>
       </div>
 
-      {/* Activity Feed */}
+      {/* System Status */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="mt-8 bg-white rounded-xl shadow-lg p-6"
       >
-        <h2 className="text-xl font-bold text-gray-900 mb-6">Recent Activity</h2>
+        <h2 className="text-xl font-bold text-gray-900 mb-6">System Status</h2>
         <div className="space-y-3">
-          <div className="flex items-center space-x-3 text-sm">
-            <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-            <span className="text-gray-600">Event &ldquo;Tết Festival 2025&rdquo; was updated</span>
-            <span className="text-gray-400 ml-auto">2 hours ago</span>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-gray-600">Website Status</span>
+            </div>
+            <span className="text-green-600 font-medium">Active</span>
           </div>
-          <div className="flex items-center space-x-3 text-sm">
-            <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-            <span className="text-gray-600">New member registration</span>
-            <span className="text-gray-400 ml-auto">5 hours ago</span>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+              <span className="text-gray-600">Instagram Integration</span>
+            </div>
+            <span className="text-green-600 font-medium">Ready (Embed Mode)</span>
           </div>
-          <div className="flex items-center space-x-3 text-sm">
-            <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-            <span className="text-gray-600">
-              Event &ldquo;Phở Night&rdquo; reached 75% capacity
-            </span>
-            <span className="text-gray-400 ml-auto">1 day ago</span>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+              <span className="text-gray-600">Database</span>
+            </div>
+            <span className="text-yellow-600 font-medium">Local Storage (Temporary)</span>
           </div>
+          <div className="flex items-center justify-between text-sm">
+            <div className="flex items-center space-x-3">
+              <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+              <span className="text-gray-600">Email Service</span>
+            </div>
+            <span className="text-yellow-600 font-medium">Pending Setup</span>
+          </div>
+        </div>
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg">
+          <p className="text-xs text-blue-700">
+            <strong>Note:</strong> Data is stored in browser localStorage. For production, integrate with a database service.
+          </p>
         </div>
       </motion.div>
     </div>
