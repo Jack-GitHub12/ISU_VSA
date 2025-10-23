@@ -14,26 +14,81 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const router = useRouter()
 
   useEffect(() => {
-    const auth = localStorage.getItem('vsa-admin-auth')
-    if (auth === 'authenticated') {
-      setIsAuthenticated(true)
+    const verifySession = async () => {
+      const token = localStorage.getItem('vsa-admin-token')
+
+      if (token) {
+        try {
+          const response = await fetch('/api/admin/auth', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'x-session-token': token
+            },
+            body: JSON.stringify({ action: 'verify' })
+          })
+
+          const data = await response.json()
+
+          if (data.success && data.authenticated) {
+            setIsAuthenticated(true)
+          } else {
+            localStorage.removeItem('vsa-admin-auth')
+            localStorage.removeItem('vsa-admin-token')
+          }
+        } catch (error) {
+          console.error('Session verification failed:', error)
+          localStorage.removeItem('vsa-admin-auth')
+          localStorage.removeItem('vsa-admin-token')
+        }
+      }
     }
+
+    verifySession()
   }, [])
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Simple password authentication (in production, use proper authentication)
-    if (password === 'vsaadmin2025') {
-      setIsAuthenticated(true)
-      localStorage.setItem('vsa-admin-auth', 'authenticated')
-    } else {
-      alert('Incorrect password')
+
+    try {
+      const response = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, action: 'login' })
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setIsAuthenticated(true)
+        localStorage.setItem('vsa-admin-auth', 'authenticated')
+        localStorage.setItem('vsa-admin-token', data.sessionToken)
+      } else {
+        alert(data.message || 'Incorrect password')
+      }
+    } catch (error) {
+      console.error('Login error:', error)
+      alert('Authentication failed. Please try again.')
     }
   }
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    const token = localStorage.getItem('vsa-admin-token')
+
+    if (token) {
+      await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-session-token': token
+        },
+        body: JSON.stringify({ action: 'logout' })
+      })
+    }
+
     setIsAuthenticated(false)
     localStorage.removeItem('vsa-admin-auth')
+    localStorage.removeItem('vsa-admin-token')
     router.push('/')
   }
 
@@ -47,7 +102,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-gradient-cardinal-gold flex items-center justify-center p-4">
+      <div className="min-h-screen bg-cardinal flex items-center justify-center p-4 text-white">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}

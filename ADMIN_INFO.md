@@ -49,19 +49,15 @@ The website uses Instagram **embed codes** (no API required):
 
 ## Website Sections
 1. **Home** - Hero, features, events, Instagram feed
-2. **About** - Mission, board members, history, constitution
-3. **Events** - Upcoming, past, Tet, cultural shows
-4. **Get Involved** - Membership, committees, volunteer, newsletter
-5. **Resources** - Cultural library, language, recipes, study materials
+2. **Executive Board** - Leadership spotlights and bios
+3. **Events** - Upcoming activities and key dates
+5. **Recipes** - Vietnamese dishes and cooking guides
 6. **Gallery** - Photo collections from events
-7. **VSA Royale** - Interactive card game
-8. **Contact** - Contact form, location, FAQ
+7. **Contact** - Contact form, location, FAQ
 
 ## Key Features
-- **VSA Royale Game**: Full-featured card game at `/vsa-royale`
-- **Event Management**: Dynamic event creation and display
-- **Member Registration**: Online membership signup
-- **Newsletter Signup**: Email collection for updates
+- **Event Management**: Highlight upcoming programs and activities
+- **Recipes Library**: Vietnamese dishes with step-by-step guidance
 - **Instagram Feed**: Embedded posts managed through admin
 - **Mobile Responsive**: Fully optimized for all devices
 

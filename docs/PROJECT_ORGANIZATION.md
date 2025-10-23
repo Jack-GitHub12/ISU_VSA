@@ -5,15 +5,13 @@
 ```
 isu-vsa-website/
 ├── app/                      # Next.js app router pages
-│   ├── about/               # About pages (board, history, mission, etc.)
+│   ├── about/               # Executive board pages
 │   ├── admin/               # Admin dashboard for events management
 │   ├── contact/             # Contact page
-│   ├── events/              # Event pages (cultural shows, Tet, etc.)
+│   ├── events/              # Upcoming events
 │   ├── gallery/             # Photo gallery
-│   ├── get-involved/        # Get involved pages (membership, volunteer, etc.)
-│   ├── resources/           # Resource pages (cultural library, language, etc.)
+│   ├── resources/           # Resource pages (cultural library, language, recipes, study)
 │   ├── style-test/          # Tailwind CSS test page
-│   ├── vsa-royale/          # VSA Royale game
 │   ├── globals.css          # Global styles
 │   ├── layout.tsx           # Root layout
 │   └── page.tsx             # Home page
@@ -23,8 +21,7 @@ isu-vsa-website/
 │   ├── common/              # Common/shared components (ErrorBoundary)
 │   ├── layout/              # Layout components (Footer, InstagramFeed)
 │   ├── navigation/          # Navigation components (Navbar)
-│   ├── ui/                  # UI components (buttons, cards)
-│   └── vsa-royale/          # VSA Royale game components
+│   └── ui/                  # UI components (buttons, cards)
 │
 ├── data/                    # Static data files
 │   ├── events.ts
@@ -43,8 +40,6 @@ isu-vsa-website/
 │   ├── fonts/
 │   ├── images/
 │   └── videos/
-│
-├── types/                   # TypeScript type definitions
 │
 ├── __tests__/              # Test files
 │   ├── components/
@@ -81,7 +76,6 @@ isu-vsa-website/
 - **layout/**: Page layout components
 - **navigation/**: Navigation-related components
 - **ui/**: Basic UI components
-- **vsa-royale/**: Game-specific components
 
 ### 3. Testing
 

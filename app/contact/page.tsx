@@ -1,13 +1,42 @@
 'use client'
 
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { Mail, MapPin, Clock, Send, Instagram, MessageSquare } from 'lucide-react'
+import { MapPin, Clock, Send, Instagram } from 'lucide-react'
+import { SITE_CONFIG } from '@/lib/constants'
+
+const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false" {...props}>
+    <path d="M20.317 4.369a18.933 18.933 0 0 0-4.885-1.515.07.07 0 0 0-.073.035 13.226 13.226 0 0 0-.58 1.19 18.61 18.61 0 0 0-5.585 0 12.63 12.63 0 0 0-.593-1.19.077.077 0 0 0-.073-.035 18.87 18.87 0 0 0-4.885 1.515.064.064 0 0 0-.03.025C2.178 9.283 1.292 14.047 1.712 18.739a.082.082 0 0 0 .031.057 18.992 18.992 0 0 0 5.625 2.861.08.08 0 0 0 .086-.027 13.35 13.35 0 0 0 1.156-1.875.077.077 0 0 0-.041-.105 12.356 12.356 0 0 1-1.793-.863.077.077 0 0 1-.008-.129c.12-.09.238-.183.351-.277a.074.074 0 0 1 .077-.01c3.747 1.71 7.807 1.71 11.5 0a.074.074 0 0 1 .078.009 8.1 8.1 0 0 0 .352.278.077.077 0 0 1-.006.129 11.67 11.67 0 0 1-1.794.862.077.077 0 0 0-.041.106c.34.65.73 1.285 1.155 1.874a.078.078 0 0 0 .086.028 18.97 18.97 0 0 0 5.637-2.861.078.078 0 0 0 .031-.056c.47-4.884-.788-9.613-3.447-13.214a.063.063 0 0 0-.03-.025ZM8.12 15.348c-1.137 0-2.067-1.009-2.067-2.249 0-1.24.915-2.262 2.068-2.262 1.152 0 2.082 1.01 2.068 2.262 0 1.24-.916 2.249-2.069 2.249Zm7.816 0c-1.137 0-2.067-1.009-2.067-2.249 0-1.24.915-2.262 2.067-2.262 1.153 0 2.082 1.01 2.068 2.262 0 1.24-.915 2.249-2.068 2.249Z" />
+  </svg>
+)
 
 export default function ContactPage() {
+  const recipients = useMemo(
+    () =>
+      [
+        { label: 'Dong Nguyen – President', email: 'dong0603@iastate.edu' },
+        { label: 'Trish Nguyen – Vice President', email: 'phuong@iastate.edu' },
+        { label: 'Dylan Topic – Treasurer', email: 'dylan004@iastate.edu' },
+        { label: 'Kaylee Rianto – Secretary', email: 'comet15@iastate.edu' },
+        { label: 'Anh Le – Student Advisor', email: 'anhnle@iastate.edu' },
+        { label: 'Sabyn Jones – Public Relations', email: 'sabynaj@iastate.edu' },
+        { label: 'Jenna Le – Education Chair', email: 'jennale@iastate.edu' },
+        { label: 'Andrew Sinnorai – Fundraising', email: 'andsin17@iastate.edu' },
+        { label: 'Winson Vetsavong – Event Planner', email: 'wvetsa1@iastate.edu' },
+        { label: 'Andrew Pham – Event Planner', email: 'phama23@iastate.edu' },
+        { label: 'Ethan Pham – Developer', email: 'phame20@iastate.edu' },
+        { label: 'Jack Lau – Developer', email: 'jacklau@iastate.edu' },
+      ] as const,
+    []
+  )
+
+  const defaultRecipient = recipients[0]?.email ?? ''
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    recipient: defaultRecipient,
     subject: '',
     message: '',
   })
@@ -42,6 +71,7 @@ export default function ContactPage() {
         setFormData({
           name: '',
           email: '',
+          recipient: defaultRecipient,
           subject: '',
           message: '',
         })
@@ -73,7 +103,7 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative py-16 px-4 bg-gradient-to-br from-cardinal to-gold text-white">
+      <section className="relative py-16 px-4 bg-cardinal text-white">
         <div className="max-w-7xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -119,7 +149,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal transition-colors"
-                        placeholder="John Doe"
+                        placeholder="Full name"
                       />
                     </div>
                     <div>
@@ -137,9 +167,32 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal transition-colors"
-                        placeholder="john@iastate.edu"
+                        placeholder="netid@iastate.edu"
                       />
                     </div>
+                  </div>
+
+                  <div>
+                    <label
+                      htmlFor="recipient"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Send To *
+                    </label>
+                    <select
+                      id="recipient"
+                      name="recipient"
+                      required
+                      value={formData.recipient}
+                      onChange={handleChange}
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal transition-colors"
+                    >
+                      {recipients.map((recipient) => (
+                        <option key={recipient.email} value={recipient.email}>
+                          {recipient.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
 
                   <div>
@@ -149,21 +202,16 @@ export default function ContactPage() {
                     >
                       Subject *
                     </label>
-                    <select
+                    <input
+                      type="text"
                       id="subject"
                       name="subject"
                       required
                       value={formData.subject}
                       onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal transition-colors"
-                    >
-                      <option value="">Select a subject</option>
-                      <option value="membership">Membership Inquiry</option>
-                      <option value="events">Event Information</option>
-                      <option value="sponsorship">Sponsorship Opportunity</option>
-                      <option value="volunteer">Volunteer Interest</option>
-                      <option value="general">General Question</option>
-                    </select>
+                      placeholder="Let us know what this is about"
+                    />
                   </div>
 
                   <div>
@@ -250,29 +298,14 @@ export default function ContactPage() {
             >
               {/* Quick Contact */}
               <div className="card">
-                <h3 className="text-xl font-bold mb-4">Quick Contact</h3>
+                <h3 className="text-xl font-bold mb-4">General Body Meeting</h3>
                 <div className="space-y-4">
-                  <a
-                    href="mailto:isuvsa@gmail.com"
-                    className="flex items-start space-x-3 text-gray-600 hover:text-cardinal transition-colors"
-                  >
-                    <Mail className="w-5 h-5 mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="font-medium">Email</p>
-                      <p className="text-sm">isuvsa@gmail.com</p>
-                    </div>
-                  </a>
-
                   <div className="flex items-start space-x-3 text-gray-600">
                     <MapPin className="w-5 h-5 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-medium">Location</p>
                       <p className="text-sm">
-                        Memorial Union
-                        <br />
-                        2229 Lincoln Way
-                        <br />
-                        Ames, IA 50011
+                        Pearson Hall 2105, Ames, IA
                       </p>
                     </div>
                   </div>
@@ -281,11 +314,15 @@ export default function ContactPage() {
                     <Clock className="w-5 h-5 mt-1 flex-shrink-0" />
                     <div>
                       <p className="font-medium">Meetings</p>
-                      <p className="text-sm">
-                        Bi-weekly during fall and spring semesters
-                        <br />
-                        Check Instagram for latest updates
-                      </p>
+                      <p className="text-sm">Bi-weekly during fall and spring semesters</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-3 text-gray-600">
+                    <Clock className="w-5 h-5 mt-1 flex-shrink-0" />
+                    <div>
+                      <p className="font-medium">Time</p>
+                      <p className="text-sm">6:00–7:30 PM</p>
                     </div>
                   </div>
                 </div>
@@ -293,43 +330,39 @@ export default function ContactPage() {
 
               {/* Social Media */}
               <div className="card">
-                <h3 className="text-xl font-bold mb-4">Connect With Us</h3>
+                <h3 className="text-xl font-bold mb-4">Additional Links</h3>
                 <div className="space-y-3">
                   <a
-                    href="https://instagram.com/isuvsa"
+                    href={SITE_CONFIG.social.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-center space-x-2 bg-gradient-to-br from-purple-600 to-pink-500 text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity w-full"
+                    className="flex items-center justify-center space-x-2 bg-gradient-to-r from-[#feda75] via-[#d62976] to-[#4f5bd5] text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity w-full"
                   >
                     <Instagram className="w-5 h-5" />
                     <span className="font-medium">Follow @isuvsa</span>
                   </a>
 
                   <a
-                    href="#"
+                    href={SITE_CONFIG.social.discord}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="flex items-center justify-center space-x-2 bg-[#5865F2] text-white py-3 px-4 rounded-lg hover:bg-[#4752C4] transition-colors w-full"
                   >
-                    <MessageSquare className="w-5 h-5" />
+                    <DiscordIcon className="w-5 h-5" />
                     <span className="font-medium">Join Discord</span>
+                  </a>
+
+                  <a
+                    href="https://linktr.ee/isuvsa?fbclid=PAZXh0bgNhZW0CMTEAAae1zpAeSR04oxMb0arSbhFNu9mf3nWAfn_kzi86hq3ebn5959EjFhDwqzuA2A_aem_jk7pwiWpiHCqVOgdr5JoTQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-center space-x-2 bg-[#32a852] text-white py-3 px-4 rounded-lg hover:bg-[#2a8e44] transition-colors w-full"
+                  >
+                    <span className="font-medium">Visit Our Linktree</span>
                   </a>
                 </div>
               </div>
 
-              {/* Office Location */}
-              <div className="card">
-                <h3 className="text-xl font-bold mb-4">Find Us</h3>
-                <div className="aspect-video bg-gray-200 rounded-lg overflow-hidden">
-                  <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2976.0385471987697!2d-93.64999068456021!3d42.02596017921183!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x87ee70624e7b9b73%3A0x8a8f2d3b0f0f0f0f!2sMemorial%20Union%2C%20Ames%2C%20IA%2050011!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
-                    width="100%"
-                    height="100%"
-                    style={{ border: 0 }}
-                    allowFullScreen
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
-                </div>
-              </div>
             </motion.div>
           </div>
         </div>
@@ -351,24 +384,24 @@ export default function ContactPage() {
           <div className="space-y-4">
             {[
               {
-                question: 'How do I become a member of ISU VSA?',
-                answer:
-                  'ISU VSA membership is open to all Iowa State students, faculty, alumni, and community members. Simply attend our meetings and events! To be a voting member, you must attend 51% of events/meetings.',
-              },
-              {
                 question: 'Do I need to be Vietnamese to join?',
                 answer:
-                  'Not at all! ISU VSA welcomes everyone interested in Vietnamese culture and community, regardless of background.',
+                  'Not at all! ISU VSA welcomes everyone with all interests, regardless of background.',
               },
               {
-                question: 'When are general meetings held?',
+                question: 'Do I need to pay dues to participate in GBMs?',
                 answer:
-                  'General meetings are held bi-weekly during fall and spring semesters. Check our Instagram @isuvsa for the latest meeting times and locations.',
+                  'Again, not at all! While you can attend any GBM for free, becoming a member allows you to waive certain activity fees and enjoy additional benefits.',
               },
               {
-                question: 'How can I get involved in planning events?',
+                question: 'How can I stay updated on upcoming events?',
                 answer:
-                  'We have various committee positions including Event Managers, PR Chair, Education Chair, and Fundraising roles. Elections are held yearly at the end of spring semester.',
+                  'Stay in touch with us for frequent updates on upcoming events through our Instagram (@isu.vsa) and Discord server! You can also ask questions or connect with members directly on Discord.',
+              },
+              {
+                question: 'How do I join a leadership position?',
+                answer:
+                  'We offer a variety of leadership positions throughout the year! Internship applications typically open about two months into each new term, while executive board positions become available at the end of every semester.',
               },
             ].map((faq, index) => (
               <motion.div
