@@ -6,7 +6,9 @@
 
 ## Admin Panel Access
 - **URL**: `/admin`
+- **Email**: `admin@isuvsa.org`
 - **Password**: `vsaadmin2025`
+- **Authentication**: Firebase Authentication (Project: isuvsa-7423e)
 - **Features**:
   - Event Management
   - Member Management

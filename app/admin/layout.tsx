@@ -7,7 +7,15 @@ import { Calendar, Users, Settings, FileText, Home, LogOut, Menu, X, Shield } fr
 import { motion, AnimatePresence } from 'framer-motion'
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  // Initialize with token check to avoid flash of login screen
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return !!localStorage.getItem('vsa-admin-token')
+    }
+    return false
+  })
+  const [isLoading, setIsLoading] = useState(true)
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showMobileMenu, setShowMobileMenu] = useState(false)
   const pathname = usePathname()
@@ -18,6 +26,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       const token = localStorage.getItem('vsa-admin-token')
 
       if (token) {
+        // Optimistically stay authenticated while verifying
+        setIsAuthenticated(true)
+
         try {
           const response = await fetch('/api/admin/auth', {
             method: 'POST',
@@ -30,18 +41,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
           const data = await response.json()
 
-          if (data.success && data.authenticated) {
-            setIsAuthenticated(true)
-          } else {
+          if (!data.success || !data.authenticated) {
+            // Only clear auth if verification actually failed
             localStorage.removeItem('vsa-admin-auth')
             localStorage.removeItem('vsa-admin-token')
+            setIsAuthenticated(false)
           }
         } catch (error) {
           console.error('Session verification failed:', error)
-          localStorage.removeItem('vsa-admin-auth')
-          localStorage.removeItem('vsa-admin-token')
+          // On network error, keep authenticated but verify next time
+          // Only clear on explicit auth failure
         }
+      } else {
+        setIsAuthenticated(false)
       }
+      setIsLoading(false)
     }
 
     verifySession()
@@ -54,7 +68,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       const response = await fetch('/api/admin/auth', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password, action: 'login' })
+        body: JSON.stringify({ email, password, action: 'login' })
       })
 
       const data = await response.json()
@@ -94,11 +108,23 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const menuItems = [
     { href: '/admin', label: 'Dashboard', icon: Home },
+    { href: '/admin/board', label: 'Board', icon: Users },
     { href: '/admin/events', label: 'Events', icon: Calendar },
     { href: '/admin/members', label: 'Members', icon: Users },
     { href: '/admin/content', label: 'Content', icon: FileText },
     { href: '/admin/settings', label: 'Settings', icon: Settings },
   ]
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cardinal mx-auto"></div>
+          <p className="mt-4 text-gray-600">Verifying session...</p>
+        </div>
+      </div>
+    )
+  }
 
   if (!isAuthenticated) {
     return (
@@ -113,6 +139,20 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <h1 className="text-3xl font-bold text-charcoal">Admin Login</h1>
           </div>
           <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal text-gray-900"
+                placeholder="Enter admin email"
+                required
+              />
+            </div>
             <div className="mb-6">
               <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
                 Password
@@ -122,7 +162,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-cardinal focus:border-cardinal text-gray-900"
                 placeholder="Enter admin password"
                 required
               />

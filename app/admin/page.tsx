@@ -5,6 +5,8 @@ import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Calendar, Users, Eye, Instagram, Award, ArrowRight, Activity, Settings } from 'lucide-react'
 import useEventStore from '@/lib/stores/eventStore'
+import { db } from '@/lib/firebase'
+import { collection, getDocs } from 'firebase/firestore'
 
 export default function AdminDashboard() {
   const { events, getUpcomingEvents, getPastEvents } = useEventStore()
@@ -13,36 +15,69 @@ export default function AdminDashboard() {
     upcomingEvents: 0,
     pastEvents: 0,
     totalMembers: 0,
+    boardMembers: 0,
     instagramPosts: 0,
     publishedEvents: 0,
   })
 
   useEffect(() => {
+    loadStats()
+  }, [events])
+
+  const loadStats = async () => {
     const upcoming = getUpcomingEvents()
     const past = getPastEvents()
     const published = events.filter((e) => e.isPublished)
 
-    // Get member count from localStorage
+    // Get board member count from Firestore
+    let boardCount = 0
+    try {
+      const boardSnapshot = await getDocs(collection(db, 'boardMembers'))
+      boardCount = boardSnapshot.size
+    } catch (error) {
+      console.error('Error loading board members:', error)
+      // Fallback to localStorage
+      const boardData = localStorage.getItem('vsa-board-members')
+      boardCount = boardData ? JSON.parse(boardData).length : 0
+    }
+
+    // Get Instagram posts count from Firestore
+    let instagramCount = 0
+    try {
+      const instagramSnapshot = await getDocs(collection(db, 'instagramPosts'))
+      instagramCount = instagramSnapshot.size
+    } catch (error) {
+      console.error('Error loading Instagram posts:', error)
+      // Fallback to localStorage
+      const instagramData = localStorage.getItem('vsa-instagram-posts')
+      instagramCount = instagramData ? JSON.parse(instagramData).length : 0
+    }
+
+    // Get member count from localStorage (or Firestore if you want to migrate this too)
     const membersData = localStorage.getItem('vsa-members')
     const memberCount = membersData ? JSON.parse(membersData).length : 0
-
-    // Get Instagram posts count from localStorage
-    const instagramData = localStorage.getItem('vsa-instagram-posts')
-    const instagramCount = instagramData ? JSON.parse(instagramData).length : 0
 
     setStats({
       totalEvents: events.length,
       upcomingEvents: upcoming.length,
       pastEvents: past.length,
       totalMembers: memberCount,
+      boardMembers: boardCount,
       instagramPosts: instagramCount,
       publishedEvents: published.length,
     })
-  }, [events, getUpcomingEvents, getPastEvents])
+  }
 
   const recentEvents = getUpcomingEvents().slice(0, 5)
 
   const statCards = [
+    {
+      title: 'Board Members',
+      value: stats.boardMembers,
+      icon: Award,
+      color: 'from-purple-500 to-purple-600',
+      link: '/admin/board',
+    },
     {
       title: 'Total Events',
       value: stats.totalEvents,
@@ -63,13 +98,6 @@ export default function AdminDashboard() {
       icon: Instagram,
       color: 'from-pink-500 to-pink-600',
       link: '/admin/content',
-    },
-    {
-      title: 'Upcoming Events',
-      value: stats.upcomingEvents,
-      icon: Eye,
-      color: 'from-orange-500 to-orange-600',
-      link: '/admin/events',
     },
   ]
 
@@ -158,6 +186,12 @@ export default function AdminDashboard() {
         >
           <h2 className="text-xl font-bold text-gray-900 mb-6">Quick Actions</h2>
           <div className="space-y-3">
+            <Link href="/admin/board" className="block">
+              <button className="w-full bg-purple-500 text-white py-3 px-4 rounded-lg hover:bg-purple-600 transition-colors flex items-center justify-center">
+                <Award className="w-5 h-5 mr-2" />
+                Manage Board Members
+              </button>
+            </Link>
             <Link href="/admin/events/new" className="block">
               <button className="w-full bg-cardinal text-white py-3 px-4 rounded-lg hover:bg-cardinal-dark transition-colors flex items-center justify-center">
                 <Calendar className="w-5 h-5 mr-2" />
@@ -168,12 +202,6 @@ export default function AdminDashboard() {
               <button className="w-full bg-pink-500 text-white py-3 px-4 rounded-lg hover:bg-pink-600 transition-colors flex items-center justify-center">
                 <Instagram className="w-5 h-5 mr-2" />
                 Add Instagram Posts
-              </button>
-            </Link>
-            <Link href="/admin/members" className="block">
-              <button className="w-full bg-gray-600 text-white py-3 px-4 rounded-lg hover:bg-gray-700 transition-colors flex items-center justify-center">
-                <Users className="w-5 h-5 mr-2" />
-                View Members
               </button>
             </Link>
             <Link href="/admin/settings" className="block">

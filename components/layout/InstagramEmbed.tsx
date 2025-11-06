@@ -1,73 +1,72 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Instagram, ExternalLink, Plus, X, Edit } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
+import { db } from '@/lib/firebase'
+import { collection, getDocs, query, orderBy as firestoreOrderBy } from 'firebase/firestore'
 
 interface InstagramPost {
   id: string
   embedCode: string
   caption?: string
   date?: string
+  timestamp?: any
 }
 
 // Default empty state - Instagram posts should be added via admin panel
 const DEFAULT_POSTS: InstagramPost[] = []
 
 export default function InstagramEmbed() {
-  const [posts, setPosts] = useState<InstagramPost[]>(() => {
-    // Load posts from localStorage if available
-    if (typeof window !== 'undefined') {
+  const [posts, setPosts] = useState<InstagramPost[]>(DEFAULT_POSTS)
+  const [loading, setLoading] = useState(true)
+
+  // Load posts from Firestore
+  useEffect(() => {
+    loadPosts()
+  }, [])
+
+  const loadPosts = async () => {
+    try {
+      setLoading(true)
+      const q = query(collection(db, 'instagramPosts'), firestoreOrderBy('timestamp', 'desc'))
+      const querySnapshot = await getDocs(q)
+      const loadedPosts: InstagramPost[] = []
+
+      querySnapshot.forEach((docSnapshot) => {
+        const data = docSnapshot.data()
+        loadedPosts.push({
+          id: docSnapshot.id,
+          embedCode: data.embedCode,
+          caption: data.caption,
+          date: data.date,
+          timestamp: data.timestamp
+        })
+      })
+
+      setPosts(loadedPosts.slice(0, 6)) // Keep only 6 most recent
+
+      // Process Instagram embeds after loading
+      setTimeout(() => {
+        if (window.instgrm) {
+          window.instgrm.Embeds.process()
+        }
+      }, 100)
+    } catch (error) {
+      console.error('Error loading Instagram posts:', error)
+      // Fallback to localStorage if Firestore fails
       const savedPosts = localStorage.getItem('vsa-instagram-posts')
       if (savedPosts) {
-        return JSON.parse(savedPosts)
+        setPosts(JSON.parse(savedPosts))
       }
+    } finally {
+      setLoading(false)
     }
-    return DEFAULT_POSTS
-  })
-
-  const [isEditing, setIsEditing] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false)
-  const [newPost, setNewPost] = useState({ embedCode: '', caption: '' })
-
-  // Check if user is admin
-  useState(() => {
-    if (typeof window !== 'undefined') {
-      const auth = localStorage.getItem('vsa-admin-auth')
-      setIsAdmin(auth === 'authenticated')
-    }
-  })
-
-  const addPost = () => {
-    if (newPost.embedCode) {
-      const post: InstagramPost = {
-        id: Date.now().toString(),
-        embedCode: newPost.embedCode,
-        caption: newPost.caption,
-        date: new Date().toISOString().split('T')[0],
-      }
-      const updatedPosts = [post, ...posts].slice(0, 6) // Keep only 6 most recent
-      setPosts(updatedPosts)
-      localStorage.setItem('vsa-instagram-posts', JSON.stringify(updatedPosts))
-      setNewPost({ embedCode: '', caption: '' })
-      setIsEditing(false)
-
-      // Reload Instagram embeds
-      if (window.instgrm) {
-        window.instgrm.Embeds.process()
-      }
-    }
-  }
-
-  const removePost = (id: string) => {
-    const updatedPosts = posts.filter(p => p.id !== id)
-    setPosts(updatedPosts)
-    localStorage.setItem('vsa-instagram-posts', JSON.stringify(updatedPosts))
   }
 
   // Load Instagram embed script
-  useState(() => {
+  useEffect(() => {
     if (typeof window !== 'undefined' && !window.instgrm) {
       const script = document.createElement('script')
       script.src = '//www.instagram.com/embed.js'
@@ -79,7 +78,18 @@ export default function InstagramEmbed() {
       }
       document.body.appendChild(script)
     }
-  })
+  }, [])
+
+  if (loading) {
+    return (
+      <section className="py-16 px-4 bg-gray-50">
+        <div className="max-w-7xl mx-auto text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cardinal mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading Instagram posts...</p>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section className="py-16 px-4 bg-gray-50">
@@ -105,95 +115,6 @@ export default function InstagramEmbed() {
             <ExternalLink className="w-4 h-4 ml-2" />
           </a>
         </motion.div>
-
-        {/* Admin Controls */}
-        {isAdmin && (
-          <div className="mb-8 bg-white rounded-xl shadow-lg p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold">Manage Instagram Posts</h3>
-              <button
-                onClick={() => setIsEditing(!isEditing)}
-                className="btn-primary flex items-center"
-              >
-                {isEditing ? (
-                  <>
-                    <X className="w-4 h-4 mr-2" />
-                    Cancel
-                  </>
-                ) : (
-                  <>
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Post
-                  </>
-                )}
-              </button>
-            </div>
-
-            {isEditing && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                className="space-y-4"
-              >
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Instagram Embed Code
-                  </label>
-                  <textarea
-                    value={newPost.embedCode}
-                    onChange={(e) => setNewPost({ ...newPost, embedCode: e.target.value })}
-                    placeholder='Paste the Instagram embed code here (e.g., <blockquote class="instagram-media"...)'
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cardinal"
-                    rows={4}
-                  />
-                  <p className="text-xs text-gray-500 mt-1">
-                    Go to Instagram post → Click ··· menu → Select "Embed" → Copy embed code
-                  </p>
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Caption (optional)
-                  </label>
-                  <input
-                    type="text"
-                    value={newPost.caption}
-                    onChange={(e) => setNewPost({ ...newPost, caption: e.target.value })}
-                    placeholder="Brief description of the post"
-                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-cardinal"
-                  />
-                </div>
-                <button
-                  onClick={addPost}
-                  disabled={!newPost.embedCode}
-                  className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  Add Instagram Post
-                </button>
-              </motion.div>
-            )}
-
-            {/* Current Posts List */}
-            <div className="mt-6">
-              <h4 className="text-sm font-medium text-gray-700 mb-3">Current Posts ({posts.length})</h4>
-              <div className="space-y-2">
-                {posts.map((post) => (
-                  <div key={post.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
-                    <div>
-                      <p className="text-sm font-medium">{post.caption || 'Instagram Post'}</p>
-                      <p className="text-xs text-gray-500">{post.date}</p>
-                    </div>
-                    <button
-                      onClick={() => removePost(post.id)}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
 
         {/* Instagram Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -222,12 +143,10 @@ export default function InstagramEmbed() {
         {posts.length === 0 && (
           <div className="text-center py-12">
             <Instagram className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">No Instagram posts added yet.</p>
-            {isAdmin && (
-              <p className="text-sm text-gray-400 mt-2">
-                Click "Add Post" above to add Instagram embeds
-              </p>
-            )}
+            <p className="text-gray-500">Follow us on Instagram for the latest updates!</p>
+            <p className="text-sm text-gray-400 mt-2">
+              New posts coming soon
+            </p>
           </div>
         )}
 

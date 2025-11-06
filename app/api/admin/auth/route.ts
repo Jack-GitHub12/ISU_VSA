@@ -1,28 +1,66 @@
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
 
-// Get admin password from environment variable
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'vsaadmin2025'
+// Admin credentials (fallback when Firebase is not available)
+const ADMIN_EMAIL = 'admin@isuvsa.org'
+const ADMIN_PASSWORD = 'vsaadmin2025'
 
 // Simple session storage (in production, use proper session management)
-const sessions = new Map<string, { authenticated: boolean; expiresAt: number }>()
+const sessions = new Map<string, { authenticated: boolean; email: string; expiresAt: number }>()
 
 // Session duration: 24 hours
 const SESSION_DURATION = 24 * 60 * 60 * 1000
 
+// Dynamic import to avoid build-time errors
+async function tryFirebaseAuth(email: string, password: string) {
+  try {
+    const { signInAdmin, createAdminUser } = await import('@/lib/auth-helpers')
+
+    // Try to create the admin user (in case it doesn't exist)
+    await createAdminUser(email, password)
+
+    // Now try to sign in with Firebase
+    return await signInAdmin(email, password)
+  } catch (error: any) {
+    console.error('Firebase auth error:', error)
+    // Return null to fall back to simple auth
+    return null
+  }
+}
+
 export async function POST(request: Request) {
   try {
-    const { password, action } = await request.json()
+    const { email, password, action } = await request.json()
 
     if (action === 'login') {
-      // Verify password
-      if (password === ADMIN_PASSWORD) {
+      // Use provided email or default to admin email
+      const loginEmail = email || ADMIN_EMAIL
+
+      let authenticated = false
+      let userEmail = loginEmail
+
+      // Try Firebase authentication first
+      const firebaseResult = await tryFirebaseAuth(loginEmail, password)
+
+      if (firebaseResult && firebaseResult.success) {
+        authenticated = true
+        userEmail = firebaseResult.user?.email || loginEmail
+      } else {
+        // Fallback to simple authentication
+        if (loginEmail === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+          authenticated = true
+          userEmail = ADMIN_EMAIL
+        }
+      }
+
+      if (authenticated) {
         // Generate session token
         const sessionToken = crypto.randomBytes(32).toString('hex')
 
         // Store session
         sessions.set(sessionToken, {
           authenticated: true,
+          email: userEmail,
           expiresAt: Date.now() + SESSION_DURATION
         })
 
@@ -36,12 +74,13 @@ export async function POST(request: Request) {
         return NextResponse.json({
           success: true,
           sessionToken,
+          email: userEmail,
           message: 'Authentication successful'
         })
       } else {
         return NextResponse.json({
           success: false,
-          message: 'Invalid password'
+          message: 'Invalid credentials'
         }, { status: 401 })
       }
     }
@@ -69,6 +108,7 @@ export async function POST(request: Request) {
       return NextResponse.json({
         success: true,
         authenticated: true,
+        email: session.email,
         message: 'Session valid'
       })
     }

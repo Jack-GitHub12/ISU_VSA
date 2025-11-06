@@ -4,12 +4,15 @@ import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { Instagram, ExternalLink, Plus, X, Copy, CheckCircle, Info } from 'lucide-react'
 import { SITE_CONFIG } from '@/lib/constants'
+import { db } from '@/lib/firebase'
+import { collection, getDocs, addDoc, deleteDoc, doc, query, orderBy as firestoreOrderBy, Timestamp } from 'firebase/firestore'
 
 interface InstagramPost {
   id: string
   embedCode: string
   caption?: string
   date?: string
+  timestamp?: any
 }
 
 export default function ContentManagementPage() {
@@ -17,41 +20,90 @@ export default function ContentManagementPage() {
   const [newPost, setNewPost] = useState({ embedCode: '', caption: '' })
   const [isAdding, setIsAdding] = useState(false)
   const [copied, setCopied] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Load posts from localStorage
-    const savedPosts = localStorage.getItem('vsa-instagram-posts')
-    if (savedPosts) {
-      setPosts(JSON.parse(savedPosts))
-    }
+    loadPosts()
   }, [])
 
-  const addPost = () => {
-    if (newPost.embedCode) {
-      const post: InstagramPost = {
-        id: Date.now().toString(),
-        embedCode: newPost.embedCode,
-        caption: newPost.caption,
-        date: new Date().toISOString().split('T')[0],
+  const loadPosts = async () => {
+    try {
+      setLoading(true)
+      const q = query(collection(db, 'instagramPosts'), firestoreOrderBy('timestamp', 'desc'))
+      const querySnapshot = await getDocs(q)
+      const loadedPosts: InstagramPost[] = []
+
+      querySnapshot.forEach((docSnapshot) => {
+        const data = docSnapshot.data()
+        loadedPosts.push({
+          id: docSnapshot.id,
+          embedCode: data.embedCode,
+          caption: data.caption,
+          date: data.date,
+          timestamp: data.timestamp
+        })
+      })
+
+      setPosts(loadedPosts.slice(0, 6)) // Keep only 6 most recent
+    } catch (error) {
+      console.error('Error loading Instagram posts:', error)
+      // Fallback to localStorage if Firestore fails
+      const savedPosts = localStorage.getItem('vsa-instagram-posts')
+      if (savedPosts) {
+        setPosts(JSON.parse(savedPosts))
       }
-      const updatedPosts = [post, ...posts].slice(0, 6) // Keep only 6 most recent
-      setPosts(updatedPosts)
-      localStorage.setItem('vsa-instagram-posts', JSON.stringify(updatedPosts))
-      setNewPost({ embedCode: '', caption: '' })
-      setIsAdding(false)
+    } finally {
+      setLoading(false)
     }
   }
 
-  const removePost = (id: string) => {
-    const updatedPosts = posts.filter(p => p.id !== id)
-    setPosts(updatedPosts)
-    localStorage.setItem('vsa-instagram-posts', JSON.stringify(updatedPosts))
+  const addPost = async () => {
+    if (newPost.embedCode) {
+      try {
+        const postData = {
+          embedCode: newPost.embedCode,
+          caption: newPost.caption,
+          date: new Date().toISOString().split('T')[0],
+          timestamp: Timestamp.now()
+        }
+
+        await addDoc(collection(db, 'instagramPosts'), postData)
+
+        setNewPost({ embedCode: '', caption: '' })
+        setIsAdding(false)
+        await loadPosts()
+      } catch (error) {
+        console.error('Error adding post:', error)
+        alert('Failed to add post. Please try again.')
+      }
+    }
+  }
+
+  const removePost = async (id: string) => {
+    try {
+      await deleteDoc(doc(db, 'instagramPosts', id))
+      await loadPosts()
+    } catch (error) {
+      console.error('Error removing post:', error)
+      alert('Failed to remove post. Please try again.')
+    }
   }
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text)
     setCopied(true)
     setTimeout(() => setCopied(false), 2000)
+  }
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-cardinal mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading content...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
