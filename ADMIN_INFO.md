@@ -1,4 +1,4 @@
-# ISU VSA Website - Admin Information
+# VSA at Iowa State Website - Admin Information
 
 ## Website URLs
 - **Production**: https://isuvsa.org

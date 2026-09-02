@@ -30,7 +30,7 @@ interface InstagramApiResponse {
 }
 
 /**
- * Fetches Instagram posts from the ISU VSA account
+ * Fetches Instagram posts from the VSA at Iowa State account
  * @param limit Number of posts to fetch
  * @returns Array of Instagram posts
  */
