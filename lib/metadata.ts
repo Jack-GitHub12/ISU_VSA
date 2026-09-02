@@ -25,7 +25,7 @@ export function generatePageMetadata({
     title: fullTitle,
     description,
     keywords: [
-      'ISU VSA',
+      'VSA at Iowa State',
       'Iowa State University',
       'Vietnamese Student Association',
       ...keywords,
@@ -67,22 +67,22 @@ export const pageMetadata = {
   },
   executiveBoard: {
     title: 'Executive Board',
-    description: 'Meet the leaders of ISU VSA and learn how they support Vietnamese culture on campus.',
-    keywords: ['executive board', 'student leadership', 'ISU VSA officers'],
+    description: 'Meet the leaders of VSA at Iowa State and learn how they support Vietnamese culture on campus.',
+    keywords: ['executive board', 'student leadership', 'VSA at Iowa State officers'],
   },
   events: {
     title: 'Upcoming Events',
-    description: 'Stay up to date with ISU VSA activities, from cultural celebrations to community gatherings.',
+    description: 'Stay up to date with VSA at Iowa State activities, from cultural celebrations to community gatherings.',
     keywords: ['VSA events', 'Vietnamese culture events', 'Iowa State student activities'],
   },
   contact: {
     title: 'Contact Us',
-    description: 'Get in touch with ISU VSA. We welcome students, faculty, alumni, and community members interested in Vietnamese culture.',
+    description: 'Get in touch with VSA at Iowa State. We welcome students, faculty, alumni, and community members interested in Vietnamese culture.',
     keywords: ['contact VSA', 'email', 'location', 'Memorial Union', 'Ames Iowa'],
   },
   gallery: {
     title: 'Photo Gallery',
-    description: 'Browse photos from ISU VSA events, cultural celebrations, and community gatherings.',
+    description: 'Browse photos from VSA at Iowa State events, cultural celebrations, and community gatherings.',
     keywords: ['VSA photos', 'event gallery', 'Vietnamese culture', 'student activities', 'Iowa State'],
   },
 }

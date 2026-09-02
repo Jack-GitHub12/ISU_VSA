@@ -386,7 +386,7 @@ export default function ContactPage() {
               {
                 question: 'Do I need to be Vietnamese to join?',
                 answer:
-                  'Not at all! ISU VSA welcomes everyone with all interests, regardless of background.',
+                  'Not at all! VSA at Iowa State welcomes everyone with all interests, regardless of background.',
               },
               {
                 question: 'Do I need to pay dues to participate in GBMs?',

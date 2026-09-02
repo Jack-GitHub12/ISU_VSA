@@ -8,11 +8,11 @@ import StructuredData from '@/components/seo/StructuredData'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://isuvsa.org'),
-  title: 'ISU VSA - Iowa State University Vietnamese Student Association',
+  title: 'Vietnamese Student Association at Iowa State University',
   description:
-    'Uniting the Iowa State University community with Vietnamese culture. Join ISU VSA for cultural events, Tet festivals, community building, and academic support.',
-  keywords: 'ISU VSA, Iowa State University, Vietnamese Student Association, Vietnamese culture, Tet festival, cultural events, student organization, Ames Iowa, Vietnamese community',
-  authors: [{ name: 'ISU VSA' }],
+    'Uniting the Iowa State University community with Vietnamese culture. Join VSA at Iowa State for cultural events, Tet festivals, community building, and academic support.',
+  keywords: 'VSA at Iowa State, Iowa State University, Vietnamese Student Association, Vietnamese culture, Tet festival, cultural events, student organization, Ames Iowa, Vietnamese community',
+  authors: [{ name: 'VSA at Iowa State' }],
   icons: {
     icon: '/images/logo.png',
     apple: '/images/logo.png',
@@ -30,16 +30,16 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: 'ISU VSA - Iowa State University Vietnamese Student Association',
+    title: 'Vietnamese Student Association at Iowa State University',
     description: 'Uniting the Iowa State University community with Vietnamese culture. Join us for cultural events, community building, and more!',
     url: 'https://isuvsa.org',
-    siteName: 'ISU VSA',
+    siteName: 'VSA at Iowa State',
     images: [
       {
         url: '/images/eboard/eboardGroup.JPG',
         width: 1200,
         height: 630,
-        alt: 'ISU VSA - Iowa State Vietnamese Student Association',
+        alt: 'Vietnamese Student Association at Iowa State University',
       },
     ],
     locale: 'en_US',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ISU VSA - Iowa State University Vietnamese Student Association',
+    title: 'Vietnamese Student Association at Iowa State University',
     description: 'Uniting the Iowa State University community with Vietnamese culture',
     images: ['/images/eboard/eboardGroup.JPG'],
   },

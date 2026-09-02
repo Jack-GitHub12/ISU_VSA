@@ -1,6 +1,6 @@
 # 🚀 Vercel Deployment Instructions
 
-Your ISU VSA website is now **ready for deployment**! Follow these steps to deploy to Vercel.
+Your VSA at Iowa State website is now **ready for deployment**! Follow these steps to deploy to Vercel.
 
 ## ✅ What's Already Done
 
@@ -133,4 +133,4 @@ EMAIL_TO=isuvsa@iastate.edu
 
 ---
 
-**Your site is production-ready! 🎉** Deploy now and share your ISU VSA website with the world!
+**Your site is production-ready! 🎉** Deploy now and share your VSA at Iowa State website with the world!

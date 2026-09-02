@@ -19,7 +19,7 @@ export default function UpcomingEventsPage() {
       category: 'Gaming',
       featured: true,
       description:
-        'Sure you can handle me, summoner?\n\n🚨 CALLING ALL GAMERS 🚨\n\nISU VSA presents our first ever ARAM tournament! Join us for a night of fun, and chaotic araming! Register now for our tournament happening on SEPTEMBER 28th from 4-8 PM CT!\n\n This tournament is a fundraiser supporting both our club and the CPP Vietnam Assistance for the Handicap',
+        'Sure you can handle me, summoner?\n\n🚨 CALLING ALL GAMERS 🚨\n\nVSA at Iowa State presents our first ever ARAM tournament! Join us for a night of fun, and chaotic araming! Register now for our tournament happening on SEPTEMBER 28th from 4-8 PM CT!\n\n This tournament is a fundraiser supporting both our club and the CPP Vietnam Assistance for the Handicap',
       attendees: 300,
       maxAttendees: 400,
       image: '/images/others/aram.jpeg',

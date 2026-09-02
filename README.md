@@ -1,6 +1,6 @@
-# ISU VSA Website
+# VSA at Iowa State Website
 
-The official website for Iowa State University Vietnamese Student Association, featuring event management and member resources.
+The official website for Vietnamese Student Association at Iowa State University, featuring event management and member resources.
 
 ## 🚀 Features
 
@@ -254,18 +254,13 @@ Edit `/data/navigation.ts` to update navigation links.
    - Check `tsconfig.json` for proper configuration
    - Delete `tsconfig.tsbuildinfo` and rebuild
 
-4. **Game Not Loading**
-   - Ensure Phaser.js is properly imported
-   - Check browser console for errors
-   - Verify game assets are in `/public` folder
-
 ## 📝 License
 
 This project is licensed under the MIT License.
 
 ## 📧 Contact
 
-ISU VSA - [isuvsa@iastate.edu](mailto:isuvsa@iastate.edu)
+VSA at Iowa State - [isuvsa@iastate.edu](mailto:isuvsa@iastate.edu)
 
 Website: [https://isuvsa.org](https://isuvsa.org)
 
@@ -277,5 +272,4 @@ Instagram: [@isuvsa](https://instagram.com/isuvsa)
 - Vietnamese Student Association National
 - All VSA members and supporters
 - Next.js and Vercel for the amazing framework
-- Phaser.js for the game engine
 - All contributors and maintainers

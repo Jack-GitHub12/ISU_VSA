@@ -64,7 +64,7 @@ describe('InstagramFeed', () => {
     // Check that alt text follows the expected pattern
     images.forEach((img) => {
       const altText = img.getAttribute('alt')
-      expect(altText).toMatch(/ISU VSA Instagram post/)
+      expect(altText).toMatch(/VSA at Iowa State Instagram post/)
     })
   })
 
@@ -171,7 +171,7 @@ describe('InstagramFeed', () => {
       expect(screen.queryByRole('status')).not.toBeInTheDocument()
     })
 
-    const followButton = screen.getByText('Follow ISU VSA on Instagram').closest('a')
+    const followButton = screen.getByText('Follow VSA at Iowa State on Instagram').closest('a')
 
     expect(followButton).toHaveAttribute('href', 'https://www.instagram.com/isuvsa/')
     expect(followButton).toHaveAttribute('target', '_blank')

@@ -21,37 +21,37 @@ export default function Home() {
 
   const heroSlides = [
     {
-      title: 'ISU VSA 2023',
+      title: 'VSA 2023',
       subtitle: 'Celebrating our 2023-2024 family',
       image: '/images/groupPhoto/vsa_2023.jpeg',
       priority: true,
     },
     {
-      title: 'ISU VSA 2020',
+      title: 'VSA 2020',
       subtitle: 'Resilient and connected in 2020',
       image: '/images/groupPhoto/vsa_2020.jpg',
       priority: false,
     },
     {
-      title: 'ISU VSA 2019',
+      title: 'VSA 2019',
       subtitle: 'Building friendships in 2019',
       image: '/images/groupPhoto/vsa_2019.jpg',
       priority: false,
     },
     {
-      title: 'ISU VSA 2018',
+      title: 'VSA 2018',
       subtitle: 'Honoring traditions in 2018',
       image: '/images/groupPhoto/vsa_2018.jpg',
       priority: false,
     },
     {
-      title: 'ISU VSA 2017',
+      title: 'VSA 2017',
       subtitle: 'Memories from our 2017 crew',
       image: '/images/groupPhoto/vsa_2017.jpg',
       priority: false,
     },
     {
-      title: 'ISU VSA 2016',
+      title: 'VSA 2016',
       subtitle: 'Throwback to 2016 beginnings',
       image: '/images/groupPhoto/vsa_2016.jpg',
       priority: false,
@@ -171,8 +171,8 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h2 className="section-title">What is ISU VSA?</h2>
-            <p className="section-subtitle">The Iowa State University Vietnamese Student Association (ISU VSA) is a student-led organization dedicated to celebrating Vietnamese culture, building community, and fostering leadership.
+            <h2 className="section-title">What is VSA at Iowa State?</h2>
+            <p className="section-subtitle">The Vietnamese Student Association at Iowa State University (VSA) is a student-led organization dedicated to celebrating Vietnamese culture, building community, and fostering leadership.
                                             Our mission is to create a welcoming space where students of all backgrounds can connect, learn, and grow through shared cultural experiences, community involvement, and personal development.
 </p>
           </motion.div>
@@ -346,7 +346,7 @@ export default function Home() {
             <div className="max-w-3xl mx-auto text-center">
               <h3 className="text-3xl font-bold mb-4">Building bonds between our community</h3>
               <p className="text-lg mb-6 opacity-95">
-                ISU VSA is proud to present the ACCE program, a place where members come together, form lasting friendships, and become part of a close-knit family within VSA. 
+                VSA at Iowa State is proud to present the ACCE program, a place where members come together, form lasting friendships, and become part of a close-knit family within VSA. 
               </p>
               <Link
                 href="/acce"
@@ -375,7 +375,7 @@ export default function Home() {
               Ready to Join Our Family?
             </h2>
             <p className="text-xl text-white/90 mb-8">
-              Become a part of ISU VSA and experience the best of Vietnamese culture at Iowa State
+              Become a part of VSA and experience the best of Vietnamese culture at Iowa State
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link

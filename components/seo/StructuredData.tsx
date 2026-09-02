@@ -56,7 +56,7 @@ export default function StructuredData({ type = 'Organization', data }: Structur
         return {
           '@context': 'https://schema.org',
           '@type': 'Event',
-          name: data?.name || 'ISU VSA Event',
+          name: data?.name || 'VSA at Iowa State Event',
           description: data?.description || 'Join us for an exciting cultural event',
           startDate: data?.startDate,
           endDate: data?.endDate,

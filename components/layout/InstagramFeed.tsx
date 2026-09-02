@@ -22,8 +22,8 @@ const InstagramPostCard = React.memo<{ post: InstagramPost; index: number }>(
   function InstagramPostCard({ post, index }) {
     const altText = useMemo(() => {
       return post.caption
-        ? `ISU VSA Instagram post: ${post.caption.substring(0, 100).replace(/[#@]/g, '').trim()}${post.caption.length > 100 ? '...' : ''}`
-        : 'ISU VSA Instagram post'
+        ? `VSA at Iowa State Instagram post: ${post.caption.substring(0, 100).replace(/[#@]/g, '').trim()}${post.caption.length > 100 ? '...' : ''}`
+        : 'VSA at Iowa State Instagram post'
     }, [post.caption])
 
     const formattedDate = useMemo(() => {
@@ -46,7 +46,7 @@ const InstagramPostCard = React.memo<{ post: InstagramPost; index: number }>(
           target="_blank"
           rel="noopener noreferrer"
           className="block"
-          aria-label={`View Instagram post: ${post.caption?.substring(0, 50) || 'ISU VSA post'}`}
+          aria-label={`View Instagram post: ${post.caption?.substring(0, 50) || 'VSA at Iowa State post'}`}
         >
           <div className="relative aspect-square">
             <Image
@@ -146,7 +146,7 @@ const InstagramFeed = React.memo(function InstagramFeed() {
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center text-cardinal hover:text-cardinal-dark transition-colors font-semibold mt-2"
-            aria-label="View ISU VSA on Instagram (opens in new tab)"
+            aria-label="View VSA at Iowa State on Instagram (opens in new tab)"
           >
             View on Instagram
             <ExternalLink className="w-4 h-4 ml-2" aria-hidden="true" />
@@ -169,7 +169,7 @@ const InstagramFeed = React.memo(function InstagramFeed() {
             target="_blank"
             rel="noopener noreferrer"
             className="btn-primary inline-flex items-center"
-            aria-label="Follow ISU VSA on Instagram (opens in new tab)"
+            aria-label="Follow VSA at Iowa State on Instagram (opens in new tab)"
           >
             <Instagram className="w-5 h-5 mr-2" aria-hidden="true" />
             Follow {SITE_CONFIG.name} on Instagram

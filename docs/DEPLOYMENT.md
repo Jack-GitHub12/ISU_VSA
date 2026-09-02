@@ -1,4 +1,4 @@
-# ISU VSA Website Deployment Guide
+# VSA at Iowa State Website Deployment Guide
 
 ## Vercel Deployment
 
@@ -120,7 +120,7 @@ The site is optimized for performance with:
 
 - Next.js Image optimization
 - Static generation where possible
-- Lazy loading for heavy components (like the game)
+- Lazy loading for heavy components
 - Tailwind CSS for minimal CSS bundle
 
 ## Security

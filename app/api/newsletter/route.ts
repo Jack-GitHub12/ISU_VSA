@@ -47,7 +47,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: 'Successfully subscribed to the ISU VSA newsletter!',
+        message: 'Successfully subscribed to the VSA at Iowa State newsletter!',
       },
       { status: 200 }
     )

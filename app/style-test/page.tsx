@@ -5,7 +5,7 @@ import { motion } from 'framer-motion'
 export default function StyleTestPage() {
   return (
     <div className="min-h-screen p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center">ISU VSA Style Test</h1>
+      <h1 className="text-4xl font-bold mb-8 text-center">VSA at Iowa State Style Test</h1>
 
       {/* Color Palette */}
       <section className="mb-12">

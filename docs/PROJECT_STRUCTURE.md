@@ -1,4 +1,4 @@
-# ISU VSA Website - Project Structure
+# VSA at Iowa State Website - Project Structure
 
 ## 📁 Directory Structure
 

@@ -11,7 +11,7 @@ export default function HistoryPage() {
       year: '1985',
       title: 'Foundation',
       description:
-        'ISU VSA was established by a group of Vietnamese students seeking to create a home away from home.',
+        'VSA at Iowa State was established by a group of Vietnamese students seeking to create a home away from home.',
       icon: Star,
       color: 'from-cardinal to-red-600',
     },
@@ -148,13 +148,13 @@ export default function HistoryPage() {
               <div className="relative h-96 rounded-xl overflow-hidden shadow-2xl">
                 <Image
                   src="/images/eboard/eboardGroup.JPG"
-                  alt="Founding members of ISU VSA in 1985"
+                  alt="Founding members of VSA at Iowa State in 1985"
                   fill
                   className="object-cover"
                 />
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="bg-black/70 text-white p-4 rounded-lg">
-                    <p className="text-sm">Founding members of ISU VSA, 1985</p>
+                    <p className="text-sm">Founding members of VSA at Iowa State, 1985</p>
                   </div>
                 </div>
               </div>
@@ -253,7 +253,7 @@ export default function HistoryPage() {
             <h2 className="section-title">Our Legacy</h2>
             <div className="max-w-4xl mx-auto">
               <p className="text-xl text-gray-700 leading-relaxed mb-8">
-                For forty years, ISU VSA has been more than just a student organization. We&apos;ve
+                For forty years, VSA at Iowa State has been more than just a student organization. We&apos;ve
                 been a family, a cultural beacon, and a launching pad for future leaders.
               </p>
               <p className="text-lg text-gray-600 leading-relaxed mb-8">

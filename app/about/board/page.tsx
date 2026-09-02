@@ -51,7 +51,7 @@ const executiveBoard: BoardMember[] = [
     email: 'dong0603@iastate.edu',
     major: 'Community and Regional Planning Major',
     year: '3rd Year',
-    bio: 'Meet Dong Nguyen in his starter kit!❤️🖊️💌\nDong is the president of ISU VSA! He will be leading and guiding all of executive board on putting on some amazing events and connecting to other VSAs across the midwest. We love you Dong!',
+    bio: 'Meet Dong Nguyen in his starter kit!❤️🖊️💌\nDong is the president of VSA at Iowa State! He will be leading and guiding all of executive board on putting on some amazing events and connecting to other VSAs across the midwest. We love you Dong!',
   },
   {
     name: 'Trish Nguyen',

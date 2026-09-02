@@ -144,7 +144,7 @@ export default function MembershipPage() {
           >
             <h1 className="text-5xl md:text-6xl font-bold mb-6">Become a Member</h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto">
-              Join the ISU VSA family and connect with Vietnamese culture at Iowa State
+              Join the VSA family and connect with Vietnamese culture at Iowa State
             </p>
           </motion.div>
         </div>
@@ -160,7 +160,7 @@ export default function MembershipPage() {
             className="text-center mb-12"
           >
             <h2 className="section-title">Member Benefits</h2>
-            <p className="section-subtitle">Why join ISU VSA?</p>
+            <p className="section-subtitle">Why join VSA at Iowa State?</p>
           </motion.div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">

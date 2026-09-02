@@ -239,7 +239,7 @@ export default function InstagramEmbed() {
             className="btn-primary inline-flex items-center"
           >
             <Instagram className="w-5 h-5 mr-2" />
-            Follow ISU VSA on Instagram
+            Follow VSA at Iowa State on Instagram
           </a>
         </div>
       </div>

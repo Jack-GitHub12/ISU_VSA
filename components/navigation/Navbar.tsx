@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { NAVIGATION, SITE_CONFIG, IMAGES, UNIVERSITY } from '@/lib/constants'
+import { NAVIGATION, SITE_CONFIG, IMAGES } from '@/lib/constants'
 
 type NavItemType = (typeof NAVIGATION)[number]
 
@@ -56,7 +56,7 @@ const Navbar = React.memo(function Navbar() {
               </div>
               <div>
                 <h1 className="text-2xl font-bold text-gold tracking-wide">{SITE_CONFIG.name}</h1>
-                <p className="text-sm font-semibold text-white">{UNIVERSITY.name}</p>
+                <p className="text-sm font-semibold text-white">{SITE_CONFIG.affiliation}</p>
               </div>
             </div>
           </div>

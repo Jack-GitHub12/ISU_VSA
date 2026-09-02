@@ -1,7 +1,10 @@
 // Site-wide constants and configuration
 export const SITE_CONFIG = {
-  name: 'ISU VSA',
-  fullName: 'Iowa State University Vietnamese Student Association',
+  name: 'VSA',
+  affiliation: 'at Iowa State University',
+  fullName: 'Vietnamese Student Association at Iowa State University',
+  // Name exactly as listed in the ISU Student Organization Database
+  officialName: 'Vietnamese Student Association (VSA)',
   description:
     'Est. 2015 @ Iowa State. Bi-weekly GBMs on Thursdays from 6:00–7:30 PM in Pearson Hall 2105.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://isuvsa.org',
@@ -58,7 +61,17 @@ export const UNIVERSITY = {
     cardinal: '#C8102E',
     gold: '#F1BE48',
   },
-  motto: 'Go Cyclones! 🌪️',
+} as const
+
+// Required statements (ISU Student Engagement constitution guidelines, Articles III & IV)
+export const LEGAL = {
+  nonDiscrimination:
+    'Iowa State University and Vietnamese Student Association do not discriminate on the basis of genetic information, pregnancy, physical or mental disability, race, ethnicity, sex, color, religion, national origin, age, marital status, sexual orientation, or status as a U.S. Veteran.',
+  compliance:
+    'Vietnamese Student Association abides by and supports established Iowa State University policies, State and Federal Laws and follows local ordinances and regulations. Vietnamese Student Association agrees to annually complete President\'s and Treasurer\'s Training.',
+  disclaimer:
+    'The views and opinions expressed on this site are strictly those of the Vietnamese Student Association, a registered student organization at Iowa State University. The contents of this site have not been reviewed or approved by Iowa State University.',
+  sodbUrl: 'https://www.stuorg.iastate.edu/vsaisu',
 } as const
 
 // Event categories

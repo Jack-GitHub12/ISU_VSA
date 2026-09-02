@@ -12,13 +12,12 @@ interface SiteSettings {
   meetingLocation: string
   enableEvents: boolean
   enableGallery: boolean
-  enableVSARoyale: boolean
   maintenanceMode: boolean
 }
 
 export default function AdminSettingsPage() {
   const [settings, setSettings] = useState<SiteSettings>({
-    siteName: 'ISU VSA',
+    siteName: 'VSA at Iowa State',
     contactEmail: 'info@isuvsa.org',
     instagramHandle: '@isuvsa',
     discordUrl: 'https://discord.com/invite/Yg7We4pECw',
@@ -26,7 +25,6 @@ export default function AdminSettingsPage() {
     meetingLocation: 'Pearson Hall 2105',
     enableEvents: false,
     enableGallery: true,
-    enableVSARoyale: true,
     maintenanceMode: false
   })
 
@@ -162,15 +160,6 @@ export default function AdminSettingsPage() {
                   className="w-4 h-4 text-cardinal border-gray-300 rounded focus:ring-cardinal"
                 />
                 <span className="ml-2 text-sm text-gray-700">Enable Gallery</span>
-              </label>
-              <label className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={settings.enableVSARoyale}
-                  onChange={(e) => setSettings({ ...settings, enableVSARoyale: e.target.checked })}
-                  className="w-4 h-4 text-cardinal border-gray-300 rounded focus:ring-cardinal"
-                />
-                <span className="ml-2 text-sm text-gray-700">Enable VSA Royale Game</span>
               </label>
               <label className="flex items-center">
                 <input

@@ -44,10 +44,10 @@ export async function POST(request: Request) {
     /*
     await sendEmail({
       to: email,
-      subject: 'Welcome to ISU VSA!',
+      subject: 'Welcome to VSA at Iowa State!',
       html: `
-        <h1>Welcome to ISU VSA, ${firstName}!</h1>
-        <p>Thank you for joining the ISU Vietnamese Student Association.</p>
+        <h1>Welcome to VSA at Iowa State, ${firstName}!</h1>
+        <p>Thank you for joining the Vietnamese Student Association at Iowa State University.</p>
         <p>Your ${tier} membership has been confirmed.</p>
         <p>You'll receive updates about upcoming events and activities soon.</p>
         <p>Follow us on Instagram @isuvsa for the latest news!</p>
@@ -58,7 +58,7 @@ export async function POST(request: Request) {
     return NextResponse.json(
       {
         success: true,
-        message: `Welcome to ISU VSA, ${firstName}! Check your email for confirmation.`,
+        message: `Welcome to VSA at Iowa State, ${firstName}! Check your email for confirmation.`,
         membership: {
           tier,
           memberSince: new Date().toISOString(),

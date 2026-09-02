@@ -17,7 +17,7 @@ export default function AboutPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-5xl md:text-6xl font-bold mb-6">About ISU VSA</h1>
+            <h1 className="text-5xl md:text-6xl font-bold mb-6">About VSA at Iowa State</h1>
             <p className="text-xl md:text-2xl max-w-3xl mx-auto">
               Uniting the Iowa State community with Vietnamese culture through education and
               awareness
@@ -38,7 +38,7 @@ export default function AboutPage() {
             <div>
               <h2 className="section-title">Our Mission</h2>
               <p className="text-lg text-gray-700 mb-6">
-                The Iowa State University Vietnamese Student Association (ISU VSA) exists to unite
+                The Vietnamese Student Association at Iowa State University (VSA) exists to unite
                 the Iowa State University community with the local Vietnamese community and to
                 create more awareness about Vietnamese culture and history.
               </p>
@@ -53,7 +53,7 @@ export default function AboutPage() {
               </Link>
             </div>
             <div className="relative h-96 rounded-xl overflow-hidden">
-              <Image src="/images/eboard/eboardGroup.JPG" alt="ISU VSA Mission" fill className="object-cover" />
+              <Image src="/images/eboard/eboardGroup.JPG" alt="VSA at Iowa State Mission" fill className="object-cover" />
             </div>
           </motion.div>
         </div>

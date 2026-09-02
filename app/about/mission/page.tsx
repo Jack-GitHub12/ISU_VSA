@@ -27,7 +27,7 @@ export default function MissionPage() {
             <h2 className="section-title">Mission Statement</h2>
             <div className="max-w-4xl mx-auto">
               <p className="text-xl text-gray-700 leading-relaxed mb-8">
-                The Iowa State University Vietnamese Student Association (ISU VSA) is dedicated to
+                The Vietnamese Student Association at Iowa State University (VSA) is dedicated to
                 promoting Vietnamese culture, fostering community connections, and supporting the
                 academic and personal growth of our members and the broader Iowa State community.
               </p>

@@ -120,26 +120,6 @@ export default function PastEventsPage() {
       ],
     },
     {
-      id: 5,
-      title: 'VSA Royale Championship',
-      date: '2024-10-05',
-      time: '7:00 PM - 11:00 PM',
-      location: 'Parks Library',
-      category: 'gaming',
-      year: '2024',
-      description:
-        'Our inaugural tournament for VSA Royale attracted gamers from across the Midwest with $500 in prizes.',
-      attendees: 75,
-      image: '/images/eboard/eboardGroup.JPG',
-      highlights: ['Tournament Brackets', '$500 Prize Pool', 'Live Streaming', 'Gaming Community'],
-      photos: 22,
-      videos: 6,
-      testimonials: [
-        { name: 'Alex Chen', text: 'The gaming setup was professional quality!' },
-        { name: 'Maria Santos', text: 'Great atmosphere, even for non-gamers.' },
-      ],
-    },
-    {
       id: 6,
       title: 'Spring Break Community Service',
       date: '2024-03-09',

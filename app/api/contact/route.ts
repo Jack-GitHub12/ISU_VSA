@@ -43,7 +43,7 @@ export async function POST(request: Request) {
     /*
     const resend = new Resend(process.env.RESEND_API_KEY);
     await resend.emails.send({
-      from: 'ISU VSA <noreply@isuvsa.org>',
+      from: 'VSA at Iowa State <noreply@isuvsa.org>',
       to: 'isuvsa@gmail.com',
       subject: `Contact Form: ${subject}`,
       reply_to: email,

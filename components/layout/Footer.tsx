@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { Calendar, Clock, Instagram, MapPin } from 'lucide-react'
-import { SITE_CONFIG, UNIVERSITY } from '@/lib/constants'
+import { LEGAL, SITE_CONFIG } from '@/lib/constants'
 
 const DiscordIcon = (props: React.SVGProps<SVGSVGElement>) => (
   <svg
@@ -71,7 +71,7 @@ const Footer = React.memo(function Footer() {
           {/* Social Media */}
           <div>
             <h4 className="text-gold font-semibold mb-4 uppercase tracking-wide">Connect</h4>
-            <div className="flex flex-wrap gap-3" role="list" aria-label="Connect with ISU VSA">
+            <div className="flex flex-wrap gap-3" role="list" aria-label="Connect with VSA at Iowa State">
               <a
                 href={SITE_CONFIG.social.instagram}
                 target="_blank"
@@ -103,7 +103,22 @@ const Footer = React.memo(function Footer() {
           <p className="text-gray-400 text-sm">
             © {new Date().getFullYear()} {SITE_CONFIG.fullName}. All rights reserved.
           </p>
-          <p className="text-gray-500 text-xs mt-2">{UNIVERSITY.motto}</p>
+          <p className="text-gray-400 text-xs mt-3 max-w-3xl mx-auto">{LEGAL.nonDiscrimination}</p>
+          <p className="text-gray-500 text-xs mt-2 max-w-3xl mx-auto">{LEGAL.disclaimer}</p>
+          <p className="text-gray-500 text-xs mt-2">
+            <Link href="/about/constitution" className="underline hover:text-gold transition-colors">
+              Constitution
+            </Link>
+            {' · '}
+            <a
+              href={LEGAL.sodbUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="underline hover:text-gold transition-colors"
+            >
+              Student Organization Database listing
+            </a>
+          </p>
         </div>
       </div>
     </footer>

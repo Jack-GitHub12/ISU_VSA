@@ -84,7 +84,7 @@ export default function NewsletterPage() {
                   <div className="flex items-start">
                     <input type="checkbox" id="terms" className="mt-1 mr-3" required />
                     <label htmlFor="terms" className="text-sm text-gray-600">
-                      I agree to receive newsletters and updates from ISU VSA. You can unsubscribe
+                      I agree to receive newsletters and updates from VSA at Iowa State. You can unsubscribe
                       at any time.
                     </label>
                   </div>
@@ -165,7 +165,6 @@ export default function NewsletterPage() {
                   <ul className="space-y-1 text-gray-700">
                     <li>• Tết Festival 2025 - February 8th at Memorial Union</li>
                     <li>• Phở Night Cooking Class - January 22nd</li>
-                    <li>• VSA Royale Tournament - January 29th</li>
                   </ul>
                 </div>
 

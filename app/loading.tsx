@@ -13,7 +13,7 @@ export default function Loading() {
         </div>
 
         <p className="mt-6 text-lg text-charcoal font-baloo font-medium animate-slide-up">
-          Loading ISU VSA...
+          Loading VSA at Iowa State...
         </p>
 
         <div className="mt-4 h-1 w-32 bg-cardinal rounded-full mx-auto animate-pulse" />
